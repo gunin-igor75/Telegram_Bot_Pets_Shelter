@@ -49,7 +49,7 @@ public class MessageUtils {
 
     public SendMessage generationSendMessage(Update update, InlineKeyboardMarkup markup, String text) {
         SendMessage response = new SendMessage();
-        response.setChatId(update.getMessage().getChatId());
+        response.setChatId(update.getCallbackQuery().getMessage().getChatId());
         response.setText(text);
         response.setReplyMarkup(markup);
         return response;

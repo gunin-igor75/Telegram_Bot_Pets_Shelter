@@ -87,13 +87,18 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         SendMessage message = null;
-        if (update.hasMessage() && update.getMessage().hasText() &&
-                update.getMessage().getText().startsWith(PREFIX)) {
+        if (
+                update.hasMessage() &&
+                update.getMessage().hasText() &&
+                update.getMessage().getText().startsWith(PREFIX)
+        ) {
             String key = update.getMessage().getText().split("\\s+")[0].substring(1);
             message = commandStorage.getStorage().get(key).execute(update);
-        } else if (update.hasCallbackQuery() && update.getCallbackQuery().getMessage().hasText() &&
-                update.getCallbackQuery().getMessage().getText().startsWith(PREFIX)) {
-            String key = update.getCallbackQuery().getMessage().getText().split("\\s+")[0].substring(1);
+
+        } else if (
+                update.hasCallbackQuery()
+        ) {
+            String key = update.getCallbackQuery().getData();
             message = commandStorage.getStorage().get(key).execute(update);
         }
         sendAnswerMessage(message);
@@ -109,6 +114,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         commandList.add(new BotCommand("/application", "Регистрация, усыновление"));
         commandList.add(new BotCommand("/report", "Прислать отчет о питомце"));
         commandList.add(new BotCommand("/volunteer", "Позвать волонтера"));
+        commandList.add(new BotCommand("/inlineTest", "тест клавиатуры"));
         try {
             execute(new SetMyCommands(commandList, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException e) {
