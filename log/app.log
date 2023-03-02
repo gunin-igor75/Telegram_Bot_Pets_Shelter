@@ -703,3 +703,368 @@ java.lang.NullPointerException: Cannot invoke "pro.sky.telegram_bot_pets_shelter
 2023-03-01 13:35:30,872 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-03-01 13:35:30,873 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
 2023-03-01 13:35:30,875 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-03-01 17:21:33,579 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:21:33,594 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 3620 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:21:33,594 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:21:33,594 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:21:33,831 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:21:33,857 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 22 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:21:34,049 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:21:34,054 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:21:34,054 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:21:34,054 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:21:34,096 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:21:34,096 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 482 ms
+2023-03-01 17:21:34,151 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:21:35,825 ERROR c.z.h.p.HikariPool [main] HikariPool-1 - Exception during pool initialization.
+org.postgresql.util.PSQLException: �����: ���� ������ "pets_db" �� ����������
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2788)
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:174)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:313)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:253)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:280)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1798)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1748)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1132)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:907)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:584)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:310)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293)
+	at pro.sky.telegram_bot_pets_shelter.TelegramBotPetsShelterApplication.main(TelegramBotPetsShelterApplication.java:10)
+2023-03-01 17:21:35,827 WARN o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext [main] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: org.postgresql.util.PSQLException: �����: ���� ������ "pets_db" �� ����������
+2023-03-01 17:21:35,829 INFO o.a.c.c.StandardService [main] Stopping service [Tomcat]
+2023-03-01 17:21:35,836 INFO o.s.b.a.l.ConditionEvaluationReportLogger [main] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-03-01 17:21:35,846 ERROR o.s.b.SpringApplication [main] Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'liquibase' defined in class path resource [org/springframework/boot/autoconfigure/liquibase/LiquibaseAutoConfiguration$LiquibaseConfiguration.class]: org.postgresql.util.PSQLException: �����: ���� ������ "pets_db" �� ����������
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1752)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1132)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:907)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:584)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:732)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:310)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293)
+	at pro.sky.telegram_bot_pets_shelter.TelegramBotPetsShelterApplication.main(TelegramBotPetsShelterApplication.java:10)
+Caused by: liquibase.exception.DatabaseException: org.postgresql.util.PSQLException: �����: ���� ������ "pets_db" �� ����������
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:285)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1798)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1748)
+	... 18 common frames omitted
+Caused by: org.postgresql.util.PSQLException: �����: ���� ������ "pets_db" �� ����������
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2676)
+	at org.postgresql.core.v3.QueryExecutorImpl.readStartupMessages(QueryExecutorImpl.java:2788)
+	at org.postgresql.core.v3.QueryExecutorImpl.<init>(QueryExecutorImpl.java:174)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:313)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:253)
+	at org.postgresql.Driver.makeConnection(Driver.java:434)
+	at org.postgresql.Driver.connect(Driver.java:291)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:359)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:201)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:470)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:100)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at liquibase.integration.spring.SpringLiquibase.afterPropertiesSet(SpringLiquibase.java:280)
+	... 20 common frames omitted
+2023-03-01 17:24:10,819 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:24:10,831 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 16844 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:24:10,832 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:24:10,832 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:24:11,058 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:24:11,083 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 21 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:24:11,288 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:24:11,293 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:24:11,293 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:24:11,294 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:24:11,337 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:24:11,337 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 489 ms
+2023-03-01 17:24:11,393 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:24:11,478 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1ca3d25b
+2023-03-01 17:24:11,480 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-03-01 17:24:11,544 INFO l.database [main] Set default schema name to public
+2023-03-01 17:24:11,660 INFO l.lockservice [main] Successfully acquired change log lock
+2023-03-01 17:24:11,818 INFO l.changelog [main] Creating database history table with name: public.databasechangelog
+2023-03-01 17:24:11,865 INFO l.changelog [main] Reading from public.databasechangelog
+2023-03-01 17:24:11,895 INFO l.changelog [main] Tag 'db_init' applied to database
+2023-03-01 17:24:11,895 INFO l.changelog [main] ChangeSet db/changelog/db.changelog-master.xml::0::ania ran successfully in 0ms
+2023-03-01 17:24:12,018 INFO l.changelog [main] SQL in file db/changelog/v-1.0/01-create-visitor-table.sql executed
+2023-03-01 17:24:12,018 INFO l.changelog [main] ChangeSet db/changelog/v-1.0/01-changeset-visitor-table.xml::2::ania ran successfully in 120ms
+2023-03-01 17:24:12,162 INFO l.changelog [main] SQL in file db/changelog/v-1.0/10-create-report-table.sql executed
+2023-03-01 17:24:12,173 INFO l.changelog [main] ChangeSet db/changelog/v-1.0/10-changeset-report-table.xml::3::ania ran successfully in 154ms
+2023-03-01 17:24:12,320 INFO l.changelog [main] SQL in file db/changelog/v-1.0/20-create-pet-table.sql executed
+2023-03-01 17:24:12,321 INFO l.changelog [main] ChangeSet db/changelog/v-1.0/20-changeset-pet-table.xml::4::ania ran successfully in 147ms
+2023-03-01 17:24:12,452 INFO l.changelog [main] SQL in file db/changelog/v-1.0/30-create-owner-table.sql executed
+2023-03-01 17:24:12,453 INFO l.changelog [main] ChangeSet db/changelog/v-1.0/30-changeset-owner-table.xml::6::ania ran successfully in 130ms
+2023-03-01 17:24:12,454 INFO l.changelog [main] Tag 'v.1.0' applied to database
+2023-03-01 17:24:12,455 INFO l.changelog [main] ChangeSet db/changelog/db.changelog-master.xml::1::ania ran successfully in 1ms
+2023-03-01 17:24:12,458 INFO l.changelog [main] SQL in file db/changelog/v-2.0/01-insert-pet-value.sql executed
+2023-03-01 17:24:12,459 INFO l.changelog [main] ChangeSet db/changelog/v-2.0/01-changeset-pet-value.xml::6::gil ran successfully in 4ms
+2023-03-01 17:24:12,460 INFO l.changelog [main] Tag '2.0' applied to database
+2023-03-01 17:24:12,460 INFO l.changelog [main] ChangeSet db/changelog/db.changelog-master.xml::7::gil ran successfully in 0ms
+2023-03-01 17:24:12,462 INFO l.lockservice [main] Successfully released change log lock
+2023-03-01 17:24:12,489 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-01 17:24:12,508 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-03-01 17:24:12,593 INFO SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-01 17:24:12,875 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-01 17:24:12,879 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:24:13,523 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-01 17:24:13,730 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:24:13,739 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-01 17:24:13,744 INFO p.s.t.TelegramBotPetsShelterApplication [main] Started TelegramBotPetsShelterApplication in 3.04 seconds (process running for 3.352)
+2023-03-01 17:25:33,269 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:25:33,270 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-03-01 17:25:33,272 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-03-01 17:25:37,055 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:25:37,067 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 3828 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:25:37,067 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:25:37,068 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:25:37,290 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:25:37,314 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 20 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:25:37,493 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:25:37,496 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:25:37,497 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:25:37,497 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:25:37,533 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:25:37,533 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 450 ms
+2023-03-01 17:25:37,579 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:25:37,645 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15d0d6c9
+2023-03-01 17:25:37,646 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-03-01 17:25:37,694 INFO l.database [main] Set default schema name to public
+2023-03-01 17:25:37,727 INFO l.lockservice [main] Successfully acquired change log lock
+2023-03-01 17:25:37,904 INFO l.changelog [main] Reading from public.databasechangelog
+2023-03-01 17:25:37,928 INFO l.lockservice [main] Successfully released change log lock
+2023-03-01 17:25:37,951 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-01 17:25:37,967 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-03-01 17:25:38,051 INFO SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-01 17:25:38,325 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-01 17:25:38,328 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:25:38,935 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-01 17:25:39,144 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:25:39,151 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-01 17:25:39,156 INFO p.s.t.TelegramBotPetsShelterApplication [main] Started TelegramBotPetsShelterApplication in 2.223 seconds (process running for 2.522)
+2023-03-01 17:26:54,442 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:26:54,443 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-03-01 17:26:54,444 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-03-01 17:27:07,003 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:27:07,017 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 22992 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:27:07,017 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:27:07,018 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:27:07,239 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:27:07,264 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 21 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:27:07,450 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:27:07,454 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:27:07,455 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:27:07,455 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:27:07,494 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:27:07,494 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 460 ms
+2023-03-01 17:27:07,540 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:27:07,610 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1ca3d25b
+2023-03-01 17:27:07,610 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-03-01 17:27:07,660 INFO l.database [main] Set default schema name to public
+2023-03-01 17:27:07,690 INFO l.lockservice [main] Successfully acquired change log lock
+2023-03-01 17:27:07,869 INFO l.changelog [main] Reading from public.databasechangelog
+2023-03-01 17:27:07,893 INFO l.lockservice [main] Successfully released change log lock
+2023-03-01 17:27:07,920 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-01 17:27:07,937 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-03-01 17:27:08,023 INFO SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-01 17:27:08,290 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-01 17:27:08,293 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:27:08,911 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-01 17:27:09,134 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:27:09,142 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-01 17:27:09,146 INFO p.s.t.TelegramBotPetsShelterApplication [main] Started TelegramBotPetsShelterApplication in 2.267 seconds (process running for 2.588)
+2023-03-01 17:28:21,062 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:28:21,063 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-03-01 17:28:21,064 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-03-01 17:28:50,678 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:28:50,690 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 8280 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:28:50,690 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:28:50,690 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:28:50,915 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:28:50,937 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 20 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:28:51,114 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:28:51,118 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:28:51,118 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:28:51,118 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:28:51,157 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:28:51,158 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 452 ms
+2023-03-01 17:28:51,207 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:28:51,274 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@15d0d6c9
+2023-03-01 17:28:51,275 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-03-01 17:28:51,325 INFO l.database [main] Set default schema name to public
+2023-03-01 17:28:51,361 INFO l.lockservice [main] Successfully acquired change log lock
+2023-03-01 17:28:51,563 INFO l.changelog [main] Reading from public.databasechangelog
+2023-03-01 17:28:51,587 INFO l.lockservice [main] Successfully released change log lock
+2023-03-01 17:28:51,613 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-01 17:28:51,628 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-03-01 17:28:51,715 INFO SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-01 17:28:51,999 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-01 17:28:52,003 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:28:52,583 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-01 17:28:52,802 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:28:52,809 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-01 17:28:52,813 INFO p.s.t.TelegramBotPetsShelterApplication [main] Started TelegramBotPetsShelterApplication in 2.255 seconds (process running for 2.566)
+2023-03-01 17:29:59,140 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:29:59,140 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-03-01 17:29:59,142 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-03-01 17:30:12,777 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:30:12,790 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 20184 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:30:12,790 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:30:12,790 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:30:13,050 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:30:13,075 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 22 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:30:13,252 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:30:13,257 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:30:13,257 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:30:13,257 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:30:13,295 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:30:13,295 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 486 ms
+2023-03-01 17:30:13,342 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:30:13,407 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3aed69dd
+2023-03-01 17:30:13,408 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-03-01 17:30:13,457 INFO l.database [main] Set default schema name to public
+2023-03-01 17:30:13,484 INFO l.lockservice [main] Successfully acquired change log lock
+2023-03-01 17:30:13,646 INFO l.changelog [main] Reading from public.databasechangelog
+2023-03-01 17:30:13,672 INFO l.lockservice [main] Successfully released change log lock
+2023-03-01 17:30:13,695 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-01 17:30:13,711 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-03-01 17:30:13,801 INFO SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-01 17:30:14,069 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-01 17:30:14,072 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:30:14,673 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-01 17:30:14,887 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:30:14,894 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-01 17:30:14,898 INFO p.s.t.TelegramBotPetsShelterApplication [main] Started TelegramBotPetsShelterApplication in 2.247 seconds (process running for 2.577)
+2023-03-01 17:30:39,833 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:30:39,834 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-03-01 17:30:39,835 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-03-01 17:31:54,270 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:31:54,282 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 9648 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:31:54,282 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:31:54,283 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:31:54,509 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:31:54,532 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 20 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:31:54,713 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:31:54,717 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:31:54,717 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:31:54,717 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:31:54,758 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:31:54,758 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 459 ms
+2023-03-01 17:31:54,809 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:31:54,880 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2287395
+2023-03-01 17:31:54,881 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-03-01 17:31:54,932 INFO l.database [main] Set default schema name to public
+2023-03-01 17:31:54,965 INFO l.lockservice [main] Successfully acquired change log lock
+2023-03-01 17:31:55,136 INFO l.changelog [main] Reading from public.databasechangelog
+2023-03-01 17:31:55,161 INFO l.lockservice [main] Successfully released change log lock
+2023-03-01 17:31:55,185 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-01 17:31:55,202 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-03-01 17:31:55,289 INFO SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-01 17:31:55,577 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-01 17:31:55,581 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:31:56,187 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-01 17:31:56,399 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:31:56,408 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-01 17:31:56,412 INFO p.s.t.TelegramBotPetsShelterApplication [main] Started TelegramBotPetsShelterApplication in 2.267 seconds (process running for 2.583)
+2023-03-01 17:32:39,179 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:32:39,180 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-03-01 17:32:39,181 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-03-01 17:34:20,378 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:34:20,391 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 4024 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:34:20,392 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:34:20,392 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:34:20,613 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:34:20,637 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 21 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:34:20,815 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:34:20,818 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:34:20,819 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:34:20,819 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:34:20,856 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:34:20,856 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 447 ms
+2023-03-01 17:34:20,906 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:34:20,972 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3aed69dd
+2023-03-01 17:34:20,973 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-03-01 17:34:21,023 INFO l.database [main] Set default schema name to public
+2023-03-01 17:34:21,387 INFO l.lockservice [main] Successfully acquired change log lock
+2023-03-01 17:34:21,546 INFO l.changelog [main] Reading from public.databasechangelog
+2023-03-01 17:34:21,570 INFO l.lockservice [main] Successfully released change log lock
+2023-03-01 17:34:21,594 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-01 17:34:21,610 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-03-01 17:34:21,694 INFO SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-01 17:34:21,968 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-01 17:34:21,972 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:34:22,671 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-01 17:34:22,877 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:34:22,885 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-01 17:34:22,890 INFO p.s.t.TelegramBotPetsShelterApplication [main] Started TelegramBotPetsShelterApplication in 2.629 seconds (process running for 2.944)
+2023-03-01 17:34:53,143 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:34:53,144 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-03-01 17:34:53,145 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-03-01 17:40:43,363 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.0.Final
+2023-03-01 17:40:43,375 INFO p.s.t.TelegramBotPetsShelterApplication [main] Starting TelegramBotPetsShelterApplication using Java 18.0.1.1 with PID 12248 (C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter\target\classes started by Igor in C:\Users\Igor\Desktop\JAVA\-Telegram_Bot_Pets_Shelter)
+2023-03-01 17:40:43,376 DEBUG p.s.t.TelegramBotPetsShelterApplication [main] Running with Spring Boot v3.0.3, Spring v6.0.5
+2023-03-01 17:40:43,376 INFO p.s.t.TelegramBotPetsShelterApplication [main] No active profile set, falling back to 1 default profile: "default"
+2023-03-01 17:40:43,601 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-03-01 17:40:43,626 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 21 ms. Found 4 JPA repository interfaces.
+2023-03-01 17:40:43,807 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2023-03-01 17:40:43,811 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:40:43,811 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2023-03-01 17:40:43,811 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-03-01 17:40:43,850 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2023-03-01 17:40:43,850 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 458 ms
+2023-03-01 17:40:43,898 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2023-03-01 17:40:43,965 INFO c.z.h.p.HikariPool [main] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1ca3d25b
+2023-03-01 17:40:43,965 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2023-03-01 17:40:44,016 INFO l.database [main] Set default schema name to public
+2023-03-01 17:40:44,380 INFO l.lockservice [main] Successfully acquired change log lock
+2023-03-01 17:40:44,537 INFO l.changelog [main] Reading from public.databasechangelog
+2023-03-01 17:40:44,562 INFO l.lockservice [main] Successfully released change log lock
+2023-03-01 17:40:44,585 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-03-01 17:40:44,600 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-03-01 17:40:44,683 INFO SQL dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2023-03-01 17:40:44,949 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-03-01 17:40:44,952 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:40:45,513 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-03-01 17:40:45,726 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2023-03-01 17:40:45,734 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2023-03-01 17:40:45,738 INFO p.s.t.TelegramBotPetsShelterApplication [main] Started TelegramBotPetsShelterApplication in 2.496 seconds (process running for 2.804)
+2023-03-01 17:41:45,654 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-03-01 17:41:45,655 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-03-01 17:41:45,657 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
