@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Data
 public class BotConfiguration {
-
     /**
      * имя бота полученного из application.properties
      */
