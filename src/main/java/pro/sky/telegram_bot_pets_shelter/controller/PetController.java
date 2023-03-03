@@ -35,7 +35,7 @@ public class PetController {
 
     @GetMapping
     public ResponseEntity<List<Pet>> getAllPets() {
-        return ResponseEntity.ok(service.getAllPets());
+        return ResponseEntity.ok(service.getAllPetsFree());
     }
 
 }

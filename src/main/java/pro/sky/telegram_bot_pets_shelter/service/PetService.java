@@ -14,6 +14,5 @@ public interface PetService {
 
     Pet deletePet(Long id);
 
-    List<Pet> getAllPets();
-
+    List<Pet> getAllPetsFree();
 }

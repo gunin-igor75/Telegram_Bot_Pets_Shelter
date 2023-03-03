@@ -8,11 +8,10 @@ import java.util.List;
 
 @Service
 public class PetServiceImpl implements PetService {
+    private final PetRepository petRepository;
 
-    private final PetRepository repository;
-
-    public PetServiceImpl(PetRepository repository) {
-        this.repository = repository;
+    public PetServiceImpl(PetRepository petRepository) {
+        this.petRepository = petRepository;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<Pet> getAllPets() {
-        return null;
+    public List<Pet> getAllPetsFree() {
+        return petRepository.getPetsByAdoptedIsFalse();
     }
 }
