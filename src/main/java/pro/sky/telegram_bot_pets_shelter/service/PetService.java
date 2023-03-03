@@ -10,7 +10,7 @@ public interface PetService {
 
     Pet findPet(Long id);
 
-    Pet editPet(Pet faculty);
+    Pet editPet(Pet pet);
 
     Pet deletePet(Long id);
 
