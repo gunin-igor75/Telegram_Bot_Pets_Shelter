@@ -1,13 +1,14 @@
 package pro.sky.telegram_bot_pets_shelter.service;
 
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
-import pro.sky.telegram_bot_pets_shelter.entity.Pet;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OwnerService {
     Owner createOwner(Owner owner);
-    Owner findOwner(Long id);
+    Optional<Owner> findOwnerById(long id);
+    Optional<Owner> findOwnerByChatId(long id);
     Owner editOwner(Owner owner);
     Owner DeleteOwner(Long id);
     List<Owner> getAllOwners();

@@ -86,16 +86,20 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
-        System.out.println(update.getMessage().getText());
         SendMessage message = null;
         if (update.hasMessage() && update.getMessage().hasText() &&
                 update.getMessage().getText().startsWith(PREFIX)) {
             String key = update.getMessage().getText().split("\\s+")[0].substring(1);
             message = commandStorage.getStorage().get(key).execute(update);
-        } else if (update.hasCallbackQuery() && update.getCallbackQuery().getMessage().hasText() &&
-                update.getCallbackQuery().getMessage().getText().startsWith(PREFIX)) {
-            String key = update.getCallbackQuery().getMessage().getText().split("\\s+")[0].substring(1);
-            message = commandStorage.getStorage().get(key).execute(update);
+        } else if (update.hasCallbackQuery() && update.getCallbackQuery().getData() != null) {
+            String key = update.getCallbackQuery().getData();
+            if (commandStorage.getStorage().containsKey(key)) {
+                message = commandStorage.getStorage().get(key).execute(update);
+            } else {
+
+            }
+        } else {
+            message = commandStorage.getStorage().get("volunteer").execute(update);
         }
         sendAnswerMessage(message);
     }

@@ -31,7 +31,8 @@ public class MessageUtils {
      */
     public SendMessage generationSendMessage(Update update, String text) {
         SendMessage response = new SendMessage();
-        response.setChatId(update.getMessage().getChatId());
+        long chatId = getChatId(update);
+        response.setChatId(chatId);
         response.setText(text);
         return response;
     }
@@ -51,10 +52,21 @@ public class MessageUtils {
 
     public SendMessage generationSendMessage(Update update, InlineKeyboardMarkup markup, String text) {
         SendMessage response = new SendMessage();
-        response.setChatId(update.getMessage().getChatId());
+        long chatId = getChatId(update);
+        response.setChatId(chatId);
         response.setText(text);
         response.setReplyMarkup(markup);
         return response;
+    }
+
+    private long getChatId(Update update) {
+        long chatId;
+        if (update.getMessage() != null) {
+            chatId = update.getMessage().getChatId();
+        } else {
+            chatId = update.getCallbackQuery().getMessage().getChatId();
+        }
+        return chatId;
     }
 
     /**
