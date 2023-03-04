@@ -5,6 +5,7 @@ import pro.sky.telegram_bot_pets_shelter.entity.Pet;
 import pro.sky.telegram_bot_pets_shelter.service.PetService;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -20,7 +21,11 @@ public class PetController {
 
     @GetMapping("{id}")
     public ResponseEntity<Pet> findPet(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findPet(id));
+        Optional<Pet> pet = service.findPet(id);
+        if (pet.isPresent()) {
+            return ResponseEntity.ok(pet.get());
+        }
+        throw new RuntimeException();
     }
 
     @PutMapping

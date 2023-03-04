@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
+import pro.sky.telegram_bot_pets_shelter.entity.Pet;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.service.PetServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
@@ -32,12 +33,18 @@ public class AdoptionPet implements Command{
         long id = Long.parseLong(update.getCallbackQuery().getData());
         long chatId = update.getCallbackQuery().getMessage().getChatId();
         Optional<Owner> ownerOptional = ownerService.findOwnerByChatId(chatId);
+        Optional<Pet> petOptional = petService.findPet(id);
         if (ownerOptional.isEmpty()) {
             text = "You are not registered";
             return messageUtils.generationSendMessage(update, text);
         }
+        if (petOptional.isEmpty()) {
+            log.warn("No such pet");
+            throw new IllegalArgumentException();
+        }
         Owner owner = ownerOptional.get();
-
+        Pet pet = petOptional.get();
+        owner.setPet(pet);
         return null;
     }
 }

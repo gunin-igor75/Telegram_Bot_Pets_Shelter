@@ -38,6 +38,7 @@ public class TakePet implements Command{
         }
         Map<String, String> mapCommand = new LinkedHashMap<>();
         pets.forEach(pet -> mapCommand.put(String.valueOf(pet.getId()), pet.getName()));
+        mapCommand.put("application", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
         text = "Choose a pet";
         return messageUtils.generationSendMessage(update, markup, text);

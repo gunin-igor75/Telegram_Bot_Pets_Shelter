@@ -5,6 +5,7 @@ import pro.sky.telegram_bot_pets_shelter.entity.Pet;
 import pro.sky.telegram_bot_pets_shelter.repositories.PetRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PetServiceImpl implements PetService {
@@ -20,8 +21,8 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public Pet findPet(Long id) {
-        return null;
+    public Optional<Pet> findPet(Long id) {
+        return petRepository.findById(id);
     }
 
     @Override
