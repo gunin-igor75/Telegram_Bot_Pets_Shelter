@@ -16,8 +16,13 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public Owner createOwner(Owner owner) {
-        return null;
+    public boolean createOwner(Owner owner) {
+        Optional<Owner> newOwner = ownerRepository.findByChatId(owner.getChatId());
+        if (newOwner.isPresent()) {
+            return false;
+        }
+        ownerRepository.save(owner);
+        return true;
     }
 
     @Override

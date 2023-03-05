@@ -1,11 +1,9 @@
 package pro.sky.telegram_bot_pets_shelter.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 
@@ -14,14 +12,21 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "name",unique = true,nullable = false)
     private String name;
+
     @Column(name = "adopted",nullable = false)
     private boolean adopted;
+
+    @Column(name = "date")
+    private LocalDate date;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "report_id")
     private Report report;

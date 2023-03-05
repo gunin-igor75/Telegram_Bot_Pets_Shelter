@@ -61,11 +61,12 @@ public class MessageUtils {
 
     private long getChatId(Update update) {
         long chatId;
-        if (update.getMessage() != null) {
-            chatId = update.getMessage().getChatId();
-        } else {
+        if (update.hasCallbackQuery()) {
             chatId = update.getCallbackQuery().getMessage().getChatId();
+        } else {
+            chatId = update.getMessage().getChatId();
         }
+        System.out.println(chatId);
         return chatId;
     }
 

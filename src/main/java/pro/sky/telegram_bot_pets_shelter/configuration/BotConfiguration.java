@@ -19,6 +19,6 @@ public class BotConfiguration {
     /**
      * токен бота, полученный из переменной среды окружения операционной системы
      */
-    @Value("${TELEGRAM_BOT_TOKEN_TEST}")
+    @Value("${TELEGRAM_BOT_TOKEN}")
     private String token;
 }

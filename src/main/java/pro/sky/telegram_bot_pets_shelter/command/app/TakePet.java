@@ -1,10 +1,11 @@
-package pro.sky.telegram_bot_pets_shelter.command;
+package pro.sky.telegram_bot_pets_shelter.command.app;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.entity.Pet;
 import pro.sky.telegram_bot_pets_shelter.service.PetServiceImpl;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @Component
 @Slf4j
-public class TakePet implements Command{
+public class TakePet implements Command {
     private final MessageUtils messageUtils;
     private final PetServiceImpl petService;
     private final BuilderKeyboard keyboard;

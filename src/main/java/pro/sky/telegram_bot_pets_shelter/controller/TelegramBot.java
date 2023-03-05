@@ -2,6 +2,7 @@ package pro.sky.telegram_bot_pets_shelter.controller;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.sql.ast.tree.update.UpdateStatement;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -87,16 +88,22 @@ public class TelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         SendMessage message = null;
+//        System.out.println(update.getMessage().getMessageId());
+//        System.out.println(update.getMessage().getDate());
+//        System.out.println(update.getMessage().getChat().getType());
         if (update.hasMessage() && update.getMessage().hasText() &&
                 update.getMessage().getText().startsWith(PREFIX)) {
             String key = update.getMessage().getText().split("\\s+")[0].substring(1);
+            System.out.println(key);
             message = commandStorage.getStorage().get(key).execute(update);
+            System.out.println(message.getChatId());
+            System.out.println(message.getText());
         } else if (update.hasCallbackQuery() && update.getCallbackQuery().getData() != null) {
             String key = update.getCallbackQuery().getData();
             if (commandStorage.getStorage().containsKey(key)) {
                 message = commandStorage.getStorage().get(key).execute(update);
-            } else {
-
+            } else if (Character.isDigit(key.charAt(0))){
+                message = commandStorage.getStorage().get("adoptionPet").execute(update);
             }
         } else {
             message = commandStorage.getStorage().get("volunteer").execute(update);
@@ -123,6 +130,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     /**
      * Метод отправляющий сообщение пользователю
+     *
      * @param message - объект SendMessage, полученный от определенной команды
      */
 
@@ -135,4 +143,16 @@ public class TelegramBot extends TelegramLongPollingBot {
             log.error("Error send message", e);
         }
     }
+
+//    @Override
+//    public void onUpdateReceived(Update update) {
+//        if (update.hasMessage() && update.getMessage().hasText() &&
+//                update.getMessage().getText().startsWith(PREFIX)) {
+//            String key = update.getMessage().getText().split("\\s+")[0].substring(1);
+//            SendMessage message = new SendMessage();
+//            message.setChatId(update.getMessage().getFrom().getId());
+//            message.setText("start");
+//            sendAnswerMessage(message);
+//        }
+//    }
 }

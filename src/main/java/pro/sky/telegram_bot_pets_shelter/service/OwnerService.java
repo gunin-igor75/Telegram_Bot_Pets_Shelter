@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OwnerService {
-    Owner createOwner(Owner owner);
+    boolean createOwner(Owner owner);
     Optional<Owner> findOwnerById(long id);
     Optional<Owner> findOwnerByChatId(long id);
     Owner editOwner(Owner owner);
