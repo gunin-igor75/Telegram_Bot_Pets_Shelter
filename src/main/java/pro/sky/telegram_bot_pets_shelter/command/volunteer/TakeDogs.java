@@ -7,8 +7,8 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
-import pro.sky.telegram_bot_pets_shelter.entity.Pet;
-import pro.sky.telegram_bot_pets_shelter.service.PetServiceImpl;
+import pro.sky.telegram_bot_pets_shelter.entity.Dog;
+import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.util.LinkedHashMap;
@@ -19,29 +19,29 @@ import java.util.Map;
 @Slf4j
 public class TakeDogs implements Command {
     private final MessageUtils messageUtils;
-    private final PetServiceImpl petService;
+    private final DogService dogService;
     private final BuilderKeyboard keyboard;
 
 
-    public TakeDogs(MessageUtils messageUtils, PetServiceImpl petService, BuilderKeyboard keyboard) {
+    public TakeDogs(MessageUtils messageUtils, DogService dogService, BuilderKeyboard keyboard) {
         this.messageUtils = messageUtils;
-        this.petService = petService;
+        this.dogService = dogService;
         this.keyboard = keyboard;
     }
 
     @Override
     public SendMessage execute(Update update) {
         String text;
-        List<Pet> pets = petService.getAllPetsFree();
-        if (pets.isEmpty()) {
-            text = "No available pets";
+        List<Dog> dogs = dogService.getAllDogsFree();
+        if (dogs.isEmpty()) {
+            text = "No available dogs";
             return messageUtils.generationSendMessage(update, text);
         }
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        pets.forEach(pet -> mapCommand.put(String.valueOf(pet.getId()), pet.getName()));
-        mapCommand.put("application", "Back");
+        dogs.forEach(dog -> mapCommand.put(String.valueOf(dog.getId()), dog.getName()));
+        mapCommand.put("volunteerDogs", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        text = "Choose a pet";
+        text = "Choose a dog";
         return messageUtils.generationSendMessage(update, markup, text);
     }
 }

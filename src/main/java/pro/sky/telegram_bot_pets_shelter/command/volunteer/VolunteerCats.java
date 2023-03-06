@@ -27,7 +27,7 @@ public class VolunteerCats implements Command {
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
         mapCommand.put( "registration", "registration");
-        mapCommand.put("takePet", "take a cat");
+        mapCommand.put("takeCats", "take a cats");
         mapCommand.put("cats", "back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
         String text = "Choose a bot from the list below:";

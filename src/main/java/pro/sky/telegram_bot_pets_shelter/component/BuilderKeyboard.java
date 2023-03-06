@@ -38,7 +38,7 @@ public class BuilderKeyboard {
         button1.setCallbackData("registration");
         List<InlineKeyboardButton> list = new ArrayList<>();
         list.add(button1);
-        button2.setText("take a pet");
+        button2.setText("take a cat");
         button2.setCallbackData("takePet");
         list.add(button2);
         List<List<InlineKeyboardButton>> listButton = new ArrayList<>();

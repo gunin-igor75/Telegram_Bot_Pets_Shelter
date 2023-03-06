@@ -4,5 +4,6 @@ create table owner(
                       name varchar(255),
                       registered_at date not null,
                       last_action varchar(255),
-                      pet_id bigint constraint pet_id references pet
+                      cat_id bigint constraint cat_id references cat,
+                      dog_id bigint constraint dog_id references cat
 );

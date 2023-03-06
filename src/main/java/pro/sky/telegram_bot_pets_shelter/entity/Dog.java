@@ -6,43 +6,37 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Entity(name="owner")
+
+@Entity(name="dog")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Owner {
+public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "chat_id",unique = true,nullable = false)
-    private long chatId;
-
     @Column(name = "name",unique = true,nullable = false)
     private String name;
 
-    @Column(name = "registered_at",nullable = false)
-    private LocalDate registeredAt;
+    @Column(name = "adopted")
+    private Boolean adopted;
 
-    @Column(name = "last_action")
-    private String lastAction;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cat_id")
-    private Cat cat;
+    @Column(name = "date")
+    private LocalDate date;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dog_id")
-    private Dog dog;
+    @JoinColumn(name = "report_id")
+    private Report report;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Owner owner = (Owner) o;
-        return Objects.equals(id, owner.id);
+        Dog dog = (Dog) o;
+        return Objects.equals(id, dog.id);
     }
 
     @Override

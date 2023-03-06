@@ -7,13 +7,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 
-@Entity(name="pet")
+@Entity(name="cat")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Pet {
+public class Cat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,8 +21,8 @@ public class Pet {
     @Column(name = "name",unique = true,nullable = false)
     private String name;
 
-    @Column(name = "adopted",nullable = false)
-    private boolean adopted;
+    @Column(name = "adopted")
+    private Boolean adopted;
 
     @Column(name = "date")
     private LocalDate date;
@@ -35,8 +35,8 @@ public class Pet {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Pet pet = (Pet) o;
-        return Objects.equals(id, pet.id);
+        Cat cat = (Cat) o;
+        return Objects.equals(id, cat.id);
     }
 
     @Override

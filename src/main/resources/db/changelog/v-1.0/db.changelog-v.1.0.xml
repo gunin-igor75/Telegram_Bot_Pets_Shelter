@@ -7,7 +7,8 @@
 
     <include file="01-changeset-visitor-table.xml" relativeToChangelogFile="true"/>
     <include file="10-changeset-report-table.xml" relativeToChangelogFile="true"/>
-    <include file="20-changeset-pet-table.xml" relativeToChangelogFile="true"/>
-    <include file="30-changeset-owner-table.xml" relativeToChangelogFile="true"/>
+    <include file="20-changeset-cat-table.xml" relativeToChangelogFile="true"/>
+    <include file="30-changeset-dog-table.xml" relativeToChangelogFile="true"/>
+    <include file="40-changeset-owner-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

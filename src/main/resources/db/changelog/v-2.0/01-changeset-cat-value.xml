@@ -7,10 +7,10 @@
 
     <changeSet id="6" author="gil">
         <!-- create table task  -->
-        <sqlFile path="db/changelog/v-2.0/01-insert-pet-value.sql"/>
+        <sqlFile path="db/changelog/v-2.0/01-insert-cat-value.sql"/>
         <!-- rollback delete table task  -->
         <rollback>
-            <sqlFile path="db/changelog/v-2.0/01-delete-pet-value.sql"/>
+            <sqlFile path="db/changelog/v-2.0/01-delete-cat-value.sql"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

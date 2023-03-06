@@ -5,7 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <include file="01-changeset-cat-value.xml" relativeToChangelogFile="true"/>
-    <include file="10-changeset-dog-value.xml" relativeToChangelogFile="true"/>
-
+    <changeSet id="7" author="gil">
+        <!-- create table task  -->
+        <sqlFile path="db/changelog/v-2.0/10-insert-dog-value.sql"/>
+        <!-- rollback delete table task  -->
+        <rollback>
+            <sqlFile path="db/changelog/v-2.0/01-delete-dog-value.sql"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

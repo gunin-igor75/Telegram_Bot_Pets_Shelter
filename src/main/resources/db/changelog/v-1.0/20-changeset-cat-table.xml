@@ -10,14 +10,14 @@
                  endDelimiter="\nGo"
                  splitStatements="true"
                  stripComments="true"
-                 path="db/changelog/v-1.0/20-create-pet-table.sql"/>
+                 path="db/changelog/v-1.0/20-create-cat-table.sql"/>
         <rollback>
             <sqlFile dbms="postgresql"
                      encoding="utf8"
                      endDelimiter="\nGo"
                      splitStatements="true"
                      stripComments="true"
-                     path="db/changelog/v-1.0/20-drop-pet-table.sql"/>
+                     path="db/changelog/v-1.0/20-drop-cat-table.sql"/>
         </rollback>
     </changeSet>
 </databaseChangeLog>

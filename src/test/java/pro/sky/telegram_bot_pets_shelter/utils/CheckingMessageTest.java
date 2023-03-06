@@ -10,8 +10,10 @@ import pro.sky.telegram_bot_pets_shelter.command.dogs.ShelterDogsAdoption;
 import pro.sky.telegram_bot_pets_shelter.command.dogs.ShelterDogsInfo;
 import pro.sky.telegram_bot_pets_shelter.command.volunteer.*;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
+import pro.sky.telegram_bot_pets_shelter.service.CatService;
+import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerServiceImpl;
-import pro.sky.telegram_bot_pets_shelter.service.PetServiceImpl;
+import pro.sky.telegram_bot_pets_shelter.service.CatServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,8 +29,12 @@ class CheckingMessageTest {
     private CommandStorage commandStorage;
     @Mock
     private OwnerServiceImpl ownerService;
+
     @Mock
-    private PetServiceImpl petService;
+    private CatService catService;
+
+    @Mock
+    private DogService dogService;
 
     private BuilderKeyboard keyboard;
 
@@ -50,7 +56,8 @@ class CheckingMessageTest {
 //        map.put("takeDogs", new TakeDogs())
 
         map.put("registration", new Registration(ownerService,messageUtils));
-        map.put("takePet", new TakeDogs(messageUtils, petService,keyboard));
+        map.put("takeDogs", new TakeDogs(messageUtils, dogService,keyboard));
+        map.put("takeCats", new TakeCats(messageUtils, catService,keyboard));
         commandStorage = new CommandStorage(map);
         checkingMessage = new CheckingMessage(commandStorage);
     }

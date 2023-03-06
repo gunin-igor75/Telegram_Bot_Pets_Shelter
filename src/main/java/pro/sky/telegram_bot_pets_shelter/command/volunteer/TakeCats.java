@@ -7,8 +7,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
-import pro.sky.telegram_bot_pets_shelter.entity.Pet;
-import pro.sky.telegram_bot_pets_shelter.service.PetServiceImpl;
+import pro.sky.telegram_bot_pets_shelter.entity.Cat;
+import pro.sky.telegram_bot_pets_shelter.service.CatService;
+import pro.sky.telegram_bot_pets_shelter.service.CatServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.util.LinkedHashMap;
@@ -19,29 +20,29 @@ import java.util.Map;
 @Slf4j
 public class TakeCats implements Command {
     private final MessageUtils messageUtils;
-    private final PetServiceImpl petService;
+    private final CatService cattService;
     private final BuilderKeyboard keyboard;
 
 
-    public TakeCats(MessageUtils messageUtils, PetServiceImpl petService, BuilderKeyboard keyboard) {
+    public TakeCats(MessageUtils messageUtils, CatService catService, BuilderKeyboard keyboard) {
         this.messageUtils = messageUtils;
-        this.petService = petService;
+        this.cattService = catService;
         this.keyboard = keyboard;
     }
 
     @Override
     public SendMessage execute(Update update) {
         String text;
-        List<Pet> pets = petService.getAllPetsFree();
-        if (pets.isEmpty()) {
-            text = "No available pets";
+        List<Cat> cats = cattService.getAllCatsFree();
+        if (cats.isEmpty()) {
+            text = "No available cats";
             return messageUtils.generationSendMessage(update, text);
         }
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        pets.forEach(pet -> mapCommand.put(String.valueOf(pet.getId()), pet.getName()));
-        mapCommand.put("application", "Back");
+        cats.forEach(cat -> mapCommand.put(String.valueOf(cat.getId()), cat.getName()));
+        mapCommand.put("volunteerCats", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        text = "Choose a pet";
+        text = "Choose a cat";
         return messageUtils.generationSendMessage(update, markup, text);
     }
 }
