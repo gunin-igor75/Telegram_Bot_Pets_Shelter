@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="6" author="gil">
+        <!-- create table task  -->
+        <sqlFile path="db/changelog/v-2.0/01-insert-pet-value.sql"/>
+        <!-- rollback delete table task  -->
+        <rollback>
+            <sqlFile path="db/changelog/v-2.0/01-delete-pet-value.sql"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
