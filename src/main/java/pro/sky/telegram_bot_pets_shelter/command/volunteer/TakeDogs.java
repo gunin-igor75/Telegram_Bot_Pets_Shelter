@@ -1,4 +1,4 @@
-package pro.sky.telegram_bot_pets_shelter.command.app;
+package pro.sky.telegram_bot_pets_shelter.command.volunteer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,13 +17,13 @@ import java.util.Map;
 
 @Component
 @Slf4j
-public class TakePet implements Command {
+public class TakeDogs implements Command {
     private final MessageUtils messageUtils;
     private final PetServiceImpl petService;
     private final BuilderKeyboard keyboard;
 
 
-    public TakePet(MessageUtils messageUtils, PetServiceImpl petService, BuilderKeyboard keyboard) {
+    public TakeDogs(MessageUtils messageUtils, PetServiceImpl petService, BuilderKeyboard keyboard) {
         this.messageUtils = messageUtils;
         this.petService = petService;
         this.keyboard = keyboard;

@@ -10,11 +10,11 @@ import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
  * Данный класс формрует сообщения исодя из выбора volunteer
  */
 @Component
-public class Volunteer implements Command{
+public class HelpVolunteer implements Command{
 
     private final MessageUtils messageUtils;
 
-    public Volunteer(MessageUtils messageUtils) {
+    public HelpVolunteer(MessageUtils messageUtils) {
         this.messageUtils = messageUtils;
     }
 

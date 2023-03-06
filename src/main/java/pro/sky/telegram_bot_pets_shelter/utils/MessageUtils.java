@@ -66,7 +66,6 @@ public class MessageUtils {
         } else {
             chatId = update.getMessage().getChatId();
         }
-        System.out.println(chatId);
         return chatId;
     }
 

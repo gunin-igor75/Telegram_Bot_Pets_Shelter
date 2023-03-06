@@ -1,4 +1,4 @@
-package pro.sky.telegram_bot_pets_shelter.command.app;
+package pro.sky.telegram_bot_pets_shelter.command.volunteer;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;

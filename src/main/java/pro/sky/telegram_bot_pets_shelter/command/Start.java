@@ -11,7 +11,6 @@ import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
  */
 @Component
 public class Start implements Command{
-
     private final MessageUtils messageUtils;
 
     public Start(MessageUtils messageUtils) {

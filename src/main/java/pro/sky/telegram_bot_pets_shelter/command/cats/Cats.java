@@ -1,4 +1,4 @@
-package pro.sky.telegram_bot_pets_shelter.command.app;
+package pro.sky.telegram_bot_pets_shelter.command.cats;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -8,22 +8,28 @@ import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Component
-public class Application implements Command {
-
+public class Cats implements Command {
     private final BuilderKeyboard keyboard;
-
     private final MessageUtils messageUtils;
 
-    public Application(BuilderKeyboard keyboard, MessageUtils messageUtils) {
+    public Cats(BuilderKeyboard keyboard, MessageUtils messageUtils) {
         this.keyboard = keyboard;
         this.messageUtils = messageUtils;
     }
 
     @Override
     public SendMessage execute(Update update) {
-        InlineKeyboardMarkup markup = keyboard.createInlineKeyApp();
-        String text = "Choose a bot from the list below:";
+        Map<String, String> mapCommand = new LinkedHashMap<>();
+        mapCommand.put( "shelterCatsInfo", "shelter");
+        mapCommand.put("shelterCatsAdoption", "adoption");
+        mapCommand.put("report", "report");
+        mapCommand.put("volunteerCats", "volunteer");
+        InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
+        String text = "Welcome to the cat shelter";
         return messageUtils.generationSendMessage(update,markup,text);
     }
 }
