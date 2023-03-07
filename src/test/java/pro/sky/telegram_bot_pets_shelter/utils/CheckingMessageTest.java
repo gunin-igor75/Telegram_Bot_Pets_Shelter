@@ -16,7 +16,7 @@ import pro.sky.telegram_bot_pets_shelter.command.volunteer.*;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
-import pro.sky.telegram_bot_pets_shelter.service.OwnerServiceImpl;
+import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.command.CommandStorage;
-import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 
 @Component
 public class CheckingMessage {
@@ -48,6 +47,4 @@ public class CheckingMessage {
         }
         return message;
     }
-
-
 }

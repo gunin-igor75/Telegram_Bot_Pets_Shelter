@@ -37,13 +37,12 @@ public class MessageUtils {
      * @return - возвращает SendMessage для дальнейшей отправки пользователю
      */
     public SendMessage generationSendMessage(Update update, String text) {
-        SendMessage response = new SendMessage();
-        long chatId = getChatId(update);
+        var response = new SendMessage();
+        var chatId = getChatId(update);
         response.setChatId(chatId);
         response.setText(text);
         return response;
     }
-
     /**
      *
      * Данный метод генерирует сообщение пользователю с отображением
@@ -58,16 +57,16 @@ public class MessageUtils {
      */
 
     public SendMessage generationSendMessage(Update update, InlineKeyboardMarkup markup, String text) {
-        SendMessage response = new SendMessage();
-        long chatId = getChatId(update);
+        var response = new SendMessage();
+        var chatId = getChatId(update);
         response.setChatId(chatId);
         response.setText(text);
         response.setReplyMarkup(markup);
         return response;
     }
     public SendMessage generationSendMessage(Update update, ReplyKeyboardMarkup markup, String text) {
-        SendMessage response = new SendMessage();
-        long chatId = getChatId(update);
+        var response = new SendMessage();
+        var chatId = getChatId(update);
         response.setChatId(chatId);
         response.setText(text);
         response.setReplyMarkup(markup);
@@ -91,7 +90,7 @@ public class MessageUtils {
      * @return Возвращает сообщение хозяну чата
      */
     public SendMessage sendMessageCallOwner() {
-        SendMessage response = new SendMessage();
+        var response = new SendMessage();
         response.setChatId(CHAT_ID);
         response.setText("Хозяин помоги. Не могу решить вопрос");
         return response;

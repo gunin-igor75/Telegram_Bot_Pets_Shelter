@@ -13,7 +13,6 @@ import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Slf4j
@@ -32,15 +31,15 @@ public class TakeCats implements Command {
     @Override
     public SendMessage execute(Update update) {
         String text;
-        List<Cat> cats = cattService.getAllCatsFree();
+        var cats = cattService.getAllCatsFree();
         if (cats.isEmpty()) {
             text = "No available cats";
             return messageUtils.generationSendMessage(update, text);
         }
-        Map<String, String> mapCommand = new LinkedHashMap<>();
+        var mapCommand = new LinkedHashMap<String, String>();
         cats.forEach(cat -> mapCommand.put(cat.getId() + " adoptionCat", cat.getName()));
         mapCommand.put("volunteerCats", "Back");
-        InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
+        var markup = keyboard.createInlineKey(mapCommand);
         text = "Choose a cat";
         return messageUtils.generationSendMessage(update, markup, text);
     }

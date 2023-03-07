@@ -1,10 +1,11 @@
-package pro.sky.telegram_bot_pets_shelter.service;
+package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.OwnerRepository;
+import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 
 import java.util.List;
 import java.util.Optional;

@@ -8,7 +8,7 @@ import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
-import pro.sky.telegram_bot_pets_shelter.service.OwnerServiceImpl;
+import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
