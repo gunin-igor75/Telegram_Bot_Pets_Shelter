@@ -15,8 +15,6 @@ import java.util.Map;
 @Component
 @Slf4j
 public class BuilderKeyboard {
-
-
     public InlineKeyboardMarkup createInlineKey(Map<String, String> mapCommand) {
         checkedEmpty(mapCommand);
         InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
@@ -33,46 +31,22 @@ public class BuilderKeyboard {
         return markup;
     }
 
-    public InlineKeyboardMarkup createInlineKeyApp() {
-        InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
-        InlineKeyboardButton button1 = new InlineKeyboardButton();
-        InlineKeyboardButton button2 = new InlineKeyboardButton();
-        button1.setText("registration");
-        button1.setCallbackData("registration");
-        List<InlineKeyboardButton> list = new ArrayList<>();
-        list.add(button1);
-        button2.setText("take a cat");
-        button2.setCallbackData("takePet");
-        list.add(button2);
-        List<List<InlineKeyboardButton>> listButton = new ArrayList<>();
-        listButton.add(list);
-        markup.setKeyboard(listButton);
+    public ReplyKeyboardMarkup createKeyboard() {
+        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
+        markup.setSelective(true);
+        markup.setResizeKeyboard(true);
+        markup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboardRow = new ArrayList<>();
+        KeyboardRow row = new KeyboardRow();
+        row.add(new KeyboardButton("help"));
+        KeyboardButton button = new KeyboardButton("contacts");
+        button.setRequestContact(true);
+        row.add(button);
+        keyboardRow.add(row);
+        markup.setKeyboard(keyboardRow);
         return markup;
     }
-
-//    public ReplyKeyboardMarkup createRegistrationMenu() {
-//        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
-//        markup.setSelective(false);
-//        markup.setResizeKeyboard(false);
-//        markup.setOneTimeKeyboard(false);
-//        List<KeyboardRow> keyboardRowsFirst = new ArrayList<>();
-//        List<KeyboardRow> keyboardRowsSecond = new ArrayList<>();
-//        KeyboardRow rowFirst = new KeyboardRow();
-//        KeyboardButton buttonRegistration = new KeyboardButton();
-//        buttonRegistration.setText("registration");
-//        buttonRegistration.setRequestContact(true);
-//        rowFirst.add(buttonRegistration);
-//        keyboardRowsFirst.add(rowFirst);
-//        KeyboardRow rowSecond = new KeyboardRow();
-//        KeyboardButton buttonBack = new KeyboardButton();
-//        buttonBack.setText("Back");
-//        rowSecond.add(buttonBack);
-//        rowFirst.
-//        keyboardRowsSecond.add(rowSecond);
-//        markup.setKeyboard(keyboardRowsFirst);
-//        markup.setKeyboard(keyboardRowsSecond);
-//        return markup;
-//    }
 
     private void checkedEmpty(Map<String, String> mapCommand) {
         if (mapCommand.isEmpty()) {

@@ -1,10 +1,7 @@
 package pro.sky.telegram_bot_pets_shelter.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -14,20 +11,19 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Visitor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "chat_id", unique = true,nullable = false)
     private long chatId;
-
     @Column(name = "name",unique = true,nullable = false)
     private String name;
-
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @Column(name = "registered_at",nullable = false)
     private LocalDate registeredAt;
-
     @Column(name = "lastAction")
     private String lastAction;
 

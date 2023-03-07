@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 
 /**
  * *  Утилитный клас, который содержит методы по формированию
@@ -15,11 +16,16 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMar
 @Component
 @Slf4j
 public class MessageUtils {
+    private final BuilderKeyboard keyboard;
     /**
      * Переменная CHAT_ID - chatId - хозяина бота
      */
     @Value("${telegram.bot.chat-id}")
     private long CHAT_ID;
+
+    public MessageUtils(BuilderKeyboard keyboard) {
+        this.keyboard = keyboard;
+    }
 
     /**
      * Данный мметод генерирует сообщение пользователю
@@ -73,12 +79,13 @@ public class MessageUtils {
         long chatId;
         if (update.hasCallbackQuery()) {
             chatId = update.getCallbackQuery().getMessage().getChatId();
+        } else if (update.getMessage().hasContact()) {
+            chatId = update.getMessage().getContact().getUserId();
         } else {
             chatId = update.getMessage().getChatId();
         }
         return chatId;
     }
-
     /**
      * Данный метод отправляет сообщение хозяину бота
      * @return Возвращает сообщение хозяну чата

@@ -25,18 +25,16 @@ public class Owner {
 
     @Column(name = "registered_at",nullable = false)
     private LocalDate registeredAt;
-
     @Column(name = "last_action")
     private String lastAction;
-
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cat_id")
     private Cat cat;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dog_id")
     private Dog dog;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

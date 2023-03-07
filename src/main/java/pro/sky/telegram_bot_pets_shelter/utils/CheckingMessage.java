@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.command.CommandStorage;
+import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 
 @Component
 public class CheckingMessage {
@@ -17,6 +18,7 @@ public class CheckingMessage {
      * значение - сам бин
      */
     private final CommandStorage commandStorage;
+
     private SendMessage message;
     public CheckingMessage(CommandStorage commandStorage) {
         this.commandStorage = commandStorage;
@@ -39,9 +41,13 @@ public class CheckingMessage {
             } else if (Character.isDigit(key.charAt(0))){
                 message = commandStorage.getStorage().get(key.split("\\s+")[1]).execute(update);
             }
+        } else if (update.hasMessage() && update.getMessage().hasContact()) {
+            message = commandStorage.getStorage().get("saveContacts").execute(update);
         } else {
             message = commandStorage.getStorage().get("helpVolunteer").execute(update);
         }
         return message;
     }
+
+
 }

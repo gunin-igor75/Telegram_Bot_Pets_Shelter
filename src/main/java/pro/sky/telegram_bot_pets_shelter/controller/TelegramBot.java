@@ -2,7 +2,6 @@ package pro.sky.telegram_bot_pets_shelter.controller;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.sql.ast.tree.update.UpdateStatement;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -13,10 +12,8 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import pro.sky.telegram_bot_pets_shelter.command.CommandStorage;
 import pro.sky.telegram_bot_pets_shelter.configuration.BotConfiguration;
 import pro.sky.telegram_bot_pets_shelter.utils.CheckingMessage;
-import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +30,7 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     private final BotConfiguration botConfiguration;
     private final CheckingMessage checking;
-
-
-
     public SendMessage message;
-
 
     public TelegramBot(BotConfiguration botConfiguration, CheckingMessage checking) {
         super(botConfiguration.getToken());

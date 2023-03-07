@@ -8,6 +8,9 @@ import pro.sky.telegram_bot_pets_shelter.command.cats.Cats;
 import pro.sky.telegram_bot_pets_shelter.command.dogs.Dogs;
 import pro.sky.telegram_bot_pets_shelter.command.dogs.ShelterDogsAdoption;
 import pro.sky.telegram_bot_pets_shelter.command.dogs.ShelterDogsInfo;
+import pro.sky.telegram_bot_pets_shelter.command.general.HelpVolunteer;
+import pro.sky.telegram_bot_pets_shelter.command.general.Report;
+import pro.sky.telegram_bot_pets_shelter.command.general.Start;
 import pro.sky.telegram_bot_pets_shelter.command.menu.Registration;
 import pro.sky.telegram_bot_pets_shelter.command.volunteer.*;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
@@ -39,7 +42,7 @@ class CheckingMessageTest {
     private BuilderKeyboard keyboard;
 
     {
-        messageUtils = new MessageUtils();
+        messageUtils = new MessageUtils(keyboard);
         Map<String, Command> map = new HashMap<>();
         map.put("start", new Start(messageUtils));
         keyboard = new BuilderKeyboard();
