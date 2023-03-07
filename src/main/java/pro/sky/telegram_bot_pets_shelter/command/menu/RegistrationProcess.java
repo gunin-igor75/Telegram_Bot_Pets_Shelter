@@ -1,6 +1,5 @@
-package pro.sky.telegram_bot_pets_shelter.command.volunteer;
+package pro.sky.telegram_bot_pets_shelter.command.menu;
 
-import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -12,15 +11,13 @@ import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
 
-
 @Component
 @Slf4j
-@Transactional
-public class Registration implements Command {
+public class RegistrationProcess implements Command {
     private final OwnerServiceImpl ownerService;
     private final MessageUtils messageUtils;
 
-    public Registration(OwnerServiceImpl ownerService, MessageUtils messageUtils) {
+    public RegistrationProcess(OwnerServiceImpl ownerService, MessageUtils messageUtils) {
         this.ownerService = ownerService;
         this.messageUtils = messageUtils;
     }

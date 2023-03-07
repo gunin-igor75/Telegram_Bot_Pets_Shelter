@@ -1,5 +1,6 @@
-package pro.sky.telegram_bot_pets_shelter.command.volunteer;
+package pro.sky.telegram_bot_pets_shelter.command.menu;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -12,24 +13,22 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
-public class VolunteerCats implements Command {
+@Slf4j
+public class Registration implements Command {
+    private final MessageUtils messageUtils;
 
     private final BuilderKeyboard keyboard;
 
-    private final MessageUtils messageUtils;
-
-    public VolunteerCats(BuilderKeyboard keyboard, MessageUtils messageUtils) {
-        this.keyboard = keyboard;
+    public Registration(MessageUtils messageUtils, BuilderKeyboard keyboard) {
         this.messageUtils = messageUtils;
+        this.keyboard = keyboard;
     }
 
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("takeCats", "take a cats");
-        mapCommand.put("cats", "back");
+        mapCommand.put("registrationProcess","Yes");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Choose a bot from the list below:";
-        return messageUtils.generationSendMessage(update,markup,text);
+        return messageUtils.generationSendMessage(update, markup, "Registration....");
     }
 }

@@ -9,7 +9,6 @@ import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
-import pro.sky.telegram_bot_pets_shelter.service.CatServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.util.LinkedHashMap;
@@ -39,7 +38,7 @@ public class TakeCats implements Command {
             return messageUtils.generationSendMessage(update, text);
         }
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        cats.forEach(cat -> mapCommand.put(String.valueOf(cat.getId()), cat.getName()));
+        cats.forEach(cat -> mapCommand.put(cat.getId() + " adoptionCat", cat.getName()));
         mapCommand.put("volunteerCats", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
         text = "Choose a cat";

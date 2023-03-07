@@ -1,7 +1,10 @@
 package pro.sky.telegram_bot_pets_shelter.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.DogNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.DogRepository;
 
 import java.util.List;
@@ -27,7 +30,11 @@ public class DogServiceImpl implements DogService {
 
     @Override
     public Dog editDog(Dog dog) {
-        return null;
+        Optional<Dog> newDog = findDog(dog.getId());
+        if (newDog.isEmpty()) {
+            throw new DogNotFoundException();
+        }
+        return dogRepository.save(dog);
     }
 
     @Override

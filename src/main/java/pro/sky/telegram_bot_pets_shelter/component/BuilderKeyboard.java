@@ -3,7 +3,10 @@ package pro.sky.telegram_bot_pets_shelter.component;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,13 +50,36 @@ public class BuilderKeyboard {
         return markup;
     }
 
+//    public ReplyKeyboardMarkup createRegistrationMenu() {
+//        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
+//        markup.setSelective(false);
+//        markup.setResizeKeyboard(false);
+//        markup.setOneTimeKeyboard(false);
+//        List<KeyboardRow> keyboardRowsFirst = new ArrayList<>();
+//        List<KeyboardRow> keyboardRowsSecond = new ArrayList<>();
+//        KeyboardRow rowFirst = new KeyboardRow();
+//        KeyboardButton buttonRegistration = new KeyboardButton();
+//        buttonRegistration.setText("registration");
+//        buttonRegistration.setRequestContact(true);
+//        rowFirst.add(buttonRegistration);
+//        keyboardRowsFirst.add(rowFirst);
+//        KeyboardRow rowSecond = new KeyboardRow();
+//        KeyboardButton buttonBack = new KeyboardButton();
+//        buttonBack.setText("Back");
+//        rowSecond.add(buttonBack);
+//        rowFirst.
+//        keyboardRowsSecond.add(rowSecond);
+//        markup.setKeyboard(keyboardRowsFirst);
+//        markup.setKeyboard(keyboardRowsSecond);
+//        return markup;
+//    }
+
     private void checkedEmpty(Map<String, String> mapCommand) {
         if (mapCommand.isEmpty()) {
             log.warn("mapCommand is Empty");
             throw new IllegalArgumentException();
         }
     }
-
 }
 
 

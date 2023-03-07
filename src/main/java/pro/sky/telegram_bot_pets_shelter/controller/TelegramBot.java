@@ -85,6 +85,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         List<BotCommand> commandList = new ArrayList<>();
         commandList.add(new BotCommand("/cats", "Приют для кошек"));
         commandList.add(new BotCommand("/dogs", "Приют для собак"));
+        commandList.add(new BotCommand("/registration", "Регистрация"));
         try {
             execute(new SetMyCommands(commandList, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException e) {

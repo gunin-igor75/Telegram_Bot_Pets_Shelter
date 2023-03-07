@@ -26,6 +26,7 @@ public class CheckingMessage {
         if (update.hasMessage() && update.getMessage().hasText() &&
                 update.getMessage().getText().startsWith(PREFIX)) {
             String key = update.getMessage().getText().split("\\s+")[0].substring(1);
+            System.out.println(update.getMessage().getContact());
             message = commandStorage.getStorage().get(key).execute(update);
         } else if (update.hasCallbackQuery() && update.getCallbackQuery().getData() != null) {
             String key = update.getCallbackQuery().getData();
@@ -36,7 +37,7 @@ public class CheckingMessage {
                 System.out.println(update.getCallbackQuery().getMessage().getChatId());
                 System.out.println(update.getCallbackQuery().getMessage().getText());
             } else if (Character.isDigit(key.charAt(0))){
-                message = commandStorage.getStorage().get("adoptionPet").execute(update);
+                message = commandStorage.getStorage().get(key.split("\\s+")[1]).execute(update);
             }
         } else {
             message = commandStorage.getStorage().get("helpVolunteer").execute(update);

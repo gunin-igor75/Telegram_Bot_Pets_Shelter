@@ -12,5 +12,6 @@ public interface OwnerService {
     Owner editOwner(Owner owner);
     Owner DeleteOwner(Long id);
     List<Owner> getAllOwners();
-
+    boolean checkAdoptionCat(Owner owner);
+    boolean checkAdoptionDog(Owner owner);
 }

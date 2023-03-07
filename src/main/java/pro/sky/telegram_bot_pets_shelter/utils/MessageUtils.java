@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
 /**
  * *  Утилитный клас, который содержит методы по формированию
@@ -58,6 +59,15 @@ public class MessageUtils {
         response.setReplyMarkup(markup);
         return response;
     }
+    public SendMessage generationSendMessage(Update update, ReplyKeyboardMarkup markup, String text) {
+        SendMessage response = new SendMessage();
+        long chatId = getChatId(update);
+        response.setChatId(chatId);
+        response.setText(text);
+        response.setReplyMarkup(markup);
+        return response;
+    }
+
 
     private long getChatId(Update update) {
         long chatId;

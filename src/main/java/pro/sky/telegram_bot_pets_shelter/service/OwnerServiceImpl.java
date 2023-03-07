@@ -1,13 +1,16 @@
 package pro.sky.telegram_bot_pets_shelter.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.OwnerRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class OwnerServiceImpl implements OwnerService {
     private final OwnerRepository ownerRepository;
 
@@ -37,7 +40,11 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public Owner editOwner(Owner owner) {
-        return null;
+        Optional<Owner> newOwner = findOwnerById(owner.getId());
+        if (newOwner.isEmpty()) {
+            throw new OwnerNotFoundException();
+        }
+        return ownerRepository.save(owner);
     }
 
     @Override
@@ -48,5 +55,18 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public List<Owner> getAllOwners() {
         return null;
+    }
+
+    @Override
+    public boolean checkAdoptionCat(Owner owner) {
+        long id = owner.getId();
+        List<String> cats = ownerRepository.getCatAdoption(id);
+        return cats.isEmpty();
+    }
+    @Override
+    public boolean checkAdoptionDog(Owner owner) {
+        long id = owner.getId();
+        List<String> dogs = ownerRepository.getDogAdoption(id);
+        return dogs.isEmpty();
     }
 }

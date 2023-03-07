@@ -8,12 +8,12 @@ import pro.sky.telegram_bot_pets_shelter.command.cats.Cats;
 import pro.sky.telegram_bot_pets_shelter.command.dogs.Dogs;
 import pro.sky.telegram_bot_pets_shelter.command.dogs.ShelterDogsAdoption;
 import pro.sky.telegram_bot_pets_shelter.command.dogs.ShelterDogsInfo;
+import pro.sky.telegram_bot_pets_shelter.command.menu.Registration;
 import pro.sky.telegram_bot_pets_shelter.command.volunteer.*;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerServiceImpl;
-import pro.sky.telegram_bot_pets_shelter.service.CatServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,7 +55,7 @@ class CheckingMessageTest {
         map.put("volunteerDogs", new VolunteerDogs(keyboard,messageUtils));
 //        map.put("takeDogs", new TakeDogs())
 
-        map.put("registration", new Registration(ownerService,messageUtils));
+        map.put("registrationMenu", new Registration(messageUtils, keyboard));
         map.put("takeDogs", new TakeDogs(messageUtils, dogService,keyboard));
         map.put("takeCats", new TakeCats(messageUtils, catService,keyboard));
         commandStorage = new CommandStorage(map);

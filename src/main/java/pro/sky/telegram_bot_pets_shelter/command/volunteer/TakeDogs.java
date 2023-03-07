@@ -38,7 +38,7 @@ public class TakeDogs implements Command {
             return messageUtils.generationSendMessage(update, text);
         }
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        dogs.forEach(dog -> mapCommand.put(String.valueOf(dog.getId()), dog.getName()));
+        dogs.forEach(dog -> mapCommand.put(dog.getId() + " adoptionDog", dog.getName()));
         mapCommand.put("volunteerDogs", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
         text = "Choose a dog";
