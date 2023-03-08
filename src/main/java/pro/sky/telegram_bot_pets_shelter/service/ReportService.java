@@ -1,6 +1,5 @@
 package pro.sky.telegram_bot_pets_shelter.service;
 
-import pro.sky.telegram_bot_pets_shelter.entity.Pet;
 import pro.sky.telegram_bot_pets_shelter.entity.Report;
 
 import java.util.List;

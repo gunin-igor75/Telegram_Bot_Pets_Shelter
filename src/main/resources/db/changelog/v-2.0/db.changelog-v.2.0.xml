@@ -5,6 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <include file="01-changeset-pet-value.xml" relativeToChangelogFile="true"/>
+    <include file="01-changeset-cat-value.xml" relativeToChangelogFile="true"/>
+    <include file="10-changeset-dog-value.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

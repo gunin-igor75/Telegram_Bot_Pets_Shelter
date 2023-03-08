@@ -12,9 +12,8 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import pro.sky.telegram_bot_pets_shelter.command.CommandStorage;
 import pro.sky.telegram_bot_pets_shelter.configuration.BotConfiguration;
-import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
+import pro.sky.telegram_bot_pets_shelter.utils.CheckingMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,35 +25,17 @@ import java.util.List;
 @Component
 @Slf4j
 public class TelegramBot extends TelegramLongPollingBot {
-
     /**
      * botConfiguration бин конфигурации бота
      */
     private final BotConfiguration botConfiguration;
+    private final CheckingMessage checking;
+    public SendMessage message;
 
-    /**
-     * бин утилитного класса, отвечающего за формирования сообщений
-     */
-    private final MessageUtils messageUtils;
-
-    /**
-     * бин, содержащий ассоциативный массив, где
-     * ключ - название бина(класса отвечающий за действие в ответ на команду бота)
-     * значение - сам бин
-     */
-    private final CommandStorage commandStorage;
-
-    /**
-     * Пефикс входящего сообщения
-     */
-    private final String PREFIX = "/";
-
-
-    public TelegramBot(BotConfiguration botConfiguration, MessageUtils messageUtils, CommandStorage commandStorage) {
+    public TelegramBot(BotConfiguration botConfiguration, CheckingMessage checking) {
         super(botConfiguration.getToken());
         this.botConfiguration = botConfiguration;
-        this.messageUtils = messageUtils;
-        this.commandStorage = commandStorage;
+        this.checking = checking;
     }
 
     @Override
@@ -86,17 +67,7 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     @Override
     public void onUpdateReceived(Update update) {
-        System.out.println(update.getMessage().getText());
-        SendMessage message = null;
-        if (update.hasMessage() && update.getMessage().hasText() &&
-                update.getMessage().getText().startsWith(PREFIX)) {
-            String key = update.getMessage().getText().split("\\s+")[0].substring(1);
-            message = commandStorage.getStorage().get(key).execute(update);
-        } else if (update.hasCallbackQuery() && update.getCallbackQuery().getMessage().hasText() &&
-                update.getCallbackQuery().getMessage().getText().startsWith(PREFIX)) {
-            String key = update.getCallbackQuery().getMessage().getText().split("\\s+")[0].substring(1);
-            message = commandStorage.getStorage().get(key).execute(update);
-        }
+        message = checking.checkUpdate(update);
         sendAnswerMessage(message);
     }
 
@@ -105,11 +76,9 @@ public class TelegramBot extends TelegramLongPollingBot {
      */
     private void createMenu() {
         List<BotCommand> commandList = new ArrayList<>();
-        commandList.add(new BotCommand("/shelter", "Информация о приюте"));
-        commandList.add(new BotCommand("/adoption", "Как взять питомца из приюта"));
-        commandList.add(new BotCommand("/application", "Регистрация, усыновление"));
-        commandList.add(new BotCommand("/report", "Прислать отчет о питомце"));
-        commandList.add(new BotCommand("/volunteer", "Позвать волонтера"));
+        commandList.add(new BotCommand("/cats", "Приют для кошек"));
+        commandList.add(new BotCommand("/dogs", "Приют для собак"));
+        commandList.add(new BotCommand("/registration", "Регистрация"));
         try {
             execute(new SetMyCommands(commandList, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException e) {
@@ -119,6 +88,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     /**
      * Метод отправляющий сообщение пользователю
+     *
      * @param message - объект SendMessage, полученный от определенной команды
      */
 
