@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import pro.sky.telegram_bot_pets_shelter.service.enums.UserState;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -21,15 +20,23 @@ public class Visitor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "chat_id", unique = true,nullable = false)
     private long chatId;
+
     private String firstname;
+
     private String lastname;
+
     private String username;
+
     private String phoneNumber;
+
     @CreationTimestamp
     private LocalDateTime registeredAt;
+
     private String lastAction;
+
     @Enumerated(value = STRING)
     private UserState state;
 

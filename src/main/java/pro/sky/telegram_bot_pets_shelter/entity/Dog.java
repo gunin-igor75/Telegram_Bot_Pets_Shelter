@@ -21,10 +21,8 @@ public class Dog {
     @Column(name = "name",unique = true,nullable = false)
     private String name;
 
-    @Column(name = "adopted")
     private Boolean adopted;
 
-    @Column(name = "date")
     private LocalDateTime dateAdoption;
 
     @ManyToOne(cascade = CascadeType.ALL)

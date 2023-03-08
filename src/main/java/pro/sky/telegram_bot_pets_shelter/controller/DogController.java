@@ -1,32 +1,28 @@
 package pro.sky.telegram_bot_pets_shelter.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.DogNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/dog")
 public class DogController {
-
     private final DogService dogService;
-
     public DogController(DogService dogService) {
         this.dogService = dogService;
     }
 
-
     @GetMapping("{id}")
-    public ResponseEntity<Dog> findPet(@PathVariable Long id) {
-        Optional<Dog> pet = dogService.findDog(id);
-        if (pet.isPresent()) {
-            return ResponseEntity.ok(pet.get());
+    public ResponseEntity<Dog> findDog(@PathVariable Long id) {
+        Dog persistentDog = dogService.findDog(id);
+        if (persistentDog == null) {
+            throw new DogNotFoundException();
         }
-        throw new RuntimeException();
+        return ResponseEntity.ok(persistentDog);
     }
 
     @PutMapping
@@ -43,5 +39,4 @@ public class DogController {
     public ResponseEntity<List<Dog>> getAllDogs() {
         return ResponseEntity.ok(dogService.getAllDogsFree());
     }
-
 }

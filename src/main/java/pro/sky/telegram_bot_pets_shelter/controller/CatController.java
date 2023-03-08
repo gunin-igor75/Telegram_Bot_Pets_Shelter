@@ -2,45 +2,44 @@ package pro.sky.telegram_bot_pets_shelter.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
 @RequestMapping("/cat")
 public class CatController {
 
-    final private CatService service;
+    final private CatService catService;
 
-    public CatController(CatService service) {
-        this.service = service;
+    public CatController(CatService catService) {
+        this.catService = catService;
     }
 
 
     @GetMapping("{id}")
-    public ResponseEntity<Cat> findPet(@PathVariable Long id) {
-        Optional<Cat> pet = service.findCat(id);
-        if (pet.isPresent()) {
-            return ResponseEntity.ok(pet.get());
+    public ResponseEntity<Cat> findCat(@PathVariable Long id) {
+        Cat persistentCat = catService.findCat(id);
+        if (persistentCat == null) {
+            throw new CatNotFoundException();
         }
-        throw new RuntimeException();
+        return ResponseEntity.ok(persistentCat);
     }
 
     @PutMapping
     public ResponseEntity<Cat> editCat(@RequestBody Cat cat) {
-        return ResponseEntity.ok(service.editCat(cat));
+        return ResponseEntity.ok(catService.editCat(cat));
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Cat> deleteCat(@PathVariable Long id) {
-        return ResponseEntity.ok(service.deleteCat(id));
+        return ResponseEntity.ok(catService.deleteCat(id));
     }
 
     @GetMapping
     public ResponseEntity<List<Cat>> getAllCats() {
-        return ResponseEntity.ok(service.getAllCatsFree());
+        return ResponseEntity.ok(catService.getAllCatsFree());
     }
-
 }
