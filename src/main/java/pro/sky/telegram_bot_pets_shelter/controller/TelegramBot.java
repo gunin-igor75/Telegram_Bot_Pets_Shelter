@@ -14,7 +14,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import pro.sky.telegram_bot_pets_shelter.configuration.BotConfiguration;
 import pro.sky.telegram_bot_pets_shelter.utils.CheckingMessage;
-
 import java.util.ArrayList;
 import java.util.List;
 

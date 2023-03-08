@@ -2,7 +2,6 @@ package pro.sky.telegram_bot_pets_shelter.command;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
-
 import java.util.Map;
 
 /**

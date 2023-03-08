@@ -23,6 +23,6 @@ public class Contacts implements Command {
     @Override
     public SendMessage execute(Update update) {
         ReplyKeyboardMarkup markup = keyboard.createKeyboard();
-        return messageUtils.generationSendMessage(update, markup, "contacts");
+        return messageUtils.generationSendMessage(update, markup, "Оставьте ваши контакты");
     }
 }
