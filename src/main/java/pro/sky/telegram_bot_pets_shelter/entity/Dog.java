@@ -3,7 +3,7 @@ package pro.sky.telegram_bot_pets_shelter.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -25,7 +25,7 @@ public class Dog {
     private Boolean adopted;
 
     @Column(name = "date")
-    private LocalDate date;
+    private LocalDateTime dateAdoption;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "report_id")

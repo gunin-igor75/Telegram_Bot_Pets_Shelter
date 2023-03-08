@@ -16,6 +16,7 @@ import pro.sky.telegram_bot_pets_shelter.command.volunteer.*;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
+import pro.sky.telegram_bot_pets_shelter.service.VisitorService;
 import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 
 import java.util.HashMap;
@@ -39,12 +40,15 @@ class CheckingMessageTest {
     @Mock
     private DogService dogService;
 
+    @Mock
+    private VisitorService visitorService;
+
     private BuilderKeyboard keyboard;
 
     {
         messageUtils = new MessageUtils(keyboard);
         Map<String, Command> map = new HashMap<>();
-        map.put("start", new Start(messageUtils));
+        map.put("start", new Start(messageUtils, visitorService));
         keyboard = new BuilderKeyboard();
         map.put("dogs", new Dogs(keyboard, messageUtils));
         map.put("shelterDogsAdoption", new ShelterDogsAdoption());

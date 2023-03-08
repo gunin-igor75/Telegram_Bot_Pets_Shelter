@@ -12,6 +12,7 @@ import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -30,31 +31,29 @@ public class AdoptionCat implements Command {
     @Override
     public SendMessage execute(Update update) {
         String text;
-        long id = Long.parseLong(update.getCallbackQuery().getData().split("\\s+")[0]);
-        long chatId = update.getCallbackQuery().getMessage().getChatId();
-        Optional<Owner> ownerOptional = ownerService.findOwnerByChatId(chatId);
-        Optional<Cat> catOptional = catService.findCat(id);
-        if (ownerOptional.isEmpty()) {
+        var idCat = Long.parseLong(update.getCallbackQuery().getData().split("\\s+")[0]);
+        var chatIdOwner = update.getCallbackQuery().getMessage().getFrom().getId();
+        Owner persistentOwner = ownerService.findOwnerByChatId(chatIdOwner);
+        Cat persistentCat = catService.findCat(idCat);
+        if (persistentOwner == null) {
             text = "You are not registered";
             return messageUtils.generationSendMessage(update, text);
         }
-        if (catOptional.isEmpty()) {
+        if (persistentCat == null) {
             text = "No such cat";
             return messageUtils.generationSendMessage(update, text);
         }
-        Owner owner = ownerOptional.get();
-        boolean adoption = ownerService.checkAdoptionCat(owner);
+        boolean adoption = ownerService.checkAdoptionCat(persistentOwner);
         if (!adoption) {
             text = "Do you have one cat on probation";
             return messageUtils.generationSendMessage(update, text);
         }
-        Cat cat = catOptional.get();
-        cat.setAdopted(false);
-        cat.setDate(LocalDate.now());
-        owner.setCat(cat);
-        catService.editCat(cat);
-        ownerService.editOwner(owner);
-        text = "Congratulations. The cat " + cat.getName() + " belongs to you.";
+        persistentCat.setAdopted(false);
+        persistentCat.setDateAdoption(LocalDateTime.now());
+        persistentOwner.setCat(persistentCat);
+        catService.editCat(persistentCat);
+        ownerService.editOwner(persistentOwner);
+        text = "Congratulations. The cat " + persistentCat.getName() + " belongs to you.";
         return messageUtils.generationSendMessage(update, text);
     }
 }

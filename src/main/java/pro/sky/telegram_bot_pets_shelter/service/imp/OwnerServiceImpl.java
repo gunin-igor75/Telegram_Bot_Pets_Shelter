@@ -2,13 +2,16 @@ package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.objects.User;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.VisitorNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.OwnerRepository;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 
 import java.util.List;
-import java.util.Optional;
+
+import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.BASIC_STATE;
 
 @Service
 @Slf4j
@@ -20,29 +23,28 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public boolean createOwner(Owner owner) {
-        Optional<Owner> newOwner = ownerRepository.findByChatId(owner.getChatId());
-        if (newOwner.isPresent()) {
-            return false;
+    public Owner createOwner(Owner owner) {
+        Owner persistentOwner = findOwner(owner.getId());
+        if (persistentOwner == null) {
+            persistentOwner = ownerRepository.save(owner);
         }
-        ownerRepository.save(owner);
-        return true;
+        return persistentOwner;
     }
 
     @Override
-    public Optional<Owner> findOwnerById(long id) {
-        return ownerRepository.findById(id);
+    public Owner findOwner(long id) {
+        return ownerRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Optional<Owner> findOwnerByChatId(long id) {
-        return ownerRepository.findByChatId(id);
+    public Owner findOwnerByChatId(long id) {
+        return ownerRepository.findByChatId(id).orElse(null);
     }
 
     @Override
     public Owner editOwner(Owner owner) {
-        Optional<Owner> newOwner = findOwnerById(owner.getId());
-        if (newOwner.isEmpty()) {
+        Owner persistentOwner = findOwner(owner.getId());
+        if (persistentOwner == null) {
             throw new OwnerNotFoundException();
         }
         return ownerRepository.save(owner);
@@ -50,12 +52,34 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public Owner DeleteOwner(Long id) {
-        return null;
+        Owner owner = findOwner(id);
+        if (owner == null) {
+            throw new VisitorNotFoundException();
+        }
+        ownerRepository.delete(owner);
+        return owner;
     }
 
     @Override
     public List<Owner> getAllOwners() {
-        return null;
+        return ownerRepository.findAll();
+    }
+
+    @Override
+    public Owner findOrSaveOwner(User telegramUser) {
+        Owner persistentOwner = findOwnerByChatId(telegramUser.getId());
+        if (persistentOwner == null) {
+            Owner transientOwner = Owner.builder()
+                    .chatId(telegramUser.getId())
+                    .firstname(telegramUser.getFirstName())
+                    .lastname(telegramUser.getLastName())
+                    .username(telegramUser.getUserName())
+                    .state(BASIC_STATE)
+                    .lastAction("start")
+                    .build();
+            persistentOwner = createOwner(transientOwner);
+        }
+        return persistentOwner;
     }
 
     @Override
@@ -64,6 +88,7 @@ public class OwnerServiceImpl implements OwnerService {
         List<String> cats = ownerRepository.getCatAdoption(id);
         return cats.isEmpty();
     }
+
     @Override
     public boolean checkAdoptionDog(Owner owner) {
         long id = owner.getId();

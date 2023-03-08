@@ -1,46 +1,56 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import org.springframework.stereotype.Service;
-import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.DogNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.DogRepository;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DogServiceImpl implements DogService {
     final DogRepository dogRepository;
-
     public DogServiceImpl(DogRepository dogRepository) {
         this.dogRepository = dogRepository;
     }
 
     @Override
     public Dog createDog(Dog dog) {
-        return null;
+        Dog persistentDog = findDog(dog.getId());
+        if (persistentDog == null) {
+            persistentDog = dogRepository.save(dog);
+        }
+        return persistentDog;
     }
 
     @Override
-    public Optional<Dog> findDog(Long id) {
-        return dogRepository.findById(id);
+    public Dog findDog(Long id) {
+        return dogRepository.findById(id).orElse(null);
     }
 
     @Override
     public Dog editDog(Dog dog) {
-        Optional<Dog> newDog = findDog(dog.getId());
-        if (newDog.isEmpty()) {
+        Dog persistentDog = findDog(dog.getId());
+        if (persistentDog == null) {
             throw new DogNotFoundException();
         }
-        return dogRepository.save(dog);
+        return dogRepository.save(persistentDog);
     }
 
     @Override
     public Dog deleteDog(Long id) {
-        return null;
+        Dog dog = findDog(id);
+        if (dog == null) {
+            throw new DogNotFoundException();
+        }
+        dogRepository.delete(dog);
+        return dog;
+    }
+
+    @Override
+    public List<Dog> getAllDogs() {
+        return dogRepository.findAll();
     }
 
     @Override

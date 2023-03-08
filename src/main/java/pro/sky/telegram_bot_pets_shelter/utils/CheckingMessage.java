@@ -24,6 +24,9 @@ public class CheckingMessage {
     }
 
     public SendMessage checkUpdate(Update update) {
+//        if ()
+
+
         if (update.hasMessage() && update.getMessage().hasText() &&
                 update.getMessage().getText().startsWith(PREFIX)) {
             String key = update.getMessage().getText().split("\\s+")[0].substring(1);

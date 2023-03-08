@@ -9,11 +9,13 @@ public interface DogService {
 
     Dog createDog(Dog dog);
 
-    Optional<Dog> findDog(Long id);
+    Dog findDog(Long id);
 
     Dog editDog(Dog dog);
 
     Dog deleteDog(Long id);
+
+    List<Dog> getAllDogs();
 
     List<Dog> getAllDogsFree();
 }
