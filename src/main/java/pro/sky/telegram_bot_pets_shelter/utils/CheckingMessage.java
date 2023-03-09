@@ -5,10 +5,12 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.command.CommandStorage;
+import pro.sky.telegram_bot_pets_shelter.entity.Report;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
+import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 import pro.sky.telegram_bot_pets_shelter.service.VisitorService;
 
-import java.util.Objects;
+import java.time.LocalDate;
 
 import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.*;
 
@@ -28,14 +30,17 @@ public class CheckingMessage {
     private final MessageUtils messageUtils;
     private final VisitorService visitorService;
     private final OwnerService ownerService;
-    private SendMessage message;
+
+    private final ReportService reportService;
 
     public CheckingMessage(CommandStorage commandStorage, MessageUtils messageUtils,
-                           VisitorService visitorService, OwnerService ownerService) {
+                           VisitorService visitorService, OwnerService ownerService,
+                           ReportService reportService) {
         this.commandStorage = commandStorage;
         this.messageUtils = messageUtils;
         this.visitorService = visitorService;
         this.ownerService = ownerService;
+        this.reportService = reportService;
     }
 
     public SendMessage checkUpdate(Update update) {
@@ -44,7 +49,7 @@ public class CheckingMessage {
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
         if (update.hasMessage() && update.getMessage().hasText() &&
                 ("/start".equals(update.getMessage().getText()) ||
-                "/cansel".equals(update.getMessage().getText()))) {
+                        "/cansel".equals(update.getMessage().getText()))) {
             return commandStorage
                     .getStorage()
                     .get(update
@@ -55,16 +60,19 @@ public class CheckingMessage {
                     .execute(update);
         } else if (persistentVisitor == null && persistentOwner == null) {
             return commandStorage.getStorage().get("startInfo").execute(update);
-        } else if (persistentOwner.getState() == BASIC_STATE ||
-                Objects.requireNonNull(persistentVisitor).getState() == BASIC_STATE) {
-            return checkUpdateBasicState(update);
-        } else if (persistentOwner.getState() == REPORT_CATS_STATE) {
-            return checkUpdateReportCatsState(update);
-        } else if (persistentOwner.getState() == REPORT_DOGS_STATE) {
-            return checkUpdateReportDogsState(update);
         } else {
-            log.error("Что тщ пошло не так есть неизвестная команда или условие");
-            return commandStorage.getStorage().get("helpVolunteer").execute(update);
+            assert persistentVisitor != null;
+            if (persistentVisitor.getState() == BASIC_STATE ||
+                    persistentOwner.getState() == BASIC_STATE) {
+                return checkUpdateBasicState(update);
+            } else if (persistentOwner.getState() == REPORT_CATS_STATE) {
+                return checkUpdateReportCatsState(update);
+            } else if (persistentOwner.getState() == REPORT_DOGS_STATE) {
+                return checkUpdateReportDogsState(update);
+            } else {
+                log.error("Что то пошло не так есть неизвестная команда или условие");
+                return commandStorage.getStorage().get("helpVolunteer").execute(update);
+            }
         }
     }
 
@@ -86,20 +94,42 @@ public class CheckingMessage {
     }
 
     private SendMessage checkUpdateReportCatsState(Update update) {
-        var photo = update.getMessage().getPhoto();
+        var fileId = update.getMessage().getPhoto().get(0).getFileId();
         var caption = update.getMessage().getCaption();
-        if (photo == null && caption == null) {
+        var text = update.getMessage().getText();
+        Report report = null;
+        if (fileId == null  && checkReportString(text)) {
             return messageUtils.generationSendMessage(update,
                     "send report or enter /cancel");
-        } else if (photo == null && checkReport(caption)) {
-
+        } else if (fileId == null) {
+            report = Report.builder()
+                    .healthStatus(text)
+                    .dateReport(LocalDate.now())
+                    .build();
+            reportService.createReport(report);
+        } else if (!checkReportString(caption)) {
+            report = Report.builder()
+                    .dateReport(LocalDate.now())
+                    .fileId(fileId)
+                    .build();
+            reportService.createReport(report);
+        } else {
+            report = Report.builder()
+                    .dateReport(LocalDate.now())
+                    .healthStatus(caption)
+                    .fileId(fileId)
+                    .build();
+            reportService.createReport(report);
         }
 
         return null;
     }
 
-    private boolean checkReport(String caption) {
-        return true;
+    private boolean checkReportString(String string) {
+        return string != null
+                && (string.contains("diet")
+                || string.contains("health")
+                || string.contains("behavior"));
     }
 
     private SendMessage checkUpdateReportDogsState(Update update) {

@@ -16,6 +16,7 @@ import pro.sky.telegram_bot_pets_shelter.command.volunteer.*;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
+import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 import pro.sky.telegram_bot_pets_shelter.service.VisitorService;
 import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 
@@ -42,6 +43,8 @@ class CheckingMessageTest {
 
     @Mock
     private VisitorService visitorService;
+    @Mock
+    private ReportService reportService;
 
     private BuilderKeyboard keyboard;
 
@@ -66,7 +69,8 @@ class CheckingMessageTest {
         map.put("takeDogs", new TakeDogs(messageUtils, dogService,keyboard));
         map.put("takeCats", new TakeCats(messageUtils, catService,keyboard));
         commandStorage = new CommandStorage(map);
-        checkingMessage = new CheckingMessage(commandStorage, messageUtils, visitorService, ownerService);
+        checkingMessage = new CheckingMessage(commandStorage, messageUtils,
+                visitorService, ownerService, reportService);
     }
 
     @Test
