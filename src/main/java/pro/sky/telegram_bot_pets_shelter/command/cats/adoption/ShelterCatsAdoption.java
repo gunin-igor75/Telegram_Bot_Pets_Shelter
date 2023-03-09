@@ -1,4 +1,4 @@
-package pro.sky.telegram_bot_pets_shelter.command.cats.shelter;
+package pro.sky.telegram_bot_pets_shelter.command.cats.adoption;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -11,14 +11,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * Данный класс формрует сообщения исходя из выбора shelter
+ * Данный класс формрует сообщения исходя из выбора adoption
+ *
  */
 @Component
-public class ShelterCatsInfo implements Command {
+public class ShelterCatsAdoption implements Command {
     private final BuilderKeyboard keyboard;
     private final MessageUtils messageUtils;
 
-    public ShelterCatsInfo(BuilderKeyboard keyboard, MessageUtils messageUtils) {
+    public ShelterCatsAdoption(BuilderKeyboard keyboard, MessageUtils messageUtils) {
         this.keyboard = keyboard;
         this.messageUtils = messageUtils;
     }
@@ -26,10 +27,16 @@ public class ShelterCatsInfo implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("addressCat", "address");
-        mapCommand.put("informationCat", "information");
-        mapCommand.put("safetyCat", "safety");
-        mapCommand.put("contacts", "leave contacts");
+        mapCommand.put("rulesCat", "rules for dating cat");
+        mapCommand.put("documentsCat", "list of documents to take a cat");
+        mapCommand.put("transportationCats", "transportation of cats");
+        mapCommand.put("keepingCat", "keeping cats");
+        mapCommand.put("keepingAdultCats", "keeping adult cats");
+        mapCommand.put("keepingDisabilitiesCats", "keeping disabilities cats");
+        mapCommand.put("cynologistTipsCats", "experienced cynologist tips");
+        mapCommand.put("listCynologistsCats", "list of famous cynologists");
+        mapCommand.put("refusalsCats", "reasons for refusal");
+        mapCommand.put("contacts", "contacts for communication");
         mapCommand.put("cats", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
         String text = "Select the information you are interested in:";

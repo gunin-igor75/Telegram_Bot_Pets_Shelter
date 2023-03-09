@@ -1,4 +1,4 @@
-package pro.sky.telegram_bot_pets_shelter.command.dogs.shelter;
+package pro.sky.telegram_bot_pets_shelter.command.cats.adoption;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -7,28 +7,28 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Данный класс формрует сообщения исходя из выбора information
+ * Данный класс формрует сообщения исходя из выбора keeping cats
  */
 @Component
-public class InformationDog implements Command {
+public class KeepingCats implements Command {
+
     private final MessageUtils messageUtils;
     private final BuilderKeyboard keyboard;
 
-    public InformationDog(MessageUtils messageUtils, BuilderKeyboard keyboard) {
+    public KeepingCats(MessageUtils messageUtils, BuilderKeyboard keyboard) {
         this.messageUtils = messageUtils;
         this.keyboard = keyboard;
     }
 
     @Override
-    public SendMessage execute (Update update) {
+    public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new HashMap<>();
-        mapCommand.put("shelterDogsInfo", "Back");
+        mapCommand.put("shelterCatsAdoption", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update, markup, "Dogs shelter information.");
+        return messageUtils.generationSendMessage(update, markup, "Recommendation for keeping cats.");
     }
 }

@@ -28,6 +28,6 @@ public class AddressDog implements Command {
         Map<String, String> mapCommand=new HashMap<>();
         mapCommand.put("shelterDogsInfo", "Back");
         InlineKeyboardMarkup markup=keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update,markup,"Адрес приюта собак");
+        return messageUtils.generationSendMessage(update,markup,"Dogs shelter address.");
     }
 }

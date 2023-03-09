@@ -28,6 +28,6 @@ public class SafetyCat implements Command {
         Map<String, String> mapCommand = new HashMap<>();
         mapCommand.put("shelterCatsInfo", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update, markup, "Правила безопасности на територии приюта кошек");
+        return messageUtils.generationSendMessage(update, markup, "Safety rules at the cats shelter.");
     }
 }

@@ -28,6 +28,6 @@ public class SafetyDog implements Command {
         Map<String, String> mapCommand = new HashMap<>();
         mapCommand.put("shelterDogsInfo", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update, markup, "Правила безопасности на територии приюта собак");
+        return messageUtils.generationSendMessage(update, markup, "Safety rules at the dogs shelter.");
     }
 }

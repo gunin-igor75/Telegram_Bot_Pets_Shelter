@@ -9,6 +9,10 @@ import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
+/**
+ * Данный класс формрует сообщения исходя из выбора contacts
+ *
+ */
 @Component
 @Slf4j
 public class Contacts implements Command {
@@ -23,6 +27,6 @@ public class Contacts implements Command {
     @Override
     public SendMessage execute(Update update) {
         ReplyKeyboardMarkup markup = keyboard.createKeyboard();
-        return messageUtils.generationSendMessage(update, markup, "Оставьте ваши контакты");
+        return messageUtils.generationSendMessage(update, markup, "Leave contacts.");
     }
 }

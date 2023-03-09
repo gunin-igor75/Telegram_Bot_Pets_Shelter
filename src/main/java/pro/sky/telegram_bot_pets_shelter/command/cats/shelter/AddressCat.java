@@ -29,7 +29,7 @@ public class AddressCat implements Command {
             Map<String, String> mapCommand=new HashMap<>();
             mapCommand.put("shelterCatsInfo", "Back");
             InlineKeyboardMarkup markup=keyboard.createInlineKey(mapCommand);
-            return messageUtils.generationSendMessage(update,markup,"Адрес приюта кошек");
+            return messageUtils.generationSendMessage(update,markup,"Cats shelter address.");
         }
     }
 

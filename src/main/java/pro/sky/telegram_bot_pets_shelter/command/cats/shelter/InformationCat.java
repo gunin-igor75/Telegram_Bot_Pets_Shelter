@@ -28,6 +28,6 @@ public class InformationCat implements Command {
         Map<String, String> mapCommand = new HashMap<>();
         mapCommand.put("shelterCatsInfo", "Back");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update, markup, "Информация о приюте кошек");
+        return messageUtils.generationSendMessage(update, markup, "Cats shelter information.");
     }
 }
