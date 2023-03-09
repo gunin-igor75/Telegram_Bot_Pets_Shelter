@@ -8,6 +8,7 @@ import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundExcepti
 import pro.sky.telegram_bot_pets_shelter.exception_handling.VisitorNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.OwnerRepository;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
+import pro.sky.telegram_bot_pets_shelter.service.enums.UserState;
 
 import java.util.List;
 
@@ -24,15 +25,14 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public Owner createOwner(Owner owner) {
-        Owner persistentOwner = findOwner(owner.getId());
-        if (persistentOwner == null) {
-            persistentOwner = ownerRepository.save(owner);
+        if (owner.getId() != null) {
+            return owner;
         }
-        return persistentOwner;
+        return ownerRepository.save(owner);
     }
 
     @Override
-    public Owner findOwner(long id) {
+    public Owner findOwner(Long id) {
         return ownerRepository.findById(id).orElse(null);
     }
 
@@ -80,6 +80,17 @@ public class OwnerServiceImpl implements OwnerService {
             persistentOwner = createOwner(transientOwner);
         }
         return persistentOwner;
+    }
+
+    @Override
+    public void editOwnerState(long id, UserState state) {
+        var persistentOwner = findOwnerByChatId(id);
+        if (persistentOwner == null) {
+            log.error("persistentOwner is nul");
+            throw new OwnerNotFoundException();
+        }
+        persistentOwner.setState(state);
+        editOwner(persistentOwner);
     }
 
     @Override

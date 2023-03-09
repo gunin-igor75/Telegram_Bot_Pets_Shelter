@@ -66,7 +66,7 @@ class CheckingMessageTest {
         map.put("takeDogs", new TakeDogs(messageUtils, dogService,keyboard));
         map.put("takeCats", new TakeCats(messageUtils, catService,keyboard));
         commandStorage = new CommandStorage(map);
-        checkingMessage = new CheckingMessage(commandStorage);
+        checkingMessage = new CheckingMessage(commandStorage, messageUtils, visitorService, ownerService);
     }
 
     @Test

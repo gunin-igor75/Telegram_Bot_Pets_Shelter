@@ -21,11 +21,10 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public Visitor creteVisitor(Visitor visitor) {
-        Visitor persistentVisitor = findVisitor(visitor.getId());
-        if (persistentVisitor == null) {
-            persistentVisitor = visitorRepository.save(visitor);
+        if (visitor.getId() != null) {
+            return visitor;
         }
-        return persistentVisitor;
+        return visitorRepository.save(visitor);
     }
 
     @Override

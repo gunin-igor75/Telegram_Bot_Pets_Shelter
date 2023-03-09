@@ -20,8 +20,9 @@ public class RegistrationProcess implements Command {
     }
     @Override
     public SendMessage execute(Update update) {
-        var chatId = update.getMessage().getFrom().getId();
-        var telegramUser = update.getMessage().getFrom();
+        var chatId = update.getCallbackQuery().getFrom().getId();
+        var telegramUser = update.getCallbackQuery().getFrom();
+        System.out.println(telegramUser);
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
         String text;
         if (persistentOwner == null) {

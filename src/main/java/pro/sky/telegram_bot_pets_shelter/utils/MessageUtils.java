@@ -74,14 +74,14 @@ public class MessageUtils {
     }
 
 
-    private long getChatId(Update update) {
+    public long getChatId(Update update) {
         long chatId;
         if (update.hasCallbackQuery()) {
-            chatId = update.getCallbackQuery().getMessage().getChatId();
+            chatId = update.getCallbackQuery().getFrom().getId();
         } else if (update.getMessage().hasContact()) {
             chatId = update.getMessage().getContact().getUserId();
         } else {
-            chatId = update.getMessage().getChatId();
+            chatId = update.getMessage().getFrom().getId();
         }
         return chatId;
     }

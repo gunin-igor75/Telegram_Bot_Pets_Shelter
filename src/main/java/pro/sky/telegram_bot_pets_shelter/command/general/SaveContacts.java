@@ -23,7 +23,7 @@ public class SaveContacts implements Command {
 
     @Override
     public SendMessage execute(Update update) {
-        var chatId = update.getMessage().getFrom().getId();
+        var chatId = messageUtils.getChatId(update);
         var phoneNumber = update.getMessage().getContact().getPhoneNumber();
         var owner = ownerService.findOwnerByChatId(chatId);
         if (owner == null) {

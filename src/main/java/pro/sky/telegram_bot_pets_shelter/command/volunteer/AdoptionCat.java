@@ -32,7 +32,8 @@ public class AdoptionCat implements Command {
     public SendMessage execute(Update update) {
         String text;
         var idCat = Long.parseLong(update.getCallbackQuery().getData().split("\\s+")[0]);
-        var chatIdOwner = update.getCallbackQuery().getMessage().getFrom().getId();
+        var chatIdOwner = update.getCallbackQuery().getFrom().getId();
+        System.out.println(chatIdOwner);
         Owner persistentOwner = ownerService.findOwnerByChatId(chatIdOwner);
         Cat persistentCat = catService.findCat(idCat);
         if (persistentOwner == null) {
