@@ -29,7 +29,7 @@ public class Cats implements Command {
         mapCommand.put("catReport", "report");
         mapCommand.put("volunteerCats", "volunteer");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Welcome to the cat shelter";
+        String text = "Welcome to the cats shelter";
         return messageUtils.generationSendMessage(update,markup,text);
     }
 }
