@@ -2,9 +2,7 @@ package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
-import pro.sky.telegram_bot_pets_shelter.entity.Visitor;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.VisitorNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.CatRepository;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 

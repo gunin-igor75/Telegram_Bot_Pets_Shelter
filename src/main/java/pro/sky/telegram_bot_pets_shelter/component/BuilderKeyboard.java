@@ -31,7 +31,7 @@ public class BuilderKeyboard {
         return markup;
     }
 
-    public ReplyKeyboardMarkup createKeyboard() {
+        public ReplyKeyboardMarkup createKeyboard() {
         ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
         markup.setSelective(true);
         markup.setResizeKeyboard(true);

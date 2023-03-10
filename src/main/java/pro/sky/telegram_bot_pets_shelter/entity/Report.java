@@ -3,6 +3,7 @@ package pro.sky.telegram_bot_pets_shelter.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -16,16 +17,13 @@ public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long chatId;
 
-    private LocalDateTime dateReport;
+    private LocalDate dateReport;
 
     private String healthStatus;
 
-    @Lob
-    private byte[] photo;
-
-    @Column(name = "bad_report", nullable = false)
-    private boolean badReport;
+    private String fileId;
 
     @Override
     public boolean equals(Object o) {

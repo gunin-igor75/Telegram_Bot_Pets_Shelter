@@ -26,7 +26,7 @@ public class Dogs implements Command {
         Map<String, String> mapCommand = new LinkedHashMap<>();
         mapCommand.put( "shelterDogsInfo", "shelter");
         mapCommand.put("shelterDogsAdoption", "adoption");
-        mapCommand.put("report", "report");
+        mapCommand.put("dogReport", "report");
         mapCommand.put("volunteerDogs", "volunteer");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
         String text = "Welcome to the dogs shelter";
