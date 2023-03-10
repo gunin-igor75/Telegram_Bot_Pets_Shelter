@@ -4,11 +4,21 @@ import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import pro.sky.telegram_bot_pets_shelter.command.cats.Cats;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Value {
     public static Update updateTextStart;
     public static Update updateTextApplication;
     public static Update updateKeyboardText;
+
+    public static Map<String, String> mapCommand;
+
+    static {
+
+    }
 
     static {
         updateTextStart = new Update();

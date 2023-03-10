@@ -37,7 +37,7 @@ public class DogReport implements Command {
         mapCommand.put("infoReport", "Information");
         mapCommand.put("sendReportDog", "Send report");
         mapCommand.put("cancel", "Cancel");
-        mapCommand.put("cats", "back");
+        mapCommand.put("dogs", "back");
         var markup = keyboard.createInlineKey(mapCommand);
         return messageUtils.generationSendMessage(update, markup,
                 "Choose a bot from the list below:");
