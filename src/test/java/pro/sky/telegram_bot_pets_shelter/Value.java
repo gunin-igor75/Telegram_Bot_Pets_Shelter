@@ -5,53 +5,44 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.command.cats.Cats;
+import pro.sky.telegram_bot_pets_shelter.entity.Owner;
+import pro.sky.telegram_bot_pets_shelter.service.enums.UserState;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.*;
+
 public class Value {
-    public static Update updateTextStart;
-    public static Update updateTextApplication;
-    public static Update updateKeyboardText;
+    public static Owner owner;
+    public static Owner ownerBS;
+    public static Owner ownerRCS;
+    public static Owner ownerRDS;
+    public static Owner ownerNull;
 
-    public static Map<String, String> mapCommand;
-
-    static {
-
-    }
 
     static {
-        updateTextStart = new Update();
-        Message message = new Message();
-        Chat chat = new Chat(123L, "private");
-        message.setChat(chat);
-        message.setMessageId(492);
-        message.setDate(1678033579);
-        message.setText("/start");
-        updateTextStart.setMessage(message);
-    }
-    static {
-        updateKeyboardText = new Update();
-        Message message = new Message();
-        CallbackQuery callbackQuery = new CallbackQuery();
-//        callbackQuery.s
-        Chat chat = new Chat(123L, "private");
-        message.setChat(chat);
-        message.setMessageId(492);
-        message.setDate(1678033579);
-        message.setText("/start");
-        updateTextStart.setMessage(message);
-    }
+        owner = Owner.builder()
+                .chatId(123)
+                .username("Igor")
+                .build();
 
-    static {
-        updateTextApplication = new Update();
-        Message message = new Message();
-        Chat chat = new Chat(123L, "private");
-        message.setChat(chat);
-        message.setMessageId(492);
-        message.setDate(1678033579);
-        message.setText("/application");
-        updateTextApplication.setMessage(message);
-    }
+        ownerBS = Owner.builder()
+                .chatId(123)
+                .username("Oleg")
+                .state(BASIC_STATE)
+                .build();
 
+        ownerRCS = Owner.builder()
+                .chatId(123)
+                .username("Ivan")
+                .state(REPORT_CATS_STATE)
+                .build();
+
+        ownerRDS = Owner.builder()
+                .chatId(123)
+                .username("Gaga")
+                .state(REPORT_DOGS_STATE)
+                .build();
+    }
 }
