@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.User;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.VisitorNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.OwnerRepository;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.enums.UserState;
@@ -54,7 +53,7 @@ public class OwnerServiceImpl implements OwnerService {
     public Owner DeleteOwner(Long id) {
         Owner owner = findOwner(id);
         if (owner == null) {
-            throw new VisitorNotFoundException();
+            throw new OwnerNotFoundException();
         }
         ownerRepository.delete(owner);
         return owner;
@@ -74,8 +73,9 @@ public class OwnerServiceImpl implements OwnerService {
                     .firstname(telegramUser.getFirstName())
                     .lastname(telegramUser.getLastName())
                     .username(telegramUser.getUserName())
-                    .state(BASIC_STATE)
+                    .registration(false)
                     .lastAction("start")
+                    .state(BASIC_STATE)
                     .build();
             persistentOwner = createOwner(transientOwner);
         }

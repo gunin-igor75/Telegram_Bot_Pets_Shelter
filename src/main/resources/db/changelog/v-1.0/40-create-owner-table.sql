@@ -5,8 +5,9 @@ create table owner(
                       lastname varchar(30),
                       username varchar(30),
                       phone_number varchar(30),
-                      registered_at timestamp,
+                      date_registration timestamp,
                       last_action varchar(255),
+                      registration boolean,
                       state varchar(255),
                       cat_id bigint constraint cat_id references cat,
                       dog_id bigint constraint dog_id references cat

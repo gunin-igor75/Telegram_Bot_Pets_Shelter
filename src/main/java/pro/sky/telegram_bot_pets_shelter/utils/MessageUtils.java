@@ -43,8 +43,8 @@ public class MessageUtils {
         response.setText(text);
         return response;
     }
+
     /**
-     *
      * Данный метод генерирует сообщение пользователю с отображением
      * клавитуры
      *
@@ -53,7 +53,6 @@ public class MessageUtils {
      * @param markup - встроенная клавиатура
      * @param text   - текст сообщения который будет отправлен с клавиатурой
      * @return - возвращает SendMessage для дальнейшей отправки пользователю
-     *
      */
 
     public SendMessage generationSendMessage(Update update, InlineKeyboardMarkup markup, String text) {
@@ -64,6 +63,7 @@ public class MessageUtils {
         response.setReplyMarkup(markup);
         return response;
     }
+
     public SendMessage generationSendMessage(Update update, ReplyKeyboardMarkup markup, String text) {
         var response = new SendMessage();
         var chatId = getChatId(update);
@@ -85,8 +85,10 @@ public class MessageUtils {
         }
         return chatId;
     }
+
     /**
      * Данный метод отправляет сообщение хозяину бота
+     *
      * @return Возвращает сообщение хозяну чата
      */
     public SendMessage sendMessageCallOwner() {
@@ -95,4 +97,44 @@ public class MessageUtils {
         response.setText("Хозяин помоги. Не могу решить вопрос");
         return response;
     }
+
+    public boolean checkReportString(String string) {
+        return string != null
+                && (string.contains("diet")
+                || string.contains("health")
+                || string.contains("behavior"));
+    }
+
+    //    private SendMessage checkUpdateReportCatsState(Update update) {
+//        var fileId = update.getMessage().getPhoto().get(0).getFileId();
+//        var caption = update.getMessage().getCaption();
+//        var text = update.getMessage().getText();
+//        Report report = null;
+//        if (fileId == null  && checkReportString(text)) {
+//            return messageUtils.generationSendMessage(update,
+//                    "send report or enter /cancel");
+//        } else if (fileId == null) {
+//            report = Report.builder()
+//                    .healthStatus(text)
+//                    .dateReport(LocalDate.now())
+//                    .build();
+//            reportService.createReport(report);
+//        } else if (!checkReportString(caption)) {
+//            report = Report.builder()
+//                    .dateReport(LocalDate.now())
+//                    .fileId(fileId)
+//                    .build();
+//            reportService.createReport(report);
+//        } else {
+//            report = Report.builder()
+//                    .dateReport(LocalDate.now())
+//                    .healthStatus(caption)
+//                    .fileId(fileId)
+//                    .build();
+//            reportService.createReport(report);
+//        }
+//
+//        return null;
+//    }
+//
 }

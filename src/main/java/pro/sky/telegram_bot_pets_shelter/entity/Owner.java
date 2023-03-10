@@ -30,13 +30,13 @@ public class Owner {
 
     private String username;
 
+    private String phoneNumber;
     @CreationTimestamp
-    private LocalDateTime registeredAt;
+    private LocalDateTime dateRegistration;
 
     private String lastAction;
 
-    private String phoneNumber;
-
+    private Boolean registration;
     @Enumerated(value = STRING)
     private UserState state;
 
