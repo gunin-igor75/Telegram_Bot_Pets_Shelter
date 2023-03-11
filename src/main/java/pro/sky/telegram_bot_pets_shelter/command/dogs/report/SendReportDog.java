@@ -14,7 +14,6 @@ import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.REPORT_D
 @Component
 @Slf4j
 public class SendReportDog implements Command {
-
     private final MessageUtils messageUtils;
     private final OwnerService ownerService;
 

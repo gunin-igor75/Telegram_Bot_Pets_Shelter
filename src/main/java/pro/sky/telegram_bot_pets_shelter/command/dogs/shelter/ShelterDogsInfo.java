@@ -18,7 +18,7 @@ import java.util.Map;
         private final BuilderKeyboard keyboard;
         private final MessageUtils messageUtils;
 
-        public ShelterDogsInfo(BuilderKeyboard keyboard, MessageUtils messageUtils) {
+        public ShelterDogsInfo( MessageUtils messageUtils, BuilderKeyboard keyboard) {
             this.keyboard = keyboard;
             this.messageUtils = messageUtils;
         }

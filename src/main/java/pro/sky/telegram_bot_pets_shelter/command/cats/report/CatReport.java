@@ -21,7 +21,8 @@ public class CatReport implements Command {
     private final MessageUtils messageUtils;
     private final OwnerService ownerService;
 
-    public CatReport(BuilderKeyboard keyboard, MessageUtils messageUtils, OwnerService ownerService) {
+    public CatReport(MessageUtils messageUtils, BuilderKeyboard keyboard,
+                     OwnerService ownerService) {
         this.keyboard = keyboard;
         this.messageUtils = messageUtils;
         this.ownerService = ownerService;
@@ -29,8 +30,8 @@ public class CatReport implements Command {
 
     @Override
     public SendMessage execute(Update update) {
-        var chatId = messageUtils.getChatId(update);
-        var persistentOwner = ownerService.findOwnerByChatId(chatId);
+        long chatId = messageUtils.getChatId(update);
+        Owner persistentOwner = ownerService.findOwnerByChatId(chatId);
         if (persistentOwner == null || persistentOwner.getCat() == null) {
             return messageUtils.generationSendMessage(update,
                     "This option is only available to owners of our pets");

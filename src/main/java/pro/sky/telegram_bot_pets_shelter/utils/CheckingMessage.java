@@ -38,6 +38,7 @@ public class CheckingMessage {
         if (update.hasMessage() && update.getMessage().hasText() &&
                 ("/start".equals(update.getMessage().getText()) ||
                         "/cansel".equals(update.getMessage().getText()))) {
+            System.out.println(commandStorage.getStorage());
             return commandStorage
                     .getStorage()
                     .get(update
@@ -103,6 +104,4 @@ public class CheckingMessage {
                 .get("helpVolunteer")
                 .execute(update);
     }
-
-
 }

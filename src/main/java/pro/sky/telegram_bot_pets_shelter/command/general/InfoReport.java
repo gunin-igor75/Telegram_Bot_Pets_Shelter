@@ -19,7 +19,7 @@ public class InfoReport implements Command {
 
     @Override
     public SendMessage execute(Update update) {
-        var text = "После на жатия кнопки 'Send report' отправьте очет \n" +
+        var text = "После на жатия кнопки 'Send report' отправьте отчет \n" +
                 ":сначала фотография, а в ее описании текстовая часть \n" +
                 "содержащая информацию о питомце с обязательными  ключевыми" +
                 " словами - diet  - рацион питания \n" +

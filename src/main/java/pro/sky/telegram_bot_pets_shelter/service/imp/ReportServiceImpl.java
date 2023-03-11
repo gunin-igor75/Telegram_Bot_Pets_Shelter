@@ -26,8 +26,14 @@ public class ReportServiceImpl implements ReportService {
         return reportRepository.save(report);
     }
 
-    public Report findReportCat(long chatId, LocalDate date) {
-        return null;
+    @Override
+    public Report findReportCat(long chatId, LocalDate dateReport) {
+        return reportRepository.getReportCat(chatId, dateReport);
+    }
+
+    @Override
+    public Report findReportDog(long chatId, LocalDate dateReport) {
+        return reportRepository.getReportDog(chatId, dateReport);
     }
     @Override
     public Report findReport(Long id) {
@@ -42,6 +48,7 @@ public class ReportServiceImpl implements ReportService {
         }
         return reportRepository.save(report);
     }
+
 
     @Override
     public Report deleteReport(Long id) {
