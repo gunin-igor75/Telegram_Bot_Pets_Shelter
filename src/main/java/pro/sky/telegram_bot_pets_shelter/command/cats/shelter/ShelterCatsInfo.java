@@ -18,7 +18,7 @@ public class ShelterCatsInfo implements Command {
     private final BuilderKeyboard keyboard;
     private final MessageUtils messageUtils;
 
-    public ShelterCatsInfo(BuilderKeyboard keyboard, MessageUtils messageUtils) {
+    public ShelterCatsInfo(MessageUtils messageUtils, BuilderKeyboard keyboard) {
         this.keyboard = keyboard;
         this.messageUtils = messageUtils;
     }

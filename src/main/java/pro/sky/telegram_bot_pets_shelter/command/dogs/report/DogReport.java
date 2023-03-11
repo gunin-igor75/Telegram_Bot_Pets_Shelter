@@ -19,7 +19,7 @@ public class DogReport implements Command {
     private final MessageUtils messageUtils;
     private final OwnerService ownerService;
 
-    public DogReport(BuilderKeyboard keyboard, MessageUtils messageUtils, OwnerService ownerService) {
+    public DogReport( MessageUtils messageUtils, BuilderKeyboard keyboard, OwnerService ownerService) {
         this.keyboard = keyboard;
         this.messageUtils = messageUtils;
         this.ownerService = ownerService;
@@ -29,7 +29,7 @@ public class DogReport implements Command {
     public SendMessage execute(Update update) {
         var chatId = messageUtils.getChatId(update);
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
-        if (persistentOwner == null || persistentOwner.getCat() == null) {
+        if (persistentOwner == null || persistentOwner.getDog() == null) {
             return messageUtils.generationSendMessage(update,
                     "This option is only available to owners of our pets");
         }

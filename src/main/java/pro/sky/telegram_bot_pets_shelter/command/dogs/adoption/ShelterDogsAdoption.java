@@ -19,7 +19,7 @@ public class ShelterDogsAdoption implements Command {
     private final BuilderKeyboard keyboard;
     private final MessageUtils messageUtils;
 
-    public ShelterDogsAdoption(BuilderKeyboard keyboard, MessageUtils messageUtils) {
+    public ShelterDogsAdoption(MessageUtils messageUtils, BuilderKeyboard keyboard) {
         this.keyboard = keyboard;
         this.messageUtils = messageUtils;
     }
