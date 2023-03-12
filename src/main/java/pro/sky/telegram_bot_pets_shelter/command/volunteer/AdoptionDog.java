@@ -12,6 +12,7 @@ import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
@@ -48,7 +49,7 @@ public class AdoptionDog implements Command {
             return messageUtils.generationSendMessage(update, "Do you have one dog on probation");
         }
         persistentDog.setAdopted(false);
-        persistentDog.setDateAdoption(LocalDateTime.now());
+        persistentDog.setDateAdoption(LocalDate.now());
         persistentOwner.setDog(persistentDog);
         dogService.editDog(persistentDog);
         ownerService.editOwner(persistentOwner);
