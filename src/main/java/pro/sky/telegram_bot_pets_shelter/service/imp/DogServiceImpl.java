@@ -1,5 +1,6 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.DogNotFoundException;
@@ -9,6 +10,7 @@ import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import java.util.List;
 
 @Service
+@Slf4j
 public class DogServiceImpl implements DogService {
     final DogRepository dogRepository;
     public DogServiceImpl(DogRepository dogRepository) {
@@ -17,11 +19,11 @@ public class DogServiceImpl implements DogService {
 
     @Override
     public Dog createDog(Dog dog) {
-        Dog persistentDog = findDog(dog.getId());
-        if (persistentDog == null) {
-            persistentDog = dogRepository.save(dog);
+        checkDogNull(dog);
+        if (dog.getId() == null) {
+            return dogRepository.save(dog);
         }
-        return persistentDog;
+        return dog;
     }
 
     @Override
@@ -31,6 +33,7 @@ public class DogServiceImpl implements DogService {
 
     @Override
     public Dog editDog(Dog dog) {
+        checkDogNull(dog);
         Dog persistentDog = findDog(dog.getId());
         if (persistentDog == null) {
             throw new DogNotFoundException();
@@ -56,5 +59,12 @@ public class DogServiceImpl implements DogService {
     @Override
     public List<Dog> getAllDogsFree() {
         return dogRepository.getDogsByAdoptedIsNull();
+    }
+
+    private void checkDogNull(Dog dog) {
+        if (dog == null) {
+            log.error("dog is null");
+            throw new NullPointerException();
+        }
     }
 }

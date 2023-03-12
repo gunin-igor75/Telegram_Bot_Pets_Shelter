@@ -19,11 +19,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = DogController.class)
 public class DogControllerMVCTest {
@@ -103,34 +101,83 @@ public class DogControllerMVCTest {
     }
 
     @Test
-    public void deleteDogTest() throws Exception {
-        Dog dog = Dog.builder()
-                .id(10L)
-                .name("graf")
-                .adopted(true)
-                .dateAdoption(LocalDate.now())
-                .build();
+    public void createDogTest() throws Exception {
+        long id = 10L;
+        String name = "sharick";
 
-        when(dogRepository.findById(eq(10L))).thenReturn(Optional.of(dog));
-        dogService.deleteDog(10L);
-        verify(dogRepository, times(1)).delete(dog);
+        Dog dog = new Dog();
+        dog.setId(id);
+        dog.setName(name);
+
+        JSONObject dogObj = new JSONObject();
+        dogObj.put("id", id);
+        dogObj.put("name", name);
+
+        when(dogService.findDog(id)).thenReturn(null);
+        when(dogRepository.save(dog)).thenReturn(dog);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .post("/dog")
+                        .content(dogObj.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value(name));
+    }
+
+    @Test
+    public void deleteDogTest() throws Exception {
+        long id = 10L;
+        String name = "sharick";
+        boolean adopted = true;
+        LocalDate dateAdoption = LocalDate.of(2000, 1, 5);
+
+        Dog dog = new Dog();
+        dog.setId(id);
+        dog.setName(name);
+        dog.setAdopted(adopted);
+        dog.setDateAdoption(dateAdoption);
+
+        when(dogService.findDog(id)).thenReturn(dog);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .delete("/dog/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.name").value(name))
+                .andExpect(jsonPath("$.adopted").value(adopted))
+                .andExpect(jsonPath("$.dateAdoption").value(String.valueOf(dateAdoption)));
+
+        verify(dogRepository, atLeastOnce()).delete(dog);
     }
 
     @Test
     public void getAllDogsTest() throws Exception {
-        Dog dog1 = Dog.builder()
+        Dog dogFirst = Dog.builder()
                 .id(10L)
-                .name("ray")
                 .adopted(true)
-                .dateAdoption(LocalDate.now())
-                .build();
-        Dog dog2 = Dog.builder()
-                .id(11L)
-                .name("graf")
-                .adopted(true)
+                .name("pupsick")
                 .dateAdoption(LocalDate.now())
                 .build();
 
-        when(dogRepository.findAll()).thenReturn(List.of(dog1, dog2));
+        Dog dogSecond = Dog.builder()
+                .id(20L)
+                .adopted(true)
+                .name("bim")
+                .dateAdoption(LocalDate.now())
+                .build();
+
+        when(dogRepository.findAll()).thenReturn(List.of(dogFirst, dogSecond));
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/dog")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .json(objectMapper.writeValueAsString(List.of(dogFirst, dogSecond))));
     }
 }

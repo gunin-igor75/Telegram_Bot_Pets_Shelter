@@ -7,6 +7,7 @@ import pro.sky.telegram_bot_pets_shelter.entity.Dog;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.service.enums.UserState;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,10 @@ public class Value {
     public static Owner ownerCats;
     public static Owner ownerDogs;
 
+    public static Dog dog;
+    public static Dog newDog;
+    public static Dog dogFirst;
+    public static Dog dogSecond;
 
     static {
         owner = Owner.builder()
@@ -67,6 +72,32 @@ public class Value {
                 .dog(new Dog())
                 .state(BASIC_STATE)
                 .build();
+
+        dog = Dog.builder()
+                .id(10L)
+                .adopted(true)
+                .name("pupsick")
+                .dateAdoption(LocalDate.now())
+                .build();
+
+        newDog = Dog.builder()
+                .id(10L)
+                .adopted(false)
+                .name("pupsick")
+                .dateAdoption(LocalDate.now())
+                .build();
+
+
+        dogFirst = Dog.builder()
+                .name("pupsick")
+                .build();
+
+        dogSecond = Dog.builder()
+                .id(1L)
+                .name("pupsick")
+                .build();
+
+
     }
 
     public static Update getUpdateCall(String name) {
