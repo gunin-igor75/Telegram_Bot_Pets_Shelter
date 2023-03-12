@@ -41,6 +41,7 @@ import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -697,7 +698,7 @@ class CheckingMessageTest {
                 .id(10L)
                 .name("kisa")
                 .adopted(true)
-                .dateAdoption(LocalDateTime.now())
+                .dateAdoption(LocalDate.now())
                 .build();
         System.out.println(cat);
     }

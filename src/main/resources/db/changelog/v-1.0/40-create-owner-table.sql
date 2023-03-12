@@ -5,7 +5,7 @@ create table owner(
                       lastname varchar(30),
                       username varchar(30),
                       phone_number varchar(30),
-                      date_registration timestamp,
+                      date_registration date,
                       last_action varchar(255),
                       registration boolean,
                       state varchar(255),

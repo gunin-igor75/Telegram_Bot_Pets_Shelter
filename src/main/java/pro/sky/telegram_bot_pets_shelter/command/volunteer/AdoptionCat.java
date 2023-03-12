@@ -13,6 +13,7 @@ import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
@@ -49,7 +50,7 @@ public class AdoptionCat implements Command {
             return messageUtils.generationSendMessage(update, "Do you have one cat on probation");
         }
         persistentCat.setAdopted(false);
-        persistentCat.setDateAdoption(LocalDateTime.now());
+        persistentCat.setDateAdoption(LocalDate.now());
         persistentOwner.setCat(persistentCat);
         catService.editCat(persistentCat);
         ownerService.editOwner(persistentOwner);

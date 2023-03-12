@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 import pro.sky.telegram_bot_pets_shelter.repositories.CatRepository;
 import pro.sky.telegram_bot_pets_shelter.service.imp.CatServiceImpl;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +41,7 @@ public class CatControllerMVCTest {
                 .id(10L)
                 .name("kisa")
                 .adopted(true)
-                .dateAdoption(LocalDateTime.now())
+                .dateAdoption(LocalDate.now())
                 .build();
 
         when(catRepository.findById(eq(10L))).thenReturn(Optional.of(cat));
@@ -51,13 +53,13 @@ public class CatControllerMVCTest {
                 .id(10L)
                 .name("kisa")
                 .adopted(true)
-                .dateAdoption(LocalDateTime.now())
+                .dateAdoption(LocalDate.now())
                 .build();
         Cat editCat = Cat.builder()
                 .id(10L)
                 .name("murzik")
                 .adopted(true)
-                .dateAdoption(LocalDateTime.now())
+                .dateAdoption(LocalDate.now())
                 .build();
 
         when(catRepository.findById(eq(10L))).thenReturn(Optional.of(cat));
@@ -70,7 +72,7 @@ public class CatControllerMVCTest {
                 .id(10L)
                 .name("kisa")
                 .adopted(true)
-                .dateAdoption(LocalDateTime.now())
+                .dateAdoption(LocalDate.now())
                 .build();
 
         when(catRepository.findById(eq(10L))).thenReturn(Optional.of(cat));
@@ -84,13 +86,13 @@ public class CatControllerMVCTest {
                 .id(10L)
                 .name("kisa")
                 .adopted(true)
-                .dateAdoption(LocalDateTime.now())
+                .dateAdoption(LocalDate.now())
                 .build();
         Cat cat2 = Cat.builder()
                 .id(11L)
                 .name("murzik")
                 .adopted(true)
-                .dateAdoption(LocalDateTime.now())
+                .dateAdoption(LocalDate.now())
                 .build();
 
         when(catRepository.findAll()).thenReturn(List.of(cat1, cat2));

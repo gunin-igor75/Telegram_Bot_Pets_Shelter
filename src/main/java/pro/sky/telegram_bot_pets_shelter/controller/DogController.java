@@ -1,4 +1,5 @@
 package pro.sky.telegram_bot_pets_shelter.controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
@@ -25,6 +26,12 @@ public class DogController {
         return ResponseEntity.ok(persistentDog);
     }
 
+    @PostMapping
+    public ResponseEntity<Dog> createDog(@RequestBody Dog dog) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(dogService.createDog(dog));
+    }
+
     @PutMapping
     public ResponseEntity<Dog> editDog(@RequestBody Dog dog) {
         return ResponseEntity.ok(dogService.editDog(dog));
@@ -37,6 +44,6 @@ public class DogController {
 
     @GetMapping
     public ResponseEntity<List<Dog>> getAllDogs() {
-        return ResponseEntity.ok(dogService.getAllDogsFree());
+        return ResponseEntity.ok(dogService.getAllDogs());
     }
 }

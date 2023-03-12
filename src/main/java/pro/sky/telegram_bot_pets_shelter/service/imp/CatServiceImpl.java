@@ -1,14 +1,18 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
+import pro.sky.telegram_bot_pets_shelter.entity.Dog;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.DogNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.CatRepository;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class CatServiceImpl implements CatService {
     private final CatRepository catRepository;
 
@@ -18,11 +22,11 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public Cat createCat(Cat cat) {
-        Cat persistentCat = findCat(cat.getId());
-        if (persistentCat == null) {
-            persistentCat = catRepository.save(cat);
+        checkCayNull(cat);
+        if (cat.getId() == null) {
+            return catRepository.save(cat);
         }
-        return persistentCat;
+        return cat;
     }
 
     @Override
@@ -32,6 +36,7 @@ public class CatServiceImpl implements CatService {
 
     @Override
     public Cat editCat(Cat cat) {
+        checkCayNull(cat);
         Cat persistentCat = findCat(cat.getId());
         if (persistentCat == null) {
             throw new CatNotFoundException();
@@ -56,5 +61,12 @@ public class CatServiceImpl implements CatService {
     @Override
     public List<Cat> getAllCatsFree() {
         return catRepository.getCatsByAdoptedIsNull();
+    }
+
+    private void checkCayNull(Cat cat) {
+        if (cat == null) {
+            log.error("cat is null");
+            throw new NullPointerException();
+        }
     }
 }
