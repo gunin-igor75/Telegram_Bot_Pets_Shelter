@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Data
 public class BotConfiguration {
-
     /**
      * имя бота полученного из application.properties
      */
@@ -20,6 +19,6 @@ public class BotConfiguration {
     /**
      * токен бота, полученный из переменной среды окружения операционной системы
      */
-    @Value("${TELEGRAM_BOT_TOKEN}")
+    @Value("${TELEGRAM_BOT_TOKEN_TEST}")
     private String token;
 }

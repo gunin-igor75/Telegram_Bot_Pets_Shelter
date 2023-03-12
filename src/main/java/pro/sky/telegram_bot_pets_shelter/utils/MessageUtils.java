@@ -1,10 +1,13 @@
 package pro.sky.telegram_bot_pets_shelter.utils;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 
 /**
  * *  Утилитный клас, который содержит методы по формированию
@@ -13,10 +16,16 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 @Component
 @Slf4j
 public class MessageUtils {
+    private final BuilderKeyboard keyboard;
     /**
      * Переменная CHAT_ID - chatId - хозяина бота
      */
-    private final long CHAT_ID = 1998202918L;
+    @Value("${telegram.bot.chat-id}")
+    private long CHAT_ID;
+
+    public MessageUtils(BuilderKeyboard keyboard) {
+        this.keyboard = keyboard;
+    }
 
     /**
      * Данный мметод генерирует сообщение пользователю
@@ -28,14 +37,14 @@ public class MessageUtils {
      * @return - возвращает SendMessage для дальнейшей отправки пользователю
      */
     public SendMessage generationSendMessage(Update update, String text) {
-        SendMessage response = new SendMessage();
-        response.setChatId(update.getMessage().getChatId());
+        var response = new SendMessage();
+        var chatId = getChatId(update);
+        response.setChatId(chatId);
         response.setText(text);
         return response;
     }
 
     /**
-     *
      * Данный метод генерирует сообщение пользователю с отображением
      * клавитуры
      *
@@ -44,25 +53,88 @@ public class MessageUtils {
      * @param markup - встроенная клавиатура
      * @param text   - текст сообщения который будет отправлен с клавиатурой
      * @return - возвращает SendMessage для дальнейшей отправки пользователю
-     *
      */
 
     public SendMessage generationSendMessage(Update update, InlineKeyboardMarkup markup, String text) {
-        SendMessage response = new SendMessage();
-        response.setChatId(update.getMessage().getChatId());
+        var response = new SendMessage();
+        var chatId = getChatId(update);
+        response.setChatId(chatId);
         response.setText(text);
         response.setReplyMarkup(markup);
         return response;
     }
 
+    public SendMessage generationSendMessage(Update update, ReplyKeyboardMarkup markup, String text) {
+        var response = new SendMessage();
+        var chatId = getChatId(update);
+        response.setChatId(chatId);
+        response.setText(text);
+        response.setReplyMarkup(markup);
+        return response;
+    }
+
+
+    public long getChatId(Update update) {
+        long chatId;
+        if (update.hasCallbackQuery()) {
+            chatId = update.getCallbackQuery().getFrom().getId();
+        } else if (update.getMessage().hasContact()) {
+            chatId = update.getMessage().getContact().getUserId();
+        } else {
+            chatId = update.getMessage().getFrom().getId();
+        }
+        return chatId;
+    }
+
     /**
      * Данный метод отправляет сообщение хозяину бота
+     *
      * @return Возвращает сообщение хозяну чата
      */
     public SendMessage sendMessageCallOwner() {
-        SendMessage response = new SendMessage();
+        var response = new SendMessage();
         response.setChatId(CHAT_ID);
         response.setText("Хозяин помоги. Не могу решить вопрос");
         return response;
     }
+
+    public boolean checkReportString(String string) {
+        return string != null
+                && (string.contains("diet")
+                || string.contains("health")
+                || string.contains("behavior"));
+    }
+
+    //    private SendMessage checkUpdateReportCatsState(Update update) {
+//        var fileId = update.getMessage().getPhoto().get(0).getFileId();
+//        var caption = update.getMessage().getCaption();
+//        var text = update.getMessage().getText();
+//        Report report = null;
+//        if (fileId == null  && checkReportString(text)) {
+//            return messageUtils.generationSendMessage(update,
+//                    "send report or enter /cancel");
+//        } else if (fileId == null) {
+//            report = Report.builder()
+//                    .healthStatus(text)
+//                    .dateReport(LocalDate.now())
+//                    .build();
+//            reportService.createReport(report);
+//        } else if (!checkReportString(caption)) {
+//            report = Report.builder()
+//                    .dateReport(LocalDate.now())
+//                    .fileId(fileId)
+//                    .build();
+//            reportService.createReport(report);
+//        } else {
+//            report = Report.builder()
+//                    .dateReport(LocalDate.now())
+//                    .healthStatus(caption)
+//                    .fileId(fileId)
+//                    .build();
+//            reportService.createReport(report);
+//        }
+//
+//        return null;
+//    }
+//
 }
