@@ -1,5 +1,6 @@
 package pro.sky.telegram_bot_pets_shelter.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Schema(description = "Сущность песика")
 public class Dog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +23,13 @@ public class Dog {
 
     @Column(name = "name",unique = true,nullable = false)
     private String name;
-
     private Boolean adopted;
 
     private LocalDate dateAdoption;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "report_id")
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Report report;
 
     @Override
