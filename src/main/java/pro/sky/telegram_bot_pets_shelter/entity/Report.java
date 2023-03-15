@@ -25,6 +25,24 @@ public class Report {
 
     private String fileId;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "cat_report",
+            joinColumns = @JoinColumn (name = "report_id"),
+            inverseJoinColumns = @JoinColumn(name = "cat_id")
+    )
+    private Cat cat;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "dog_report",
+            joinColumns = @JoinColumn (name = "report_id"),
+            inverseJoinColumns = @JoinColumn(name = "dog_id")
+    )
+    private Dog dog;
+
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

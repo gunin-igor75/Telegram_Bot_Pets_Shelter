@@ -1,0 +1,1 @@
+drop table dog_report;

@@ -89,7 +89,7 @@ class CheckingMessageTest {
         mapCommand.put("shelterCatsAdoption", new ShelterCatsAdoption(messageUtils, keyboard));
         mapCommand.put("transportationCats", new TransportationCats(messageUtils, keyboard));
         mapCommand.put("catReport", new CatReport(messageUtils, keyboard, ownerService));
-        mapCommand.put("catSaveReport", new CatSaveReport(messageUtils, reportService, ownerService, catService));
+        mapCommand.put("catSaveReport", new CatSaveReport(messageUtils, reportService, ownerService));
         mapCommand.put("sendReportCat", new SendReportCat(messageUtils, ownerService));
         mapCommand.put("addressCat", new AddressCat(messageUtils, keyboard));
         mapCommand.put("informationCat", new InformationCat(messageUtils, keyboard));
@@ -110,7 +110,7 @@ class CheckingMessageTest {
         mapCommand.put("safetyDog", new SafetyDog(messageUtils, keyboard));
         mapCommand.put("shelterDogsInfo", new ShelterDogsInfo(messageUtils, keyboard));
         mapCommand.put("dogReport", new DogReport(messageUtils, keyboard, ownerService));
-        mapCommand.put("dogSaveReport", new DogSaveReport(messageUtils, reportService, ownerService, dogService));
+        mapCommand.put("dogSaveReport", new DogSaveReport(messageUtils, reportService, ownerService));
         mapCommand.put("sendReportDog", new SendReportDog(messageUtils, ownerService));
         mapCommand.put("registration", new Registration(messageUtils, keyboard));
         mapCommand.put("registrationProcess", new RegistrationProcess(messageUtils,ownerService));

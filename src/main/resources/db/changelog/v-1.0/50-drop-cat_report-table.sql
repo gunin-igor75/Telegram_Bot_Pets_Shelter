@@ -1,0 +1,1 @@
+drop table cat_report;

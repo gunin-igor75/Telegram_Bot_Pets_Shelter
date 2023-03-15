@@ -5,10 +5,11 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 
-@Entity(name="cat")
+@Entity(name = "cat")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,16 +20,23 @@ public class Cat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",unique = true,nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     private Boolean adopted;
 
     private LocalDate dateAdoption;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "report_id")
-    private Report report;
+    @Column(precision = 30)
+    private Integer testPeriod;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "cat_report",
+            joinColumns = @JoinColumn (name = "cat_id"),
+            inverseJoinColumns = @JoinColumn(name = "report_id")
+    )
+    private List<Report> reports;
 
     @Override
     public boolean equals(Object o) {
