@@ -8,6 +8,7 @@ import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -28,7 +29,8 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report findReportCat(long chatId, LocalDate dateReport) {
-        return reportRepository.getReportCat(chatId, dateReport);
+        Optional<Report> report = reportRepository.getReportCat(chatId, dateReport);
+        return report.orElse(null);
     }
 
     @Override

@@ -8,9 +8,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
-@Entity(name = "dog")
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,13 +32,13 @@ public class Dog {
     @Column(precision = 30)
     private Integer testPeriod;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "dog_report",
-            joinColumns = @JoinColumn (name = "dog_id"),
+            joinColumns = @JoinColumn(name = "dog_id"),
             inverseJoinColumns = @JoinColumn(name = "report_id")
     )
-    private List<Report> reports;
+    private Set<Report> report;
 
     @Override
     public boolean equals(Object o) {

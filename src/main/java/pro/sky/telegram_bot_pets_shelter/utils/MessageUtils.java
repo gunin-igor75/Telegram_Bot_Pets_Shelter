@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 
+
 /**
  * *  Утилитный клас, который содержит методы по формированию
  * SenDMessage
@@ -97,44 +98,4 @@ public class MessageUtils {
         response.setText("Хозяин помоги. Не могу решить вопрос");
         return response;
     }
-
-    public boolean checkReportString(String string) {
-        return string != null
-                && (string.contains("diet")
-                || string.contains("health")
-                || string.contains("behavior"));
-    }
-
-    //    private SendMessage checkUpdateReportCatsState(Update update) {
-//        var fileId = update.getMessage().getPhoto().get(0).getFileId();
-//        var caption = update.getMessage().getCaption();
-//        var text = update.getMessage().getText();
-//        Report report = null;
-//        if (fileId == null  && checkReportString(text)) {
-//            return messageUtils.generationSendMessage(update,
-//                    "send report or enter /cancel");
-//        } else if (fileId == null) {
-//            report = Report.builder()
-//                    .healthStatus(text)
-//                    .dateReport(LocalDate.now())
-//                    .build();
-//            reportService.createReport(report);
-//        } else if (!checkReportString(caption)) {
-//            report = Report.builder()
-//                    .dateReport(LocalDate.now())
-//                    .fileId(fileId)
-//                    .build();
-//            reportService.createReport(report);
-//        } else {
-//            report = Report.builder()
-//                    .dateReport(LocalDate.now())
-//                    .healthStatus(caption)
-//                    .fileId(fileId)
-//                    .build();
-//            reportService.createReport(report);
-//        }
-//
-//        return null;
-//    }
-//
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface OwnerService {
     Owner createOwner(Owner owner);
     Owner findOwner(Long id);
-    Owner findOwnerByChatId(long id);
+    Owner findOwnerByChatId(Long id);
     Owner editOwner(Owner owner);
     Owner DeleteOwner(Long id);
     List<Owner> getAllOwners();

@@ -33,7 +33,7 @@ public class Owner {
     private String username;
 
     private String phoneNumber;
-    @CreatedDate
+
     private LocalDate dateRegistration;
 
     private String lastAction;

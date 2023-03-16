@@ -39,8 +39,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    @Cacheable("owner")
-    public Owner findOwnerByChatId(long id) {
+    public Owner findOwnerByChatId(Long id) {
         return ownerRepository.findByChatId(id).orElse(null);
     }
 

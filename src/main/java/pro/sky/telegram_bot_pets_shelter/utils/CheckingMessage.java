@@ -34,11 +34,12 @@ public class CheckingMessage {
 
     public SendMessage checkUpdate(Update update) {
         var chatId = messageUtils.getChatId(update);
+        System.out.println(chatId);
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
+        System.out.println(persistentOwner);
         if (update.hasMessage() && update.getMessage().hasText() &&
                 ("/start".equals(update.getMessage().getText()) ||
-                        "/cansel".equals(update.getMessage().getText()))) {
-            System.out.println(commandStorage.getStorage());
+                        "/cancel".equals(update.getMessage().getText()))) {
             return commandStorage
                     .getStorage()
                     .get(update
@@ -98,6 +99,8 @@ public class CheckingMessage {
                         .get(key.split("\\s+")[1])
                         .execute(update);
             }
+        } else if (update.getMessage().hasContact()) {
+                return commandStorage.getStorage().get("saveContacts").execute(update);
         }
         return commandStorage
                 .getStorage()

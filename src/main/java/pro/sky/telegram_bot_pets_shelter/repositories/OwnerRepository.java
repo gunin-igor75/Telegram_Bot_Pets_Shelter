@@ -2,7 +2,6 @@ package pro.sky.telegram_bot_pets_shelter.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 
 import java.util.List;

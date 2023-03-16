@@ -9,6 +9,8 @@ import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundExcepti
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
+import java.time.LocalDate;
+
 
 @Component
 @Slf4j
@@ -23,7 +25,7 @@ public class RegistrationProcess implements Command {
 
     @Override
     public SendMessage execute(Update update) {
-        long chatId = update.getCallbackQuery().getFrom().getId();
+        long chatId = messageUtils.getChatId(update);
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
         if (persistentOwner == null) {
             log.error("persistentOwner is null registration");
@@ -34,6 +36,7 @@ public class RegistrationProcess implements Command {
             text = "Sorry. You are already registered";
         } else {
             persistentOwner.setRegistration(true);
+            persistentOwner.setDateRegistration(LocalDate.now());
             ownerService.editOwner(persistentOwner);
         }
         return messageUtils.generationSendMessage(update, text);
