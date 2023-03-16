@@ -3,12 +3,11 @@ package pro.sky.telegram_bot_pets_shelter.service.imp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
-import pro.sky.telegram_bot_pets_shelter.entity.Dog;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.DogNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.CatRepository;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -63,6 +62,10 @@ public class CatServiceImpl implements CatService {
         return catRepository.getCatsByAdoptedIsNull();
     }
 
+    @Override
+    public List<Cat> getCatsByAdoptedIsFalse(LocalDate date) {
+        return catRepository.getCatsByAdoptedIsFalseAndDateAdoptionBefore(date);
+    }
     private void checkCayNull(Cat cat) {
         if (cat == null) {
             log.error("cat is null");

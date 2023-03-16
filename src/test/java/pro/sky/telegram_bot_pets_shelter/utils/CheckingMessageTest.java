@@ -35,6 +35,7 @@ import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
+import pro.sky.telegram_bot_pets_shelter.service.imp.BotServiceImp;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -62,11 +63,14 @@ class CheckingMessageTest {
     private DogService dogService;
     private MessageUtils messageUtils = new MessageUtils(keyboard);
     private CommandStorage commandStorage;
+    @Mock
+    private BotServiceImp botServiceImp;
 
     @BeforeEach
     public void init() {
         Map<String, Command> mapCommand = new HashMap<>();
-        mapCommand.put("start", new Start(messageUtils, ownerService));
+
+        mapCommand.put("start", new Start(messageUtils, ownerService, botServiceImp));
         mapCommand.put("cansel", new Cancel(messageUtils, ownerService));
         mapCommand.put("cats", new Cats(keyboard, messageUtils));
         mapCommand.put("startInfo", new StartInfo(messageUtils));
