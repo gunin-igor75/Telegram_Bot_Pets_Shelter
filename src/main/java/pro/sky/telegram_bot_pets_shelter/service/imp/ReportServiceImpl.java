@@ -66,4 +66,14 @@ public class ReportServiceImpl implements ReportService {
     public List<Report> getAllReports() {
         return reportRepository.findAll();
     }
+
+    @Override
+    public int getCountReportCatClear(long id) {
+       return reportRepository.getCountReportCatClear(id);
+    }
+
+    @Override
+    public int getCountReportDogClear(long id) {
+        return reportRepository.getCountReportDogClear(id);
+    }
 }

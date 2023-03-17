@@ -1,5 +1,7 @@
 package pro.sky.telegram_bot_pets_shelter;
 
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.telegram.telegrambots.meta.api.objects.*;
 import pro.sky.telegram_bot_pets_shelter.command.cats.Cats;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
@@ -123,4 +125,5 @@ public class Value {
         update.setMessage(message);
         return update;
     }
+
 }

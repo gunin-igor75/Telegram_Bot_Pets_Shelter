@@ -1,6 +1,8 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.entity.Volunteer;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.VolunteerNotFoundException;
@@ -20,6 +22,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
+@EnableScheduling
 public class VolunteerServiceImp implements VolunteerService {
     private final VolunteerRepository volunteerRepository;
 
@@ -72,4 +75,5 @@ public class VolunteerServiceImp implements VolunteerService {
             throw new NullPointerException();
         }
     }
+
 }
