@@ -70,7 +70,7 @@ class CheckingMessageTest {
     public void init() {
         Map<String, Command> mapCommand = new HashMap<>();
 
-        mapCommand.put("start", new Start(messageUtils, ownerService, botServiceImp));
+        mapCommand.put("start", new Start(messageUtils, ownerService));
         mapCommand.put("cansel", new Cancel(messageUtils, ownerService));
         mapCommand.put("cats", new Cats(keyboard, messageUtils));
         mapCommand.put("startInfo", new StartInfo(messageUtils));

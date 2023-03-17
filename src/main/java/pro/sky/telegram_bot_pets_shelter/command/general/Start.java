@@ -18,19 +18,19 @@ import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 public class Start implements Command {
     private final MessageUtils messageUtils;
     private final OwnerService ownerService;
-    private final BotServiceImp botServiceImp;
+//    private final BotServiceImp botServiceImp;
 
-    public Start(MessageUtils messageUtils, OwnerService ownerService, BotServiceImp botServiceImp) {
+    public Start(MessageUtils messageUtils, OwnerService ownerService) {
         this.messageUtils = messageUtils;
         this.ownerService = ownerService;
-        this.botServiceImp = botServiceImp;
+//        this.botServiceImp = botServiceImp;
     }
 
     @Override
     public SendMessage execute(Update update) {
         var telegramUser = update.getMessage().getFrom();
         Owner owner = ownerService.findOrSaveOwner(telegramUser);
-        System.out.println(botServiceImp.getReportMaxDate());
+//        System.out.println(botServiceImp.getReportMaxDate());
         return messageUtils.generationSendMessage(update, "Здравствуйте " + owner.getUsername() +
                     " Вас приветствует бот приюта!");
     }

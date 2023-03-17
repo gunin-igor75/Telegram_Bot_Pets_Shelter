@@ -74,6 +74,13 @@ public class MessageUtils {
         return response;
     }
 
+    public SendMessage generationSendMessage(long chatId, String text) {
+        var response = new SendMessage();
+        response.setChatId(chatId);
+        response.setText(text);
+        return response;
+    }
+
 
     public long getChatId(Update update) {
         long chatId;

@@ -1,6 +1,5 @@
 package pro.sky.telegram_bot_pets_shelter.service;
 
-
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 
 import java.time.LocalDate;

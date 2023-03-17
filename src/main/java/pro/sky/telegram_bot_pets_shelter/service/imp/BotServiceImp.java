@@ -1,10 +1,15 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import pro.sky.telegram_bot_pets_shelter.controller.TelegramBot;
+import pro.sky.telegram_bot_pets_shelter.entity.BlackList;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
+import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.entity.Report;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
+import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
@@ -14,18 +19,66 @@ import java.util.stream.Collectors;
 @Service
 @EnableScheduling
 public class BotServiceImp {
-
     private final CatService catService;
-
     private final MessageUtils messageUtils;
-    public BotServiceImp(CatService catService, MessageUtils messageUtils) {
+    private final TelegramBot telegramBot;
+    private final OwnerService ownerService;
+    private LocalDate currentDate;
+
+    public BotServiceImp(CatService catService, MessageUtils messageUtils,
+                         TelegramBot telegramBot, OwnerService ownerService) {
         this.catService = catService;
         this.messageUtils = messageUtils;
+        this.telegramBot = telegramBot;
+        this.ownerService = ownerService;
+    }
+
+    @Scheduled(cron = "0 00 21 * * *")
+    public void sendMessageEveryDayNoReports() {
+        List<Long> badOwners = getChatIdBadOwners();
+        String text = "Прошу отправить отчет о содержании питомца";
+        badOwners.forEach(chatId -> {
+            var message = messageUtils.generationSendMessage(chatId, text);
+            telegramBot.sendAnswerMessage(message);
+        });
+    }
+
+    private List<Long> getChatIdBadOwners() {
+        List<Report> latestReports = getReportMaxDate();
+        return getChatIdBadOwner(latestReports);
+    }
+
+    @Scheduled(cron = "0 00 21 * * *")
+    public void createBlackListOwnerTaskVolunteer() {
+        List<Long> badOwners = getChatIMoreThanTwoDaysNoReports();
+        createBlackList(badOwners);
     }
 
 
+
+    private List<Long> getChatIMoreThanTwoDaysNoReports() {
+        List<Report> reports = getReportMaxDate();
+        currentDate = LocalDate.now();
+        LocalDate borderDate = currentDate.minusDays(2);
+        return reports.stream()
+                .filter(report -> report.getDateReport().isBefore(borderDate))
+                .map(Report::getChatId)
+                .toList();
+    }
+    private void createBlackList(List<Long> badOwners) {
+        badOwners.forEach(chatId -> {
+            Owner owner = ownerService.findOwnerByChatId(chatId);
+            BlackList blackList = BlackList.builder()
+                    .username(owner.getUsername())
+                    .chatId(chatId)
+                    .build();
+
+        });
+    }
+
     public List<Report> getReportMaxDate() {
-        List<Cat> catsAdopted = catService.getCatsByAdoptedIsFalse(LocalDate.now());
+        currentDate = LocalDate.now();
+        List<Cat> catsAdopted = catService.getCatsByAdoptedIsFalse(currentDate);
         List<Report> reports = new ArrayList<>();
         for (Cat cat : catsAdopted) {
             Report report = cat.getReport()

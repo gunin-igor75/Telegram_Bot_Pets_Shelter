@@ -1,7 +1,7 @@
 create table dog_report(
-    dog_id  bigint,
-    report_id bigint,
-    primary key (dog_id, report_id),
-    foreign key(dog_id) references dog(id),
-    foreign key (report_id) references report(id)
+    dog_id  bigint NOT NULL,
+    report_id bigint NOT NULL UNIQUE,
+    PRIMARY KEY (dog_id, report_id),
+    FOREIGN KEY (dog_id) REFERENCES dog(id),
+    FOREIGN KEY (report_id) REFERENCES report(id)
 );
