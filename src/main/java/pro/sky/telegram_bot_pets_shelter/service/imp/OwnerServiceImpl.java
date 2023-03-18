@@ -1,16 +1,15 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.User;
-import pro.sky.telegram_bot_pets_shelter.entity.Dog;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.OwnerRepository;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.enums.UserState;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.BASIC_STATE;
@@ -39,8 +38,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    @Cacheable("owner")
-    public Owner findOwnerByChatId(long id) {
+    public Owner findOwnerByChatId(Long id) {
         return ownerRepository.findByChatId(id).orElse(null);
     }
 
@@ -110,6 +108,16 @@ public class OwnerServiceImpl implements OwnerService {
         long id = owner.getId();
         List<String> dogs = ownerRepository.getDogAdoption(id);
         return dogs.isEmpty();
+    }
+
+    @Override
+    public List<Owner> getOwnerCatsEndTestPeriod(LocalDate date) {
+        return ownerRepository.getOwnerCatsEndTestPeriod(date);
+    }
+
+    @Override
+    public List<Owner> getOwnerDogsEndTestPeriod(LocalDate date) {
+        return ownerRepository.getOwnerDogsEndTestPeriod(date);
     }
 
     private void checkOwnerNull(Owner owner) {

@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 @Entity(name = "cat")
@@ -15,7 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Cat {
+public class Cat{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,16 +25,27 @@ public class Cat {
 
     private LocalDate dateAdoption;
 
+    @Column(precision = 1)
+    private int attempt;
+
     @Column(precision = 30)
     private Integer testPeriod;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "cat_report",
-            joinColumns = @JoinColumn (name = "cat_id"),
+            joinColumns = @JoinColumn(name = "cat_id"),
             inverseJoinColumns = @JoinColumn(name = "report_id")
     )
-    private List<Report> reports;
+    private Set<Report> report;
+
+
+    public Set<Report> getReport() {
+        if (report == null) {
+            return new HashSet<>();
+        }
+        return report;
+    }
 
     @Override
     public boolean equals(Object o) {

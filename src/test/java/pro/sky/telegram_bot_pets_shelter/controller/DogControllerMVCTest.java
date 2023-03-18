@@ -25,13 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class DogControllerMVCTest {
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private DogRepository dogRepository;
-
     @SpyBean
     private DogServiceImpl dogService;
-
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -108,11 +105,10 @@ public class DogControllerMVCTest {
         dog.setName(name);
 
         JSONObject dogObj = new JSONObject();
-        dogObj.put("id", id);
         dogObj.put("name", name);
 
         when(dogService.findDog(id)).thenReturn(null);
-        when(dogRepository.save(dog)).thenReturn(dog);
+        when(dogRepository.save(any(Dog.class))).thenReturn(dog);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/dog")

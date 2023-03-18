@@ -1,17 +1,13 @@
 package pro.sky.telegram_bot_pets_shelter.utils;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import pro.sky.telegram_bot_pets_shelter.command.*;
 import pro.sky.telegram_bot_pets_shelter.command.cats.Cats;
 import pro.sky.telegram_bot_pets_shelter.command.cats.adoption.*;
@@ -35,14 +31,13 @@ import pro.sky.telegram_bot_pets_shelter.command.menu.Registration;
 import pro.sky.telegram_bot_pets_shelter.command.menu.RegistrationProcess;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
+import pro.sky.telegram_bot_pets_shelter.service.imp.BotServiceImp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,12 +63,15 @@ class CheckingMessageTest {
     private DogService dogService;
     private MessageUtils messageUtils = new MessageUtils(keyboard);
     private CommandStorage commandStorage;
+    @Mock
+    private BotServiceImp botServiceImp;
 
     @BeforeEach
     public void init() {
         Map<String, Command> mapCommand = new HashMap<>();
+
         mapCommand.put("start", new Start(messageUtils, ownerService));
-        mapCommand.put("cansel", new Cancel(messageUtils, ownerService));
+        mapCommand.put("cancel", new Cancel(messageUtils, ownerService));
         mapCommand.put("cats", new Cats(keyboard, messageUtils));
         mapCommand.put("startInfo", new StartInfo(messageUtils));
         mapCommand.put("contacts", new Contacts(messageUtils, keyboard));
@@ -89,7 +87,7 @@ class CheckingMessageTest {
         mapCommand.put("shelterCatsAdoption", new ShelterCatsAdoption(messageUtils, keyboard));
         mapCommand.put("transportationCats", new TransportationCats(messageUtils, keyboard));
         mapCommand.put("catReport", new CatReport(messageUtils, keyboard, ownerService));
-        mapCommand.put("catSaveReport", new CatSaveReport(messageUtils, reportService, ownerService));
+        mapCommand.put("catSaveReport", new CatSaveReport(messageUtils, reportService, ownerService, catService));
         mapCommand.put("sendReportCat", new SendReportCat(messageUtils, ownerService));
         mapCommand.put("addressCat", new AddressCat(messageUtils, keyboard));
         mapCommand.put("informationCat", new InformationCat(messageUtils, keyboard));
@@ -110,7 +108,7 @@ class CheckingMessageTest {
         mapCommand.put("safetyDog", new SafetyDog(messageUtils, keyboard));
         mapCommand.put("shelterDogsInfo", new ShelterDogsInfo(messageUtils, keyboard));
         mapCommand.put("dogReport", new DogReport(messageUtils, keyboard, ownerService));
-        mapCommand.put("dogSaveReport", new DogSaveReport(messageUtils, reportService, ownerService));
+        mapCommand.put("dogSaveReport", new DogSaveReport(messageUtils, reportService, ownerService, dogService));
         mapCommand.put("sendReportDog", new SendReportDog(messageUtils, ownerService));
         mapCommand.put("registration", new Registration(messageUtils, keyboard));
         mapCommand.put("registrationProcess", new RegistrationProcess(messageUtils,ownerService));
@@ -134,7 +132,7 @@ class CheckingMessageTest {
 
     @Test
     public void canselTest() {
-        Update update = getUpdateMess("/cansel");
+        Update update = getUpdateMess("/cancel");
         SendMessage actual = checkingMessage.checkUpdate(update);
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());

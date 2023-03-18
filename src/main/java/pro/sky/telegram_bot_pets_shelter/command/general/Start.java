@@ -10,8 +10,8 @@ import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 
 /**
- * Данный класс формрует сообщения исодя из выбора start:
- * Сохраняет в ьазу данных visitor
+ * Данный класс формирует сообщения исходя из выбора start:
+ * Сохраняет в базу данных visitor
  */
 @Component
 public class Start implements Command {

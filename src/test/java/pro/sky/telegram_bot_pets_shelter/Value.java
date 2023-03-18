@@ -1,10 +1,12 @@
 package pro.sky.telegram_bot_pets_shelter;
 
 import org.telegram.telegrambots.meta.api.objects.*;
+
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import java.time.LocalDate;
+
 import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.*;
 
 public class Value {
@@ -31,6 +33,18 @@ public class Value {
     public static Dog newDog;
     public static Dog dogFirst;
     public static Dog dogSecond;
+
+    public static BlackList blackListFirst;
+    public static BlackList blackListSecond;
+
+    public static Task taskFirst;
+    public static Task taskSecond;
+
+    public static Volunteer volunteerFirst;
+    public static Volunteer volunteerSecond;
+
+    public static Report reportFirst;
+    public static Report reportSecond;
 
     static {
         ownerNull = Owner.builder()
@@ -154,6 +168,53 @@ public class Value {
                 .name("pupsick")
                 .build();
 
+
+
+        blackListFirst = BlackList.builder()
+                .username("Oleg")
+                .chatId(100L)
+                .build();
+
+        blackListSecond = BlackList.builder()
+                .id(200L)
+                .chatId(100L)
+                .username("Oleg")
+                .build();
+
+        taskFirst = Task.builder()
+                .done(false)
+                .build();
+
+        taskSecond = Task.builder()
+                .id(200L)
+                .done(false)
+                .build();
+
+        volunteerFirst = Volunteer.builder()
+                .chatId(111L)
+                .username("Igor")
+                .build();
+
+        volunteerSecond = Volunteer.builder()
+                .id(200L)
+                .chatId(111L)
+                .username("Igor")
+                .build();
+
+        reportFirst = Report.builder()
+                .fileId("1212131313")
+                .chatId(123L)
+                .healthStatus("diet")
+                .build();
+
+        reportSecond = Report.builder()
+                .id(200L)
+                .fileId("1212131313")
+                .chatId(123L)
+                .healthStatus("diet")
+                .build();
+
+
     }
 
     public static Update getUpdateCall(String name) {
@@ -179,4 +240,5 @@ public class Value {
         update.setMessage(message);
         return update;
     }
+
 }

@@ -25,22 +25,6 @@ public class Report {
 
     private String fileId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "cat_report",
-            joinColumns = @JoinColumn (name = "report_id"),
-            inverseJoinColumns = @JoinColumn(name = "cat_id")
-    )
-    private Cat cat;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "dog_report",
-            joinColumns = @JoinColumn (name = "report_id"),
-            inverseJoinColumns = @JoinColumn(name = "dog_id")
-    )
-    private Dog dog;
-
-
 
 
     @Override
@@ -54,5 +38,16 @@ public class Report {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "id=" + id +
+                ", chatId=" + chatId +
+                ", dateReport=" + dateReport +
+                ", healthStatus='" + healthStatus + '\'' +
+                ", fileId='" + fileId + '\'' +
+                '}';
     }
 }
