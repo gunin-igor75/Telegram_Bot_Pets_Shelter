@@ -75,6 +75,11 @@
                 <artifactId>json</artifactId>
                 <version>20230227</version>
         </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.7</version>
+        </dependency>
 
     </dependencies>
 

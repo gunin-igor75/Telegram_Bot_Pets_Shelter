@@ -53,7 +53,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public Owner DeleteOwner(Long id) {
+    public Owner deleteOwner(Long id) {
         Owner owner = findOwner(id);
         if (owner == null) {
             throw new OwnerNotFoundException();

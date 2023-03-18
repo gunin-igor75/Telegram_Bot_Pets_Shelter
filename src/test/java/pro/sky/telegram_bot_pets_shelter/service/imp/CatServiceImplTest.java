@@ -6,7 +6,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.DogNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.CatRepository;
 import java.util.List;
 import java.util.Optional;
