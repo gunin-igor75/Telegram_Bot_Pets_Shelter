@@ -2,9 +2,8 @@ package pro.sky.telegram_bot_pets_shelter;
 
 import org.telegram.telegrambots.meta.api.objects.*;
 
-import pro.sky.telegram_bot_pets_shelter.entity.Cat;
-import pro.sky.telegram_bot_pets_shelter.entity.Dog;
-import pro.sky.telegram_bot_pets_shelter.entity.Owner;
+import pro.sky.telegram_bot_pets_shelter.entity.*;
+
 import java.time.LocalDate;
 
 import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.*;
