@@ -18,4 +18,6 @@ public interface OwnerRepository extends JpaRepository<Owner, Long> {
     @Query(value = "select d.name from owner o inner join dog d on o.dog_id=d.id where o.id=?1 and d.adopted=false ",
             nativeQuery = true)
     List<String> getDogAdoption(long id);
+
+
 }

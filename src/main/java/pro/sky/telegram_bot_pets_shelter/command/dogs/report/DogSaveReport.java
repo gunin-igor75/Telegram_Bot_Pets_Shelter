@@ -6,7 +6,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.entity.Report;
-import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
@@ -21,14 +20,12 @@ public class DogSaveReport implements Command {
     private final MessageUtils messageUtils;
     private final ReportService reportService;
     private final OwnerService ownerService;
-    private final DogService dogService;
 
     public DogSaveReport(MessageUtils messageUtils, ReportService reportService,
-                         OwnerService ownerService, DogService dogService) {
+                         OwnerService ownerService) {
         this.messageUtils = messageUtils;
         this.reportService = reportService;
         this.ownerService = ownerService;
-        this.dogService = dogService;
     }
 
     @Override
@@ -64,16 +61,15 @@ public class DogSaveReport implements Command {
     }
     private void creteReportDog(long chatId, String fileId, String healthStatus) {
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
-        var persistentDog = persistentOwner.getDog();
+        var dog = persistentOwner.getDog();
         Report transientReport = Report.builder()
                 .chatId(chatId)
                 .fileId(fileId)
                 .healthStatus(healthStatus)
                 .dateReport(LocalDate.now())
+                .dog(dog)
                 .build();
-        Report persistentReport = reportService.createReport(transientReport);
-        persistentDog.setReport(persistentReport);
-        dogService.editDog(persistentDog);
+        reportService.createReport(transientReport);
         persistentOwner.setState(BASIC_STATE);
         ownerService.editOwner(persistentOwner);
     }

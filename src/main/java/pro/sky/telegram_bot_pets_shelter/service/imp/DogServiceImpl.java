@@ -36,7 +36,9 @@ public class DogServiceImpl implements DogService {
         checkDogNull(dog);
         Dog persistentDog = findDog(dog.getId());
         if (persistentDog == null) {
-            throw new DogNotFoundException();
+            String message = "There is no dog with ID =" + dog.getId() + " in Database";
+            log.error(message);
+            throw new DogNotFoundException(message);
         }
         return dogRepository.save(persistentDog);
     }
@@ -45,7 +47,9 @@ public class DogServiceImpl implements DogService {
     public Dog deleteDog(Long id) {
         Dog dog = findDog(id);
         if (dog == null) {
-            throw new DogNotFoundException();
+            String message = "There is no dog with ID =" + id + " in Database";
+            log.error(message);
+            throw new DogNotFoundException(message);
         }
         dogRepository.delete(dog);
         return dog;
@@ -63,8 +67,9 @@ public class DogServiceImpl implements DogService {
 
     private void checkDogNull(Dog dog) {
         if (dog == null) {
-            log.error("dog is null");
-            throw new NullPointerException();
+            String message = "dog is null";
+            log.error(message);
+            throw new NullPointerException(message);
         }
     }
 }

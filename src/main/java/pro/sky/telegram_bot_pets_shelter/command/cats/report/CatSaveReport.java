@@ -6,7 +6,6 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.entity.Report;
-import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
@@ -21,14 +20,12 @@ public class CatSaveReport implements Command {
     private final MessageUtils messageUtils;
     private final ReportService reportService;
     private final OwnerService ownerService;
-    private final CatService catService;
 
     public CatSaveReport(MessageUtils messageUtils, ReportService reportService,
-                         OwnerService ownerService, CatService catService) {
+                         OwnerService ownerService) {
         this.messageUtils = messageUtils;
         this.reportService = reportService;
         this.ownerService = ownerService;
-        this.catService = catService;
     }
 
     @Override
@@ -64,20 +61,18 @@ public class CatSaveReport implements Command {
     }
     private void creteReportCat(long chatId, String fileId, String healthStatus) {
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
-        var persistentCat = persistentOwner.getCat();
-        Report transientReport = Report.builder()
+        var cat = persistentOwner.getCat();
+        var transientReport = Report.builder()
                 .chatId(chatId)
                 .fileId(fileId)
                 .healthStatus(healthStatus)
                 .dateReport(LocalDate.now())
+                .cat(cat)
                 .build();
-        Report persistentReport = reportService.createReport(transientReport);
-        persistentCat.setReport(persistentReport);
-        catService.editCat(persistentCat);
+        reportService.createReport(transientReport);
         persistentOwner.setState(BASIC_STATE);
         ownerService.editOwner(persistentOwner);
     }
-
     private void editReportCat(Report report, String fileIdOrHealthStatus) {
         var persistentOwner = ownerService.findOwnerByChatId(report.getChatId());
         if (report.getFileId() == null) {

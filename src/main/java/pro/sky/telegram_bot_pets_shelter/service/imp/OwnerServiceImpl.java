@@ -1,6 +1,7 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.User;
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
@@ -38,6 +39,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    @Cacheable("owner")
     public Owner findOwnerByChatId(long id) {
         return ownerRepository.findByChatId(id).orElse(null);
     }
