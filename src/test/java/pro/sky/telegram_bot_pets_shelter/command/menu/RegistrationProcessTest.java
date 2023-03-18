@@ -11,8 +11,10 @@ import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static pro.sky.telegram_bot_pets_shelter.Value.getUpdateCall;
+import static pro.sky.telegram_bot_pets_shelter.Value.ownerBS;
 
 @ExtendWith(MockitoExtension.class)
 class RegistrationProcessTest {
@@ -25,7 +27,7 @@ class RegistrationProcessTest {
 
     @Test
     void executeTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(null);
+        when(ownerService.findOwnerByChatId(any(Long.class))).thenReturn(null);
         Update update = getUpdateCall("registrationProcess");
         assertThatThrownBy(() -> {
             registrationProcess.execute(update);

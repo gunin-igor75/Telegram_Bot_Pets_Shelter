@@ -71,7 +71,7 @@ class CheckingMessageTest {
         Map<String, Command> mapCommand = new HashMap<>();
 
         mapCommand.put("start", new Start(messageUtils, ownerService));
-        mapCommand.put("cansel", new Cancel(messageUtils, ownerService));
+        mapCommand.put("cancel", new Cancel(messageUtils, ownerService));
         mapCommand.put("cats", new Cats(keyboard, messageUtils));
         mapCommand.put("startInfo", new StartInfo(messageUtils));
         mapCommand.put("contacts", new Contacts(messageUtils, keyboard));
@@ -132,7 +132,7 @@ class CheckingMessageTest {
 
     @Test
     public void canselTest() {
-        Update update = getUpdateMess("/cansel");
+        Update update = getUpdateMess("/cancel");
         SendMessage actual = checkingMessage.checkUpdate(update);
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());

@@ -13,7 +13,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Cat {
+public class Cat{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +24,9 @@ public class Cat {
     private Boolean adopted;
 
     private LocalDate dateAdoption;
+
+    @Column(precision = 1)
+    private int attempt;
 
     @Column(precision = 30)
     private Integer testPeriod;

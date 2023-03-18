@@ -31,6 +31,11 @@ public class BlackListServiceImp implements BlackListService {
     }
 
     @Override
+    public BlackList findBlackListByChatId(long chatId) {
+        return blackListRepository.getBlackListByChatId(chatId);
+    }
+
+    @Override
     public BlackList editBlackList(BlackList blackList) {
         checkBlackListNull(blackList);
         BlackList persistentBlackList = findBlackList(blackList.getId());

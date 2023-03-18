@@ -68,7 +68,7 @@ public class CatServiceImpl implements CatService {
     }
     private void checkCayNull(Cat cat) {
         if (cat == null) {
-            log.error("cat is null");
+            log.error("pet is null");
             throw new NullPointerException();
         }
     }

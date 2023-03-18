@@ -20,8 +20,6 @@ public class FileServiceImp {
     private String token;
     @Value("${service.file_info.uri}")
     private String fileInfoUri;
-    @Value("${service.file_storage.uri}")
-    private String fileStorage;
 
     public FileServiceImp() {
     }

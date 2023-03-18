@@ -20,11 +20,6 @@ public class Volunteer {
     private String username;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,
             mappedBy = "volunteer")
-//    @JoinTable(
-//            name = "volunteer_task",
-//            joinColumns = @JoinColumn(name = "volunteer_id"),
-//            inverseJoinColumns = @JoinColumn(name = "task_id")
-//    )
     private Set<Task> tasks;
 
     @Override

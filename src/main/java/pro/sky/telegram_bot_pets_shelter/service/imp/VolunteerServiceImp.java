@@ -1,8 +1,6 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.entity.Volunteer;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.VolunteerNotFoundException;
@@ -11,18 +9,8 @@ import pro.sky.telegram_bot_pets_shelter.service.VolunteerService;
 
 import java.util.List;
 
-/**
- * Данный класс выполняет следующие действия:
- * -ежедневно проверяет базу данных на наличие
- * окончания испытательного срока - считает report для конкретного cat
- * - отправляет через бота - окончание испытательного срока
- * - отправляет через бота - продление испытательного срока
- * - раз в 2 дня проверяет на наличие bad report и помечает как проверенные report
- * - отправляет через бота пользователю, что он "редиска"
- */
 @Service
 @Slf4j
-@EnableScheduling
 public class VolunteerServiceImp implements VolunteerService {
     private final VolunteerRepository volunteerRepository;
 

@@ -28,6 +28,8 @@ public class Dog {
     private Boolean adopted;
 
     private LocalDate dateAdoption;
+    @Column(precision = 1)
+    private int attempt;
 
     @Column(precision = 30)
     private Integer testPeriod;

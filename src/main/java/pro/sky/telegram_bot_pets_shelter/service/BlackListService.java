@@ -9,6 +9,8 @@ public interface BlackListService {
 
     BlackList findBlackList(Long id);
 
+    BlackList findBlackListByChatId(long chatId);
+
     BlackList editBlackList(BlackList blackList);
 
     BlackList deleteBlackList(Long id);

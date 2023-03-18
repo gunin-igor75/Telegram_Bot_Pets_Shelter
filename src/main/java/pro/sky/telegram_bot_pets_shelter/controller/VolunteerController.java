@@ -11,37 +11,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.telegram_bot_pets_shelter.entity.Cat;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
+import pro.sky.telegram_bot_pets_shelter.entity.Volunteer;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.ShelterIncorrectData;
-import pro.sky.telegram_bot_pets_shelter.service.CatService;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.VolunteerNotFoundException;
+import pro.sky.telegram_bot_pets_shelter.service.VolunteerService;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("/cat")
-@Tag(name = "CatController", description = "Взаимодействие с котикам приюта")
+@RequestMapping("/volunteer")
+@Tag(name = "VolunteerController", description = "Взаимодействие с волонтерами приюта")
 @Slf4j
-public class CatController {
+public class VolunteerController {
+    private final VolunteerService volunteerService;
 
-    private final CatService catService;
-
-    public CatController(CatService catService) {
-        this.catService = catService;
+    public VolunteerController(VolunteerService volunteerService) {
+        this.volunteerService = volunteerService;
     }
 
-
     @Operation(
-            summary = "Поиск котика по id",
-            description = "Позволяет найти котика по id",
+            summary = "Поиск волонтера по id",
+            description = "Позволяет найти волонтера по id",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Поиск котика по id",
+                            description = "Поиск волонтера по id",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(implementation = Cat.class)
+                                    schema = @Schema(implementation = Volunteer.class)
                             )
                     ),
                     @ApiResponse(
@@ -55,31 +52,31 @@ public class CatController {
             }
     )
     @GetMapping("{id}")
-    public ResponseEntity<Cat> findCat(@PathVariable Long id) {
-        Cat persistentCat = catService.findCat(id);
-        if (persistentCat == null) {
-            throw new CatNotFoundException();
+    public ResponseEntity<Volunteer> findVolunteer(@PathVariable Long id) {
+        Volunteer persistentVolunteer = volunteerService.findVolunteer(id);
+        if (persistentVolunteer == null) {
+            throw new VolunteerNotFoundException();
         }
-        return ResponseEntity.ok(persistentCat);
+        return ResponseEntity.ok(persistentVolunteer);
     }
 
     @Operation(
-            summary = "Сохранение нового котика в базу данных",
-            description = "Позволяет сохранить котика в базу данных",
+            summary = "Сохранение нового волонтера в базу данных",
+            description = "Позволяет сохранить волонтера в базу данных",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Сохранение котика",
+                    description = "Сохранение волонтера",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Cat.class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
             ),
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Сохранение нового котика в базу данных",
+                            description = "Сохранение нового волонтера в базу данных",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(implementation = Cat.class)
+                                    schema = @Schema(implementation = Volunteer.class)
                             )
                     ),
                     @ApiResponse(
@@ -94,28 +91,28 @@ public class CatController {
             }
     )
     @PostMapping
-    public ResponseEntity<Cat> createCat(@RequestBody Cat cat) {
+    public ResponseEntity<Volunteer> createVolunteer(@RequestBody Volunteer volunteer) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(catService.createCat(cat));
+                .body(volunteerService.createVolunteer(volunteer));
     }
 
     @Operation(
-            summary = "Изменение скилов котика в базе данных",
-            description = "Позволяет изменить параметры котика",
+            summary = "Изменение скилов волонтера в базе данных",
+            description = "Позволяет изменить параметры волонтера",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Редактируемый котик",
+                    description = "Редактируемый волонтер",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = Cat.class)
+                            schema = @Schema(implementation = Volunteer.class)
                     )
             ),
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Изменение скилов котика в базе данных",
+                            description = "Изменение скилов волонтера в базе данных",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(implementation = Cat.class)
+                                    schema = @Schema(implementation = Volunteer.class)
                             )
                     ),
                     @ApiResponse(
@@ -130,20 +127,20 @@ public class CatController {
             }
     )
     @PutMapping
-    public ResponseEntity<Cat> editCat(@RequestBody Cat cat) {
-        return ResponseEntity.ok(catService.editCat(cat));
+    public ResponseEntity<Volunteer> editVolunteer(@RequestBody Volunteer volunteer) {
+        return ResponseEntity.ok(volunteerService.editVolunteer(volunteer));
     }
 
     @Operation(
-            summary = "Удаление котика по id",
-            description = "Позволяет удалить котика по id",
+            summary = "Удаление волонтера по id",
+            description = "Позволяет удалить волонтера по id",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            description = "Удаление котика по id",
+                            description = "Удаление волонтера по id",
                             content = @Content(
                                     mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(implementation = Cat.class)
+                                    schema = @Schema(implementation = Volunteer.class)
                             )
                     ),
                     @ApiResponse(
@@ -157,26 +154,26 @@ public class CatController {
             }
     )
     @DeleteMapping("{id}")
-    public ResponseEntity<Cat> deleteCat(@PathVariable Long id) {
-        return ResponseEntity.ok(catService.deleteCat(id));
+    public ResponseEntity<Volunteer> deleteVolunteer(@PathVariable Long id) {
+        return ResponseEntity.ok(volunteerService.deleteVolunteer(id));
     }
 
     @Operation(
-            summary = "Наличие всех котиков в приюте",
-            description = "Позволяет показать всех котиков приюта",
+            summary = "Наличие всех волонтеров в приюте",
+            description = "Позволяет показать всех волонтеров приюта",
             responses = @ApiResponse(
                     responseCode = "200",
-                    description = "Наличие всех котиков в приюте",
+                    description = "Наличие всех волонтеров в приюте",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             array = @ArraySchema(
-                                    schema = @Schema(implementation = Cat.class)
+                                    schema = @Schema(implementation = Volunteer.class)
                             )
                     )
             )
     )
     @GetMapping
-    public ResponseEntity<List<Cat>> getAllCats() {
-        return ResponseEntity.ok(catService.getAllCats());
+    public ResponseEntity<List<Volunteer>> getAllVolunteers() {
+        return ResponseEntity.ok(volunteerService.getAllVolunteers());
     }
 }

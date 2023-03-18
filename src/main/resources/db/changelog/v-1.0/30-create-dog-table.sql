@@ -3,5 +3,6 @@ create table dog(
     name varchar(255)  NOT NULL,
     adopted boolean,
     date_adoption date,
+    attempt integer default 1,
     test_period integer default 30
 );
