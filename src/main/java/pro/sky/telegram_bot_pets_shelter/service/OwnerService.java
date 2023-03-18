@@ -12,7 +12,7 @@ public interface OwnerService {
     Owner findOwner(Long id);
     Owner findOwnerByChatId(Long id);
     Owner editOwner(Owner owner);
-    Owner DeleteOwner(Long id);
+    Owner deleteOwner(Long id);
     List<Owner> getAllOwners();
 
     Owner findOrSaveOwner(User telegramUser);
