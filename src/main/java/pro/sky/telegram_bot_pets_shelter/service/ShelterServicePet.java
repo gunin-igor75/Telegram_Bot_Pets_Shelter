@@ -12,7 +12,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
-@EnableScheduling
 public abstract class ShelterServicePet {
     private final OwnerService ownerService;
     private final MessageUtils messageUtils;

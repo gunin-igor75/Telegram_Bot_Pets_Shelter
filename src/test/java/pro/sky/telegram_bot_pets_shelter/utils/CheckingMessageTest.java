@@ -42,7 +42,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static pro.sky.telegram_bot_pets_shelter.Value.*;
@@ -72,16 +71,14 @@ class CheckingMessageTest {
 
         mapCommand.put("start", new Start(messageUtils, ownerService));
         mapCommand.put("cancel", new Cancel(messageUtils, ownerService));
-        mapCommand.put("cats", new Cats(keyboard, messageUtils));
+        mapCommand.put("cats", new Cats(keyboard, messageUtils, ownerService));
         mapCommand.put("startInfo", new StartInfo(messageUtils));
         mapCommand.put("contacts", new Contacts(messageUtils, keyboard));
         mapCommand.put("helpVolunteer", new HelpVolunteer(messageUtils));
-        mapCommand.put("cynologistTipsCats", new CynologistTipsCats(messageUtils, keyboard));
         mapCommand.put("documentsCat", new DocumentsCat(messageUtils, keyboard));
         mapCommand.put("keepingAdultCats", new KeepingAdultCats(messageUtils, keyboard));
         mapCommand.put("keepingDisabilitiesCats", new KeepingAdultCats(messageUtils, keyboard));
         mapCommand.put("keepingCats", new KeepingCats(messageUtils, keyboard));
-        mapCommand.put("listCynologistsCats", new ListCynologistsCats(messageUtils, keyboard));
         mapCommand.put("refusalsCats", new RefusalsCats(messageUtils, keyboard));
         mapCommand.put("rulesCat", new RulesCat(messageUtils, keyboard));
         mapCommand.put("shelterCatsAdoption", new ShelterCatsAdoption(messageUtils, keyboard));
@@ -193,18 +190,6 @@ class CheckingMessageTest {
         assertThat(text).isNotEqualTo("start");
     }
 
-    @Test
-    public void cynologistTipsCatsTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("cynologistTipsCats");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Tips");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
 
     @Test
     public void documentsCatTest() {
@@ -254,19 +239,6 @@ class CheckingMessageTest {
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
         assertThat(text).endsWith("cats.");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
-
-    @Test
-    public void listCynologistsCatsTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("listCynologistsCats");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).contains("List");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -422,7 +394,7 @@ class CheckingMessageTest {
     @Test
     public void cynologistTipsDogsTest() {
         when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("cynologistTipsCats");
+        Update update = getUpdateCall("cynologistTipsDogs");
         SendMessage actual = checkingMessage.checkUpdate(update);
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());

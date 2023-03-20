@@ -77,7 +77,6 @@ public class OwnerServiceImpl implements OwnerService {
                     .lastname(telegramUser.getLastName())
                     .username(telegramUser.getUserName())
                     .registration(false)
-                    .lastAction("start")
                     .state(BASIC_STATE)
                     .build();
             persistentOwner = createOwner(transientOwner);

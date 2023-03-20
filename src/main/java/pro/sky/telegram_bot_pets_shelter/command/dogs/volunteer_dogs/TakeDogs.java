@@ -1,4 +1,4 @@
-package pro.sky.telegram_bot_pets_shelter.command.volunteer;
+package pro.sky.telegram_bot_pets_shelter.command.dogs.volunteer_dogs;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

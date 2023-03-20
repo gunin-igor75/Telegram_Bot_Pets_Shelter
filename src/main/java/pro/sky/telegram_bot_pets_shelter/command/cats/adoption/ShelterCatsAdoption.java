@@ -33,8 +33,6 @@ public class ShelterCatsAdoption implements Command {
         mapCommand.put("keepingCat", "keeping cats");
         mapCommand.put("keepingAdultCats", "keeping adult cats");
         mapCommand.put("keepingDisabilitiesCats", "keeping disabilities cats");
-        mapCommand.put("cynologistTipsCats", "experienced cynologist tips");
-        mapCommand.put("listCynologistsCats", "list of famous cynologists");
         mapCommand.put("refusalsCats", "reasons for refusal");
         mapCommand.put("contacts", "contacts for communication");
         mapCommand.put("cats", "Back");

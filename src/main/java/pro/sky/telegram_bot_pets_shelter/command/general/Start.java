@@ -18,6 +18,7 @@ public class Start implements Command {
     private final MessageUtils messageUtils;
     private final OwnerService ownerService;
 
+
     public Start(MessageUtils messageUtils, OwnerService ownerService) {
         this.messageUtils = messageUtils;
         this.ownerService = ownerService;
@@ -26,8 +27,8 @@ public class Start implements Command {
     @Override
     public SendMessage execute(Update update) {
         var telegramUser = update.getMessage().getFrom();
-        Owner owner = ownerService.findOrSaveOwner(telegramUser);
-        return messageUtils.generationSendMessage(update, "Здравствуйте " + owner.getUsername() +
-                    " Вас приветствует бот приюта!");
+        Owner persistentOwner = ownerService.findOrSaveOwner(telegramUser);
+        return messageUtils.generationSendMessage(update, "Здравствуйте " + persistentOwner.getUsername() +
+                " Вас приветствует бот приюта!");
     }
 }

@@ -1,4 +1,4 @@
-package pro.sky.telegram_bot_pets_shelter.command.volunteer;
+package pro.sky.telegram_bot_pets_shelter.command.cats.volunteer_cats;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
