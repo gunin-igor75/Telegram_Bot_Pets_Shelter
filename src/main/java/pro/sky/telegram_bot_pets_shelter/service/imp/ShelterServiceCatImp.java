@@ -1,7 +1,6 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.controller.TelegramBot;
 import pro.sky.telegram_bot_pets_shelter.entity.BlackList;
@@ -14,7 +13,6 @@ import java.time.LocalDate;
 
 @Service
 @Slf4j
-@EnableScheduling
 public class ShelterServiceCatImp extends ShelterServicePet {
     private final CatService catService;
     public ShelterServiceCatImp(OwnerService ownerService, ReportService reportService, CatService catService,

@@ -1,6 +1,5 @@
 package pro.sky.telegram_bot_pets_shelter.service.imp;
 
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pro.sky.telegram_bot_pets_shelter.controller.TelegramBot;
@@ -13,7 +12,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@EnableScheduling
 public class BotServiceImp {
     private final CatService catService;
     private final MessageUtils messageUtils;
