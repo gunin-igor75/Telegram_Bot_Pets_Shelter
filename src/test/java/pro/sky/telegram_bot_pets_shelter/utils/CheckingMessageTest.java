@@ -35,7 +35,6 @@ import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
-import pro.sky.telegram_bot_pets_shelter.service.imp.BotServiceImp;
 
 import java.time.LocalDate;
 import java.util.HashMap;
