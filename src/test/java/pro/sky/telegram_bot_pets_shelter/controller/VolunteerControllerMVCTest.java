@@ -11,7 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import pro.sky.telegram_bot_pets_shelter.entity.Volunteer;
+import pro.sky.telegram_bot_pets_shelter.repositories.OwnerRepository;
 import pro.sky.telegram_bot_pets_shelter.repositories.VolunteerRepository;
+import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
+import pro.sky.telegram_bot_pets_shelter.service.VolunteerService;
+import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.service.imp.VolunteerServiceImp;
 
 import java.util.List;
@@ -30,8 +34,14 @@ class VolunteerControllerMVCTest {
     @MockBean
     private VolunteerRepository volunteerRepository;
 
+    @MockBean
+    private OwnerRepository ownerRepository;
+
     @SpyBean
     private VolunteerServiceImp volunteerService;
+
+    @SpyBean
+    private OwnerServiceImpl ownerService;
 
     @Autowired
     private ObjectMapper objectMapper;

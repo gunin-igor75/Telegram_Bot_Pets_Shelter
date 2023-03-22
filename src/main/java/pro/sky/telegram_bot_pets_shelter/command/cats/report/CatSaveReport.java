@@ -27,9 +27,16 @@ public class CatSaveReport extends PetSaveReport implements Command {
         this.catService = catService;
     }
 
+    @Override
+    protected Report getReportPet(long chatId, LocalDate dateReport) {
+        return reportService.findReportCat(chatId, dateReport);
+    }
+
+    @Override
     public void creteReportPet(long chatId, String fileId, String healthStatus) {
         owner = ownerService.findOwnerByChatId(chatId);
-        cat = owner.getCat();
+        Cat catOld = owner.getCat();
+        cat = catService.findCat(catOld.getId());
         report = Report.builder()
                 .chatId(chatId)
                 .fileId(fileId)
@@ -43,13 +50,15 @@ public class CatSaveReport extends PetSaveReport implements Command {
         owner.setState(BASIC_STATE);
         ownerService.editOwner(owner);
     }
+
+    @Override
     public void editReportPet(Report report, String fileIdOrHealthStatus) {
         owner = ownerService.findOwnerByChatId(report.getChatId());
         cat = owner.getCat();
-        setFieldOrHealthStatus(report, fileIdOrHealthStatus);
+        var newReport = setFieldOrHealthStatus(report, fileIdOrHealthStatus);
         reports = cat.getReport();
         reports.remove(report);
-        reports.add(report);
+        reports.add(newReport);
         cat.setReport(reports);
         catService.editCat(cat);
         owner.setState(BASIC_STATE);

@@ -35,7 +35,6 @@ import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
-import pro.sky.telegram_bot_pets_shelter.service.imp.BotServiceImp;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -62,8 +61,6 @@ class CheckingMessageTest {
     private DogService dogService;
     private MessageUtils messageUtils = new MessageUtils(keyboard);
     private CommandStorage commandStorage;
-    @Mock
-    private BotServiceImp botServiceImp;
 
     @BeforeEach
     public void init() {
@@ -632,31 +629,6 @@ class CheckingMessageTest {
         assertThat(text).isNotEqualTo("start");
     }
 
-    @Test
-    public void registrationProcessFalseTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("registrationProcess");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Congratulations.");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
-
-    @Test
-    public void registrationProcessTrueTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBSRegistrationTrue);
-        Update update = getUpdateCall("registrationProcess");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Sorry.");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
 
     @Test
     public void registrationProcessNegativeTest() {

@@ -1,17 +1,18 @@
-package pro.sky.telegram_bot_pets_shelter.service;
+package pro.sky.telegram_bot_pets_shelter.service.schedule;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import pro.sky.telegram_bot_pets_shelter.controller.TelegramBot;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
+import pro.sky.telegram_bot_pets_shelter.service.BlackListService;
+import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
+import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Slf4j
+
 public abstract class ShelterServicePet {
     private final OwnerService ownerService;
     private final MessageUtils messageUtils;
@@ -32,7 +33,7 @@ public abstract class ShelterServicePet {
     }
 
     @Scheduled(cron = "0 00 21 * * *")
-    protected void checkEndTestPeriodPet() {
+    private void checkEndTestPeriodPetAndSendMessage() {
         currentDate = LocalDate.now();
         List<Owner> ownersEndTestPeriod = ownerService.getOwnerCatsEndTestPeriod(currentDate);
         for (Owner owner : ownersEndTestPeriod) {
@@ -46,7 +47,7 @@ public abstract class ShelterServicePet {
             } else if (attempt == 1) {
                 int testPeriod = getNewTestPeriod(owner);
                 message = messageUtils.generationSendMessage(chatId,
-                        "Вам назгачен новый испытательный срок на " + testPeriod + " дней");
+                        "Вам назначен новый испытательный срок на " + testPeriod + " дней");
             } else {
                 endOfAdoptionNegative(owner);
                 message = messageUtils.generationSendMessage(chatId,

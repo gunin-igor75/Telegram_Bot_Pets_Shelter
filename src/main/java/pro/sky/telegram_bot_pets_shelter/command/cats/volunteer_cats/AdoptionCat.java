@@ -32,7 +32,7 @@ public class AdoptionCat implements Command {
     @Override
     public SendMessage execute(Update update) {
         var idCat = Long.parseLong(update.getCallbackQuery().getData().split("\\s+")[0]);
-        var chatId = update.getCallbackQuery().getFrom().getId();
+        var chatId = messageUtils.getChatId(update);
         Owner persistentOwner = ownerService.findOwnerByChatId(chatId);
         Cat persistentCat = catService.findCat(idCat);
         if (persistentOwner == null) {

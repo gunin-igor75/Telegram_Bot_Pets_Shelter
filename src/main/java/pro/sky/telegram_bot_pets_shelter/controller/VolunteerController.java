@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import pro.sky.telegram_bot_pets_shelter.entity.Volunteer;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.ShelterIncorrectData;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.VolunteerNotFoundException;
+import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.VolunteerService;
+import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 
 import java.util.List;
 
@@ -24,9 +26,11 @@ import java.util.List;
 @Slf4j
 public class VolunteerController {
     private final VolunteerService volunteerService;
+    private final OwnerService ownerService;
 
-    public VolunteerController(VolunteerService volunteerService) {
+    public VolunteerController(VolunteerService volunteerService, OwnerService ownerService) {
         this.volunteerService = volunteerService;
+        this.ownerService = ownerService;
     }
 
     @Operation(
@@ -175,5 +179,32 @@ public class VolunteerController {
     @GetMapping
     public ResponseEntity<List<Volunteer>> getAllVolunteers() {
         return ResponseEntity.ok(volunteerService.getAllVolunteers());
+    }
+
+
+    @Operation(
+            summary = "Регистрация пользователей",
+            description = "Позволяет зарегистрировать пользователя",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Идентификатор пользователя(chat id)",
+                    content = @Content(
+                            mediaType = MediaType.ALL_VALUE,
+                            schema = @Schema(implementation = Long.class)
+                    )
+            ),
+            responses = @ApiResponse(
+                    responseCode = "200",
+                    description = "Регистрация пользователя",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            array = @ArraySchema(
+                                    schema = @Schema(implementation = String.class)
+                            )
+                    )
+            )
+    )
+    @PostMapping("/registration")
+    public ResponseEntity<String> registrationOwner(@RequestBody Long chatId) {
+        return ResponseEntity.ok(ownerService.registration(chatId));
     }
 }

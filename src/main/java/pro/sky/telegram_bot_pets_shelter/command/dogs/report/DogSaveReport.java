@@ -26,9 +26,15 @@ public class DogSaveReport extends PetSaveReport implements Command {
         this.dogService = dogService;
     }
 
+    @Override
+    protected Report getReportPet(long chatId, LocalDate dateReport) {
+        return reportService.findReportDog(chatId, dateReport);
+    }
+
     public void creteReportPet(long chatId, String fileId, String healthStatus) {
         owner = ownerService.findOwnerByChatId(chatId);
-        dog = owner.getDog();
+        Dog dogOld = owner.getDog();
+        dog = dogService.findDog(dogOld.getId());
         report = Report.builder()
                 .chatId(chatId)
                 .fileId(fileId)
@@ -45,10 +51,10 @@ public class DogSaveReport extends PetSaveReport implements Command {
     public void editReportPet(Report report, String fileIdOrHealthStatus) {
         owner = ownerService.findOwnerByChatId(report.getChatId());
         dog = owner.getDog();
-        setFieldOrHealthStatus(report, fileIdOrHealthStatus);
+        var newReport = setFieldOrHealthStatus(report, fileIdOrHealthStatus);
         reports = dog.getReport();
         reports.remove(report);
-        reports.add(report);
+        reports.add(newReport);
         dog.setReport(reports);
         dogService.editDog(dog);
         owner.setState(BASIC_STATE);

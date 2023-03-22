@@ -1,6 +1,7 @@
 package pro.sky.telegram_bot_pets_shelter.service;
 
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
+import pro.sky.telegram_bot_pets_shelter.entity.Report;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,4 +21,6 @@ public interface CatService {
     List<Cat> getAllCatsFree();
 
     List<Cat> getCatsByAdoptedIsFalse(LocalDate date);
+
+    List<Report> getReportMaxDate();
 }

@@ -85,6 +85,24 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
+    public String registration(long chatId) {
+        var persistentOwner = findOwnerByChatId(chatId);
+        if (persistentOwner == null) {
+            log.error("persistentOwner is null registration");
+            throw new OwnerNotFoundException();
+        }
+        String text = "Congratulations. You have successfully registered";
+        if (persistentOwner.getRegistration()) {
+            text = "Sorry. You are already registered";
+        } else {
+            persistentOwner.setRegistration(true);
+            persistentOwner.setDateRegistration(LocalDate.now());
+            editOwner(persistentOwner);
+        }
+        return text;
+    }
+
+    @Override
     public void editOwnerState(long id, UserState state) {
         var persistentOwner = findOwnerByChatId(id);
         if (persistentOwner == null) {
