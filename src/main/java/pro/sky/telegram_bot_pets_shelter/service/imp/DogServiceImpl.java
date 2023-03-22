@@ -46,7 +46,7 @@ public class DogServiceImpl implements DogService {
             log.error(message);
             throw new DogNotFoundException(message);
         }
-        return dogRepository.save(persistentDog);
+        return dogRepository.save(dog);
     }
 
     @Override

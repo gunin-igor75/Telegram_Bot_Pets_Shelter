@@ -61,8 +61,6 @@ class CheckingMessageTest {
     private DogService dogService;
     private MessageUtils messageUtils = new MessageUtils(keyboard);
     private CommandStorage commandStorage;
-    @Mock
-    private BotServiceImp botServiceImp;
 
     @BeforeEach
     public void init() {

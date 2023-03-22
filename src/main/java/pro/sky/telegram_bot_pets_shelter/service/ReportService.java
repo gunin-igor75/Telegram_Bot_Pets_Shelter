@@ -20,4 +20,6 @@ public interface ReportService {
     int getCountReportCatClear(long id);
 
     int getCountReportDogClear(long id);
+
+    List<Long> getChatIdBadReport(LocalDate currentDate);
 }

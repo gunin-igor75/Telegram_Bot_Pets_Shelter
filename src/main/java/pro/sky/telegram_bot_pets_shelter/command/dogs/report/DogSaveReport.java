@@ -26,6 +26,11 @@ public class DogSaveReport extends PetSaveReport implements Command {
         this.dogService = dogService;
     }
 
+    @Override
+    protected Report getReportPet(long chatId, LocalDate dateReport) {
+        return reportService.findReportDog(chatId, dateReport);
+    }
+
     public void creteReportPet(long chatId, String fileId, String healthStatus) {
         owner = ownerService.findOwnerByChatId(chatId);
         dog = owner.getDog();

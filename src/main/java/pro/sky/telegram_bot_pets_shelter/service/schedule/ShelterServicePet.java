@@ -1,9 +1,12 @@
-package pro.sky.telegram_bot_pets_shelter.service;
+package pro.sky.telegram_bot_pets_shelter.service.schedule;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import pro.sky.telegram_bot_pets_shelter.controller.TelegramBot;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
+import pro.sky.telegram_bot_pets_shelter.service.BlackListService;
+import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
+import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
@@ -30,7 +33,7 @@ public abstract class ShelterServicePet {
     }
 
     @Scheduled(cron = "0 00 21 * * *")
-    private void checkEndTestPeriodPet() {
+    private void checkEndTestPeriodPetAndSendMessage() {
         currentDate = LocalDate.now();
         List<Owner> ownersEndTestPeriod = ownerService.getOwnerCatsEndTestPeriod(currentDate);
         for (Owner owner : ownersEndTestPeriod) {

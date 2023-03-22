@@ -1,14 +1,18 @@
-package pro.sky.telegram_bot_pets_shelter.service;
+package pro.sky.telegram_bot_pets_shelter.service.schedule;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import pro.sky.telegram_bot_pets_shelter.entity.*;
+import pro.sky.telegram_bot_pets_shelter.service.BlackListService;
+import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
+import pro.sky.telegram_bot_pets_shelter.service.TaskService;
+import pro.sky.telegram_bot_pets_shelter.service.VolunteerService;
 
 import java.time.LocalDate;
 
 import java.util.List;
 import java.util.Random;
 
-public abstract class NotReportsService {
+public abstract class NotReportsTwoDayService {
     private final OwnerService ownerService;
     private final BlackListService blackListService;
     private final VolunteerService volunteerService;
@@ -16,8 +20,8 @@ public abstract class NotReportsService {
     private LocalDate currentDate;
     private Random random;
 
-    public NotReportsService(OwnerService ownerService, BlackListService blackListService,
-                             VolunteerService volunteerService, TaskService taskService) {
+    public NotReportsTwoDayService(OwnerService ownerService, BlackListService blackListService,
+                                   VolunteerService volunteerService, TaskService taskService) {
         this.ownerService = ownerService;
         this.blackListService = blackListService;
         this.volunteerService = volunteerService;

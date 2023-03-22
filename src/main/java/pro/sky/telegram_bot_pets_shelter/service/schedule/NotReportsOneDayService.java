@@ -1,4 +1,4 @@
-package pro.sky.telegram_bot_pets_shelter.service;
+package pro.sky.telegram_bot_pets_shelter.service.schedule;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import pro.sky.telegram_bot_pets_shelter.controller.TelegramBot;
@@ -9,11 +9,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class BadReportsService {
+public abstract class NotReportsOneDayService {
     private final MessageUtils messageUtils;
     private final TelegramBot telegramBot;
 
-    public BadReportsService(MessageUtils messageUtils, TelegramBot telegramBot) {
+    public NotReportsOneDayService(MessageUtils messageUtils, TelegramBot telegramBot) {
         this.messageUtils = messageUtils;
         this.telegramBot = telegramBot;
     }

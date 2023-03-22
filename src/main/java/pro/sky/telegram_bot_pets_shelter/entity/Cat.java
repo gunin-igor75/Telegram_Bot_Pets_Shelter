@@ -59,4 +59,17 @@ public class Cat{
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", adopted=" + adopted +
+                ", dateAdoption=" + dateAdoption +
+                ", attempt=" + attempt +
+                ", testPeriod=" + testPeriod +
+                ", report=" + report +
+                '}';
+    }
 }

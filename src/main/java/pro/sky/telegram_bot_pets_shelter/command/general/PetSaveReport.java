@@ -40,7 +40,7 @@ public abstract class PetSaveReport {
         boolean isText = checkReportString(text);
         long chatId = messageUtils.getChatId(update);
         LocalDate dateReport = LocalDate.now();
-        report = reportService.findReportCat(chatId, dateReport);
+        report = getReportPet(chatId, dateReport);
         if (isText && report == null) {
             creteReportPet(chatId, fileId, text);
             return messageUtils.generationSendMessage(update,
@@ -86,6 +86,8 @@ public abstract class PetSaveReport {
             report.setHealthStatus(fileIdOrHealthStatus);
         }
     }
+
+    protected abstract Report getReportPet(long chatId, LocalDate dateReport);
 
     protected abstract void creteReportPet(long chatId, String fileId, String text);
 

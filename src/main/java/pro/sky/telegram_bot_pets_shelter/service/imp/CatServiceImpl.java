@@ -44,7 +44,7 @@ public class CatServiceImpl implements CatService {
         if (persistentCat == null) {
             throw new CatNotFoundException();
         }
-        return catRepository.save(persistentCat);
+        return catRepository.save(cat);
     }
 
     @Override
