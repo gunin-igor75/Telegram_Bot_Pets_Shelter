@@ -31,8 +31,8 @@ public class AdoptionDog implements Command {
     @Override
     public SendMessage execute(Update update) {
         var idDog = Long.parseLong(update.getCallbackQuery().getData().split("\\s+")[0]);
-        var chatIdOwner = update.getCallbackQuery().getMessage().getFrom().getId();
-        Owner persistentOwner = ownerService.findOwnerByChatId(chatIdOwner);
+        var chatId = messageUtils.getChatId(update);
+        Owner persistentOwner = ownerService.findOwnerByChatId(chatId);
         Dog persistentDog = dogService.findDog(idDog);
         if (persistentOwner == null) {
             log.error("persistentOwner is null registration");

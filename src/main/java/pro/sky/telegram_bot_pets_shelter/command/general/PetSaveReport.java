@@ -1,5 +1,7 @@
 package pro.sky.telegram_bot_pets_shelter.command.general;
 
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -13,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+@Service
 public abstract class PetSaveReport {
 
     protected final MessageUtils messageUtils;
@@ -79,12 +82,13 @@ public abstract class PetSaveReport {
                 || string.contains("behavior"));
     }
 
-    protected void setFieldOrHealthStatus(Report report, String fileIdOrHealthStatus) {
+    protected Report setFieldOrHealthStatus(Report report, String fileIdOrHealthStatus) {
         if (report.getFileId() == null) {
             report.setFileId(fileIdOrHealthStatus);
         } else {
             report.setHealthStatus(fileIdOrHealthStatus);
         }
+        return report;
     }
 
     protected abstract Report getReportPet(long chatId, LocalDate dateReport);
