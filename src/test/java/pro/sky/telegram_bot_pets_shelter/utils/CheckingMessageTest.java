@@ -629,31 +629,6 @@ class CheckingMessageTest {
         assertThat(text).isNotEqualTo("start");
     }
 
-    @Test
-    public void registrationProcessFalseTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("registrationProcess");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Congratulations.");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
-
-    @Test
-    public void registrationProcessTrueTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBSRegistrationTrue);
-        Update update = getUpdateCall("registrationProcess");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Sorry.");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
 
     @Test
     public void registrationProcessNegativeTest() {

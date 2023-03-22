@@ -16,6 +16,7 @@ import pro.sky.telegram_bot_pets_shelter.exception_handling.ShelterIncorrectData
 import pro.sky.telegram_bot_pets_shelter.exception_handling.VolunteerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.VolunteerService;
+import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 
 import java.util.List;
 

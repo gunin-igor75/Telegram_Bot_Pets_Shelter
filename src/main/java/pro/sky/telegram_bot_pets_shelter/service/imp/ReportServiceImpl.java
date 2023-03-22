@@ -50,7 +50,7 @@ public class ReportServiceImpl implements ReportService {
         if (persistentReport == null) {
             throw new ReportNotFoundException();
         }
-        return reportRepository.saveAndFlush(report);
+        return reportRepository.save(report);
     }
 
 
