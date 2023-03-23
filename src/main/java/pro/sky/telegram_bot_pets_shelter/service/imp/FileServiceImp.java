@@ -7,7 +7,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.telegram.telegrambots.meta.api.objects.Message;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.UploadFileEXception;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.UploadFileException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,12 +58,12 @@ public class FileServiceImp {
         try {
             url = new URL(fullUri);
         } catch (MalformedURLException e) {
-            throw new UploadFileEXception(e);
+            throw new UploadFileException(e);
         }
         try (InputStream is = url.openStream()) {
             return is.readAllBytes();
         } catch (IOException e) {
-            throw new UploadFileEXception(url.toExternalForm(), e);
+            throw new UploadFileException(url.toExternalForm(), e);
         }
     }
 }

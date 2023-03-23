@@ -67,6 +67,7 @@ public class Value {
 
         owner = Owner.builder()
                 .chatId(123)
+                .registration(false)
                 .username("Oleg")
                 .build();
 

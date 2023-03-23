@@ -11,6 +11,7 @@ import pro.sky.telegram_bot_pets_shelter.service.schedule.ShelterServicePet;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -20,6 +21,12 @@ public class ShelterServiceCatExt extends ShelterServicePet {
                                 MessageUtils messageUtils, TelegramBot telegramBot, BlackListService blackListService) {
         super(ownerService, reportService, messageUtils, telegramBot, blackListService);
         this.catService = catService;
+    }
+
+    @Override
+    protected List<Owner> getOwnersEndTestPeriod() {
+        currentDate = LocalDate.now();
+        return ownerService.getOwnerCatsEndTestPeriod(currentDate);
     }
 
     public int getAttempt(Owner owner) {

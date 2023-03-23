@@ -67,14 +67,14 @@ public class CatServiceImpl implements CatService {
     }
 
     @Override
-    public List<Cat> getCatsByAdoptedIsFalse(LocalDate date) {
+    public List<Cat> getCatsByAdoptedAndDateAdoptionBefore(LocalDate date) {
         return catRepository.getCatsByAdoptedIsFalseAndDateAdoptionBefore(date);
     }
 
     @Override
     public List<Report> getReportMaxDate() {
         currentDate = LocalDate.now();
-        List<Cat> catsAdopted = getCatsByAdoptedIsFalse(currentDate);
+        List<Cat> catsAdopted = getCatsByAdoptedAndDateAdoptionBefore(currentDate);
         List<Report> reports = new ArrayList<>();
         for (Cat cat : catsAdopted) {
             Report report = cat.getReport()

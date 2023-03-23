@@ -14,7 +14,6 @@ import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Component
 @Slf4j
@@ -45,7 +44,7 @@ public class AdoptionCat implements Command {
         if (persistentCat == null) {
             return messageUtils.generationSendMessage(update, "No such cat");
         }
-        boolean adoption = ownerService.checkAdoptionCat(persistentOwner);
+        boolean adoption = ownerService.checkNoAdoptionCat(persistentOwner);
         if (!adoption) {
             return messageUtils.generationSendMessage(update, "Do you have one cat on probation");
         }

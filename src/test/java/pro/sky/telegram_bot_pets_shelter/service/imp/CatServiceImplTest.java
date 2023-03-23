@@ -5,10 +5,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pro.sky.telegram_bot_pets_shelter.entity.Cat;
+import pro.sky.telegram_bot_pets_shelter.entity.Report;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.CatRepository;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
@@ -22,6 +28,7 @@ class CatServiceImplTest {
     @InjectMocks
     private CatServiceImpl catService;
 
+    private LocalDate dateReport;
 
     @Test
     void createCatTest() {
@@ -70,5 +77,55 @@ class CatServiceImplTest {
     void getAllCatsFreeTest() {
         when(catRepository.findAll()).thenReturn(List.of(catFirst, catSecond));
         assertThat(catService.getAllCats()).isEqualTo(List.of(catFirst, catSecond));
+    }
+
+    @Test
+    void getReportMaxDateTest() {
+        List<Cat> cats = getCats();
+        when(catService.getCatsByAdoptedAndDateAdoptionBefore(LocalDate.now())).thenReturn(cats);
+        List<Report> actualReports = catService.getReportMaxDate();
+        thenReportMaxDate(actualReports);
+    }
+
+    private void thenReportMaxDate(List<Report> actualReports) {
+        List<Report> expectedReports = List.of(
+                getreport(dateReport.minusDays(1), 5),
+                getreport(dateReport.minusDays(2), 4)
+        );
+        assertThat(actualReports).containsExactlyInAnyOrderElementsOf(expectedReports);
+        assertThat(actualReports.size()).isEqualTo(2);
+    }
+
+    private List<Cat> getCats() {
+        dateReport = LocalDate.now();
+        Set<Report> reportsFirst = Set.of(
+                getreport(dateReport.minusDays(1), 5),
+                getreport(dateReport.minusDays(2), 3),
+                getreport(dateReport.minusDays(3), 1)
+        );
+        Cat catFirst = getCat("Mur", 1);
+        catFirst.setReport(reportsFirst);
+        Set<Report> reportsSecond = Set.of(
+                getreport(dateReport.minusDays(2), 4),
+                getreport(dateReport.minusDays(3), 2)
+        );
+        Cat catSecond = getCat("Kisa", 2);
+        catSecond.setReport(reportsSecond);
+        return List.of(catFirst, catSecond);
+    }
+
+    private Cat getCat(String name, long id) {
+        return Cat.builder()
+                .id(id)
+                .adopted(false)
+                .build();
+    }
+
+    private Report getreport(LocalDate dateReport, long id) {
+        return Report.builder()
+                .id(id)
+                .dateReport(dateReport)
+                .chatId(100L)
+                .build();
     }
 }

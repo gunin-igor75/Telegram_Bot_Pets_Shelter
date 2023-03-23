@@ -7,7 +7,6 @@ import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.OwnerRepository;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
-import pro.sky.telegram_bot_pets_shelter.service.enums.UserState;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -39,7 +38,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public Owner findOwnerByChatId(Long id) {
-        return ownerRepository.findByChatId(id).orElse(null);
+        return ownerRepository.findByChatId(id);
     }
 
     @Override
@@ -69,10 +68,11 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public Owner findOrSaveOwner(User telegramUser) {
-        Owner persistentOwner = findOwnerByChatId(telegramUser.getId());
+        Long chatId = telegramUser.getId();
+        Owner persistentOwner = findOwnerByChatId(chatId);
         if (persistentOwner == null) {
             Owner transientOwner = Owner.builder()
-                    .chatId(telegramUser.getId())
+                    .chatId(chatId)
                     .firstname(telegramUser.getFirstName())
                     .lastname(telegramUser.getLastName())
                     .username(telegramUser.getUserName())
@@ -103,28 +103,17 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public void editOwnerState(long id, UserState state) {
-        var persistentOwner = findOwnerByChatId(id);
-        if (persistentOwner == null) {
-            log.error("persistentOwner is nul");
-            throw new OwnerNotFoundException();
-        }
-        persistentOwner.setState(state);
-        editOwner(persistentOwner);
+    public boolean checkNoAdoptionCat(Owner owner) {
+        long id = owner.getId();
+        String catName = ownerRepository.getCatNoAdoption(id);
+        return catName == null;
     }
 
     @Override
-    public boolean checkAdoptionCat(Owner owner) {
+    public boolean checkNoAdoptionDog(Owner owner) {
         long id = owner.getId();
-        List<String> cats = ownerRepository.getCatAdoption(id);
-        return cats.isEmpty();
-    }
-
-    @Override
-    public boolean checkAdoptionDog(Owner owner) {
-        long id = owner.getId();
-        List<String> dogs = ownerRepository.getDogAdoption(id);
-        return dogs.isEmpty();
+        String dogName = ownerRepository.getDogNoAdoption(id);
+        return dogName == null;
     }
 
     @Override

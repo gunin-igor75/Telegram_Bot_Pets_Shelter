@@ -20,7 +20,7 @@ public interface CatService {
 
     List<Cat> getAllCatsFree();
 
-    List<Cat> getCatsByAdoptedIsFalse(LocalDate date);
+    List<Cat> getCatsByAdoptedAndDateAdoptionBefore(LocalDate date);
 
     List<Report> getReportMaxDate();
 }

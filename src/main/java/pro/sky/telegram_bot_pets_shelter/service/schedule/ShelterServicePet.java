@@ -14,9 +14,9 @@ import java.util.List;
 
 
 public abstract class ShelterServicePet {
-    private final OwnerService ownerService;
     private final MessageUtils messageUtils;
     private final TelegramBot telegramBot;
+    protected final OwnerService ownerService;
     protected final ReportService reportService;
     protected final BlackListService blackListService;
     private SendMessage message;
@@ -35,7 +35,7 @@ public abstract class ShelterServicePet {
     @Scheduled(cron = "0 00 21 * * *")
     private void checkEndTestPeriodPetAndSendMessage() {
         currentDate = LocalDate.now();
-        List<Owner> ownersEndTestPeriod = ownerService.getOwnerCatsEndTestPeriod(currentDate);
+        List<Owner> ownersEndTestPeriod = getOwnersEndTestPeriod();
         for (Owner owner : ownersEndTestPeriod) {
             int countMissingReport = getMissingAndBadReport(owner);
             int attempt = getAttempt(owner);
@@ -56,6 +56,8 @@ public abstract class ShelterServicePet {
         }
         telegramBot.sendAnswerMessage(message);
     }
+
+    protected abstract List<Owner> getOwnersEndTestPeriod();
 
     protected abstract int getAttempt(Owner owner);
 

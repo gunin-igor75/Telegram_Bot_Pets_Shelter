@@ -9,19 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
-    Optional<Owner> findByChatId(long id);
+    Owner findByChatId(long id);
 
     @Query(value = "select c.name from owner o " +
             "inner join cat c on o.cat_id=c.id " +
             "where o.id=?1 and c.adopted=false ",
             nativeQuery = true)
-    List<String> getCatAdoption(long id);
+    String getCatNoAdoption(long id);
 
     @Query(value = "select d.name from owner o " +
             "inner join dog d on o.dog_id=d.id " +
             "where o.id=?1 and d.adopted=false ",
             nativeQuery = true)
-    List<String> getDogAdoption(long id);
+    String getDogNoAdoption(long id);
 
     @Query(value = "select o.* from owner o " +
             "inner join cat c on c.id = o.cat_id " +

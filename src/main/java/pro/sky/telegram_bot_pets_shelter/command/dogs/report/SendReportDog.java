@@ -8,7 +8,6 @@ import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
-import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.REPORT_CATS_STATE;
 import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.REPORT_DOGS_STATE;
 
 @Component
@@ -24,9 +23,15 @@ public class SendReportDog implements Command {
 
     @Override
     public SendMessage execute(Update update) {
-        var id = messageUtils.getChatId(update);
-        ownerService.editOwnerState(id, REPORT_DOGS_STATE);
+        setStateOwner(update);
         var text = "Отправляйте отчет согласно инструкции";
         return messageUtils.generationSendMessage(update, text);
+    }
+
+    private void setStateOwner(Update update) {
+        var chatId = messageUtils.getChatId(update);
+        var owner = ownerService.findOwnerByChatId(chatId);
+        owner.setState(REPORT_DOGS_STATE);
+        ownerService.editOwner(owner);
     }
 }
