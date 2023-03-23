@@ -71,7 +71,7 @@ class DogServiceImplTest {
 
     @Test
     void getAllDogsFree() {
-        when(dogRepository.findAll()).thenReturn(List.of(dogFirst, dogSecond));
-        assertThat(dogService.getAllDogs()).isEqualTo(List.of(dogFirst, dogSecond));
+        when(dogRepository.getDogsByAdoptedIsNull()).thenReturn(List.of(dogFirst, dogSecond));
+        assertThat(dogService.getAllDogsFree()).isEqualTo(List.of(dogFirst, dogSecond));
     }
 }

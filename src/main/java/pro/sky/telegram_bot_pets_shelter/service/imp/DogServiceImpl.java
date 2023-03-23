@@ -72,14 +72,14 @@ public class DogServiceImpl implements DogService {
     }
 
     @Override
-    public List<Dog> getDogsByAdoptedIsFalse(LocalDate date) {
+    public List<Dog> getDogsByAdoptedAndDateAdoptionBefore(LocalDate date) {
         return dogRepository.getDogsByAdoptedIsFalseAndDateAdoptionBefore(date);
     }
 
     @Override
     public List<Report> getReportMaxDate() {
         currentDate = LocalDate.now();
-        List<Dog> dogsAdopted = getDogsByAdoptedIsFalse(currentDate);
+        List<Dog> dogsAdopted = getDogsByAdoptedAndDateAdoptionBefore(currentDate);
         List<Report> reports = new ArrayList<>();
         for (Dog dog : dogsAdopted) {
             Report report = dog.getReport()

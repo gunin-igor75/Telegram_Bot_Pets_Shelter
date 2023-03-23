@@ -20,7 +20,7 @@ public interface DogService {
 
     List<Dog> getAllDogsFree();
 
-    List<Dog> getDogsByAdoptedIsFalse(LocalDate date);
+    List<Dog> getDogsByAdoptedAndDateAdoptionBefore(LocalDate date);
 
     List<Report> getReportMaxDate();
 }
