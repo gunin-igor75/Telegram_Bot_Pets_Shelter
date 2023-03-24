@@ -33,4 +33,13 @@ public class BlackList {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "BlackList{" +
+                "id=" + id +
+                ", chatId=" + chatId +
+                ", username='" + username + '\'' +
+                '}';
+    }
 }

@@ -16,10 +16,14 @@ import java.util.List;
 public abstract class ShelterServicePet {
     private final MessageUtils messageUtils;
     private final TelegramBot telegramBot;
+
     protected final OwnerService ownerService;
+
     protected final ReportService reportService;
+
     protected final BlackListService blackListService;
     private SendMessage message;
+
     protected LocalDate currentDate;
 
     public ShelterServicePet(OwnerService ownerService, ReportService reportService,
@@ -33,7 +37,7 @@ public abstract class ShelterServicePet {
     }
 
     @Scheduled(cron = "0 00 21 * * *")
-    private void checkEndTestPeriodPetAndSendMessage() {
+    protected void checkEndTestPeriodPetAndSendMessage() {
         currentDate = LocalDate.now();
         List<Owner> ownersEndTestPeriod = getOwnersEndTestPeriod();
         for (Owner owner : ownersEndTestPeriod) {
@@ -59,6 +63,8 @@ public abstract class ShelterServicePet {
 
     protected abstract List<Owner> getOwnersEndTestPeriod();
 
+    protected abstract int getMissingAndBadReport(Owner owner);
+
     protected abstract int getAttempt(Owner owner);
 
     protected abstract void endOfAdoptionPositive(Owner owner);
@@ -67,5 +73,4 @@ public abstract class ShelterServicePet {
 
     protected abstract int getNewTestPeriod(Owner owner);
 
-    protected abstract int getMissingAndBadReport(Owner owner);
 }

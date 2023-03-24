@@ -29,6 +29,13 @@ public class ShelterServiceCatExt extends ShelterServicePet {
         return ownerService.getOwnerCatsEndTestPeriod(currentDate);
     }
 
+    public int getMissingAndBadReport(Owner owner) {
+        Cat cat = owner.getCat();
+        long id = cat.getId();
+        int testPeriod = cat.getTestPeriod();
+        int countReportCatClear = reportService.getCountReportCatClear(id);
+        return testPeriod - countReportCatClear;
+    }
     public int getAttempt(Owner owner) {
         Cat cat = owner.getCat();
         return cat.getAttempt();
@@ -61,10 +68,5 @@ public class ShelterServiceCatExt extends ShelterServicePet {
         return testPeriod;
     }
 
-    public int getMissingAndBadReport(Owner owner) {
-        Cat cat = owner.getCat();
-        long id = cat.getId();
-        int testPeriod = cat.getTestPeriod();
-        return testPeriod - reportService.getCountReportCatClear(id);
-    }
+
 }
