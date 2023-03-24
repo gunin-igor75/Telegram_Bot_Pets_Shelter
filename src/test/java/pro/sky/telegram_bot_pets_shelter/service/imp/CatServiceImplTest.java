@@ -89,8 +89,8 @@ class CatServiceImplTest {
 
     private void thenReportMaxDate(List<Report> actualReports) {
         List<Report> expectedReports = List.of(
-                getreport(dateReport.minusDays(1), 5),
-                getreport(dateReport.minusDays(2), 4)
+                getReport(dateReport.minusDays(1), 5),
+                getReport(dateReport.minusDays(2), 4)
         );
         assertThat(actualReports).containsExactlyInAnyOrderElementsOf(expectedReports);
         assertThat(actualReports.size()).isEqualTo(2);
@@ -99,15 +99,15 @@ class CatServiceImplTest {
     private List<Cat> getCats() {
         dateReport = LocalDate.now();
         Set<Report> reportsFirst = Set.of(
-                getreport(dateReport.minusDays(1), 5),
-                getreport(dateReport.minusDays(2), 3),
-                getreport(dateReport.minusDays(3), 1)
+                getReport(dateReport.minusDays(1), 5),
+                getReport(dateReport.minusDays(2), 3),
+                getReport(dateReport.minusDays(3), 1)
         );
         Cat catFirst = getCat("Mur", 1);
         catFirst.setReport(reportsFirst);
         Set<Report> reportsSecond = Set.of(
-                getreport(dateReport.minusDays(2), 4),
-                getreport(dateReport.minusDays(3), 2)
+                getReport(dateReport.minusDays(2), 4),
+                getReport(dateReport.minusDays(3), 2)
         );
         Cat catSecond = getCat("Kisa", 2);
         catSecond.setReport(reportsSecond);
@@ -121,7 +121,7 @@ class CatServiceImplTest {
                 .build();
     }
 
-    private Report getreport(LocalDate dateReport, long id) {
+    private Report getReport(LocalDate dateReport, long id) {
         return Report.builder()
                 .id(id)
                 .dateReport(dateReport)

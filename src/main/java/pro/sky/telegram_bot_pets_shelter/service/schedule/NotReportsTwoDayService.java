@@ -31,7 +31,7 @@ public abstract class NotReportsTwoDayService {
     protected abstract List<Report> getReportMaxDate();
 
     @Scheduled(cron = "0 00 21 * * *")
-    private void createBlackListOwnerTaskVolunteer() {
+    protected void createBlackListOwnerTaskVolunteer() {
         List<Long> badOwners = getChatIdMoreThanTwoDaysNoReports();
         createBlackListAndTask(badOwners);
     }
