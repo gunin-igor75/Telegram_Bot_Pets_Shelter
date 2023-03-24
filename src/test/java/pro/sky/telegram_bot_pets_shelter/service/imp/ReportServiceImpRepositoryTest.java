@@ -199,30 +199,28 @@ class ReportServiceImpRepositoryTest {
     }
 
     private List<Long> givenReports() {
-        LocalDate dateFirst = LocalDate.of(2023, 3, 10);
         Long chatIdFirst = 100L;
         var reportFirst = Report.builder()
-                .dateReport(dateFirst)
+                .dateReport(LocalDate.of(2023, 3, 11))
                 .chatId(chatIdFirst)
                 .healthStatus("diet")
                 .build();
         Long chatIdSecond = 200L;
         var reportSecond = Report.builder()
-                .dateReport(dateFirst)
+                .dateReport(LocalDate.of(2023, 3, 11))
                 .fileId("fgfgfgfgfgfgffg")
                 .chatId(chatIdSecond)
                 .build();
         Long chatIdThird = 300L;
         var reportThird = Report.builder()
-                .dateReport(dateFirst)
+                .dateReport(LocalDate.of(2023,3,8))
                 .chatId(chatIdThird)
                 .fileId("123455")
                 .healthStatus("diet")
                 .build();
-        LocalDate dateSecond = LocalDate.of(2023,3,8);
         Long chatIdFourth = 400L;
         var reportFourth = Report.builder()
-                .dateReport(dateSecond)
+                .dateReport(LocalDate.of(2023,3,7))
                 .chatId(chatIdFourth)
                 .fileId("123455cscsc")
                 .build();
