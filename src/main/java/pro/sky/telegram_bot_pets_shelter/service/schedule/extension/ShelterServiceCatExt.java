@@ -11,6 +11,7 @@ import pro.sky.telegram_bot_pets_shelter.service.schedule.ShelterServicePet;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -22,6 +23,19 @@ public class ShelterServiceCatExt extends ShelterServicePet {
         this.catService = catService;
     }
 
+    @Override
+    protected List<Owner> getOwnersEndTestPeriod() {
+        currentDate = LocalDate.now();
+        return ownerService.getOwnerCatsEndTestPeriod(currentDate);
+    }
+
+    public int getMissingAndBadReport(Owner owner) {
+        Cat cat = owner.getCat();
+        long id = cat.getId();
+        int testPeriod = cat.getTestPeriod();
+        int countReportCatClear = reportService.getCountReportCatClear(id);
+        return testPeriod - countReportCatClear;
+    }
     public int getAttempt(Owner owner) {
         Cat cat = owner.getCat();
         return cat.getAttempt();
@@ -54,10 +68,5 @@ public class ShelterServiceCatExt extends ShelterServicePet {
         return testPeriod;
     }
 
-    public int getMissingAndBadReport(Owner owner) {
-        Cat cat = owner.getCat();
-        long id = cat.getId();
-        int testPeriod = cat.getTestPeriod();
-        return testPeriod - reportService.getCountReportCatClear(id);
-    }
+
 }

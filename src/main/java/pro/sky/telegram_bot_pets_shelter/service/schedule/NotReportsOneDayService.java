@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class NotReportsOneDayService {
+public abstract  class NotReportsOneDayService {
     private final MessageUtils messageUtils;
     private final TelegramBot telegramBot;
 
@@ -19,7 +19,7 @@ public abstract class NotReportsOneDayService {
     }
 
     @Scheduled(cron = "0 00 21 * * *")
-    private void sendMessageEveryDayNoReports() {
+    protected void sendMessageEveryDayNoReports() {
         List<Long> badOwners = getChatIdBadOwners();
         String text = "Прошу отправить отчет о содержании питомца";
         badOwners.forEach(chatId -> {
@@ -34,8 +34,9 @@ public abstract class NotReportsOneDayService {
     }
 
     private List<Long> getChatIdBadOwner(List<Report> reports) {
+        LocalDate currentDate = LocalDate.now();
         return reports.stream()
-                .filter(e -> e.getDateReport().isBefore(LocalDate.now()))
+                .filter(e -> e.getDateReport().isBefore(currentDate))
                 .map(Report::getChatId)
                 .collect(Collectors.toList());
     }

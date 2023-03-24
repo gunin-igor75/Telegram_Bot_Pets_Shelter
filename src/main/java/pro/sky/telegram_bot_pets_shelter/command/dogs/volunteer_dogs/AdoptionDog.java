@@ -13,7 +13,6 @@ import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Component
 @Slf4j
@@ -44,7 +43,7 @@ public class AdoptionDog implements Command {
         if (persistentDog == null) {
             return messageUtils.generationSendMessage(update, "Нет таких собак");
         }
-        boolean adoption = ownerService.checkAdoptionDog(persistentOwner);
+        boolean adoption = ownerService.checkNoAdoptionDog(persistentOwner);
         if (!adoption) {
             return messageUtils.generationSendMessage(update, "У вас есть одна собака на испытательном сроке");
         }

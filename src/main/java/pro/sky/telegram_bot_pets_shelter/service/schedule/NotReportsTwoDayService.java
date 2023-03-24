@@ -17,8 +17,6 @@ public abstract class NotReportsTwoDayService {
     private final BlackListService blackListService;
     private final VolunteerService volunteerService;
     private final TaskService taskService;
-    private LocalDate currentDate;
-    private Random random;
 
     public NotReportsTwoDayService(OwnerService ownerService, BlackListService blackListService,
                                    VolunteerService volunteerService, TaskService taskService) {
@@ -31,14 +29,14 @@ public abstract class NotReportsTwoDayService {
     protected abstract List<Report> getReportMaxDate();
 
     @Scheduled(cron = "0 00 21 * * *")
-    private void createBlackListOwnerTaskVolunteer() {
+    protected void createBlackListOwnerTaskVolunteer() {
         List<Long> badOwners = getChatIdMoreThanTwoDaysNoReports();
         createBlackListAndTask(badOwners);
     }
 
     private List<Long> getChatIdMoreThanTwoDaysNoReports() {
         List<Report> reports = getReportMaxDate();
-        currentDate = LocalDate.now();
+        LocalDate currentDate = LocalDate.now();
         LocalDate borderDate = currentDate.minusDays(2);
         return reports.stream()
                 .filter(report -> report.getDateReport().isBefore(borderDate))
@@ -66,7 +64,7 @@ public abstract class NotReportsTwoDayService {
 
     private Volunteer getRandomVolunteer() {
         List<Volunteer> volunteers = volunteerService.getAllVolunteers();
-        random = new Random();
+        Random random = new Random();
         var index = random.nextInt(volunteers.size());
         return volunteers.get(index);
     }

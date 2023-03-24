@@ -7,16 +7,4 @@ public class BlackListNotFoundException extends RuntimeException {
     public BlackListNotFoundException(String message) {
         super(message);
     }
-
-    public BlackListNotFoundException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public BlackListNotFoundException(Throwable cause) {
-        super(cause);
-    }
-
-    public BlackListNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
 }

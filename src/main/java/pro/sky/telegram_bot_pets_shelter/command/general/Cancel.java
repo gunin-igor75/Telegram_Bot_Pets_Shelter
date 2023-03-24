@@ -23,10 +23,16 @@ public class Cancel implements Command {
 
     @Override
     public SendMessage execute(Update update) {
-        var id = messageUtils.getChatId(update);
-        ownerService.editOwnerState(id, BASIC_STATE);
+        setStateOwner(update);
         var text = "Отправка отчета отменена";
         return messageUtils.generationSendMessage(update, text);
+    }
+
+    private void setStateOwner(Update update) {
+        var chatId = messageUtils.getChatId(update);
+        var owner = ownerService.findOwnerByChatId(chatId);
+        owner.setState(BASIC_STATE);
+        ownerService.editOwner(owner);
     }
 }
 

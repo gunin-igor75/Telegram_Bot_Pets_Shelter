@@ -21,7 +21,7 @@ public class NotReportsOneDayServiceCatsExt extends NotReportsOneDayService {
     }
 
     @Override
-    protected List<Report> getReportMaxDate() {
+    public List<Report> getReportMaxDate() {
         return catService.getReportMaxDate();
     }
 }

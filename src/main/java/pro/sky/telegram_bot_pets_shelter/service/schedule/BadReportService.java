@@ -15,21 +15,22 @@ public class BadReportService {
     private final TelegramBot telegramBot;
     private final ReportService reportService;
 
-    public BadReportService(MessageUtils messageUtils, TelegramBot telegramBot, ReportService reportService) {
+    public BadReportService(MessageUtils messageUtils, TelegramBot telegramBot,
+                            ReportService reportService) {
         this.messageUtils = messageUtils;
         this.telegramBot = telegramBot;
         this.reportService = reportService;
     }
 
     @Scheduled(cron = "0 00 21 * * *")
-    private void SendMessageBadReport() {
+    public void SendMessageBadReport() {
         LocalDate currentDate = LocalDate.now();
-        List<Long> chatIdBadReport = reportService.getChatIdBadReport(currentDate);
+        List<Long> chatIdBadReports = reportService.getChatIdBadReport(currentDate);
         var text = "Дорогой усыновитель, мы заметили, что ты заполняешь" +
                 " отчет не так подробно, как необходимо. Пожалуйста, подойди" +
                 " ответственнее к этому занятию. В противном случае волонтеры" +
                 " приюта будут обязаны самолично проверять условия содержания животного»";
-        chatIdBadReport.forEach(chatId -> {
+        chatIdBadReports.forEach(chatId -> {
             var message = messageUtils.generationSendMessage(chatId, text);
             telegramBot.sendAnswerMessage(message);
         });
