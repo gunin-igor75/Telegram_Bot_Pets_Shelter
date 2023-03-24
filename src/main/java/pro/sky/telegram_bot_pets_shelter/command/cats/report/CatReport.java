@@ -34,15 +34,15 @@ public class CatReport implements Command {
         Owner persistentOwner = ownerService.findOwnerByChatId(chatId);
         if (persistentOwner == null || persistentOwner.getCat() == null) {
             return messageUtils.generationSendMessage(update,
-                    "This option is only available to owners of our pets");
+                    "Эта опция доступна только владельцам наших питомцев");
         }
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("infoReport", "Information");
-        mapCommand.put("sendReportCat", "Send report");
-        mapCommand.put("cancel", "Cancel");
-        mapCommand.put("cats", "back");
+        mapCommand.put("infoReport", "Информация");
+        mapCommand.put("sendReportCat", "Отправить отчет");
+        mapCommand.put("cancel", "Закрыть");
+        mapCommand.put("cats", "Назад");
         var markup = keyboard.createInlineKey(mapCommand);
         return messageUtils.generationSendMessage(update, markup,
-                "Choose a bot from the list below:");
+                "Выберите бота из списка ниже:");
     }
 }

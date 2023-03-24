@@ -26,8 +26,13 @@ public class SafetyDog implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new HashMap<>();
-        mapCommand.put("shelterDogsInfo", "Back");
+        mapCommand.put("shelterDogsInfo", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update, markup, "Safety rules at the dogs shelter.");
+        return messageUtils.generationSendMessage(update, markup, "Правила поведения в приюте «Верные друзья»:\n" +
+                "Если вы планируете погулять с собаками приюта, необходимо иметь при себе бахилы и желательно сменную одежду,\n" +
+                "Проходя мимо карантинного корпуса, не гладьте собак через сетку, если после этого планируете общаться с животными из стационара." +
+                "После посещения карантина Вы должны будете поменять сменную одежду и тщательно вымыть и вытереть руки,\n" +
+                "Собак можно кормить только едой из приюта,\n" +
+                "В приюте запрещено курить и находиться в состоянии алкогольного наркотического опьянения");
     }
 }

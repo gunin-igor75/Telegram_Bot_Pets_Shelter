@@ -40,21 +40,21 @@ public class AdoptionCat implements Command {
             throw new OwnerNotFoundException();
         }
         if (!persistentOwner.getRegistration()) {
-            return messageUtils.generationSendMessage(update,"You are not registered");
+            return messageUtils.generationSendMessage(update,"Вы не зарегистрированы !");
         }
         if (persistentCat == null) {
-            return messageUtils.generationSendMessage(update, "No such cat");
+            return messageUtils.generationSendMessage(update, "Нет таких кошек");
         }
         boolean adoption = ownerService.checkAdoptionCat(persistentOwner);
         if (!adoption) {
-            return messageUtils.generationSendMessage(update, "Do you have one cat on probation");
+            return messageUtils.generationSendMessage(update, "У вас есть один кот на испытательном сроке");
         }
         persistentCat.setAdopted(false);
         persistentCat.setDateAdoption(LocalDate.now());
         persistentOwner.setCat(persistentCat);
         catService.editCat(persistentCat);
         ownerService.editOwner(persistentOwner);
-        var text = "Congratulations. The cat " + persistentCat.getName() + " belongs to you.";
+        var text = "Поздравляем. Кот " + persistentCat.getName() + " принадлежит Вам.";
         return messageUtils.generationSendMessage(update, text);
     }
 }

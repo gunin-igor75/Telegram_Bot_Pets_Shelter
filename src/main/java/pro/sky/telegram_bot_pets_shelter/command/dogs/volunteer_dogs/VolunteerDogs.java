@@ -25,10 +25,10 @@ public class VolunteerDogs implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("takeDogs", "take a dogs");
-        mapCommand.put("dogs", "back");
+        mapCommand.put("takeDogs", "Выбрать собаку");
+        mapCommand.put("dogs", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Choose a bot from the list below:";
+        String text = "Выберите бота из списка ниже:";
         return messageUtils.generationSendMessage(update,markup,text);
     }
 }

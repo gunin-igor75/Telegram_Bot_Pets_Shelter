@@ -5,9 +5,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pro.sky.telegram_bot_pets_shelter.entity.Cat;
+import pro.sky.telegram_bot_pets_shelter.entity.Report;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.ReportNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.repositories.ReportRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when;
 import static pro.sky.telegram_bot_pets_shelter.Value.*;
+import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.BASIC_STATE;
 
 @ExtendWith(MockitoExtension.class)
 class ReportServiceImplTest {
@@ -34,7 +38,7 @@ class ReportServiceImplTest {
     }
 
     @Test
-    void findReportTes() {
+    void getReportTest() {
         when(reportRepository.findById(200L)).thenReturn(Optional.of(reportSecond));
         assertThat(reportService.findReport(200L)).isEqualTo(reportSecond);
         assertThat(reportService.findReport(1L)).isNotEqualTo(reportFirst);

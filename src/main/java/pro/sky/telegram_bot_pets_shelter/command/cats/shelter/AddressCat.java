@@ -27,9 +27,9 @@ public class AddressCat implements Command {
         @Override
         public SendMessage execute (Update update){
             Map<String, String> mapCommand=new HashMap<>();
-            mapCommand.put("shelterCatsInfo", "Back");
+            mapCommand.put("shelterCatsInfo", "Назад");
             InlineKeyboardMarkup markup=keyboard.createInlineKey(mapCommand);
-            return messageUtils.generationSendMessage(update,markup,"Cats shelter address.");
+            return messageUtils.generationSendMessage(update,markup,"Адрес приюта «Верные друзья»: Жетысу-2, дом 58А, Алматы, Казахстан");
         }
     }
 

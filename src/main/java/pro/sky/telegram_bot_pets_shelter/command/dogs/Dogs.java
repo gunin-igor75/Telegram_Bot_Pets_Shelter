@@ -29,12 +29,12 @@ public class Dogs implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put( "shelterDogsInfo", "shelter");
-        mapCommand.put("shelterDogsAdoption", "adoption");
-        mapCommand.put("dogReport", "report");
-        mapCommand.put("volunteerDogs", "volunteer");
+        mapCommand.put( "shelterDogsInfo", "Приют");
+        mapCommand.put("shelterDogsAdoption", "Усыновление собак");
+        mapCommand.put("dogReport", "Отчеты");
+        mapCommand.put("volunteerDogs", "Волонтеры");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Welcome to the dogs shelter";
+        String text = "Добро пожаловать в приют собак";
         saveLastAction(update);
         return messageUtils.generationSendMessage(update,markup,text);
     }

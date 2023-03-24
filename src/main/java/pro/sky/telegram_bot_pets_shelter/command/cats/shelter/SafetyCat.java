@@ -26,8 +26,13 @@ public class SafetyCat implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new HashMap<>();
-        mapCommand.put("shelterCatsInfo", "Back");
+        mapCommand.put("shelterCatsInfo", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update, markup, "Safety rules at the cats shelter.");
+        return messageUtils.generationSendMessage(update, markup, "Правила поведения в приюте «Верные друзья»:\n" +
+                "Если вы планируете погулять с кошками приюта, необходимо иметь при себе бахилы и желательно сменную одежду,\n" +
+                "Проходя мимо карантинного корпуса, не гладьте кошек через сетку, если после этого планируете общаться с животными из стационара." +
+                "После посещения карантина Вы должны будете поменять сменную одежду и тщательно вымыть и вытереть руки,\n" +
+                "Кошек можно кормить только едой из приюта,\n" +
+                "В приюте запрещено курить и находиться в состоянии алкогольного наркотического опьянения");
     }
 }

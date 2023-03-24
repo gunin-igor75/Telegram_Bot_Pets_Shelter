@@ -26,9 +26,11 @@ public class DocumentsDog implements Command {
     @Override
     public SendMessage execute (Update update){
         Map<String, String> mapCommand=new HashMap<>();
-        mapCommand.put("shelterDogsAdoption", "Back");
+        mapCommand.put("shelterDogsAdoption", "Назад");
         InlineKeyboardMarkup markup=keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update,markup,"List of documents required to adopt a dog from a shelter.");
+        return messageUtils.generationSendMessage(update,markup,"В нашей организации «Верные друзья» при передаче животного оформляется договор с будущим хозяином животного и для этого нужно иметь с собой паспорт. " +
+                "В нем фиксируются данные обеих сторон, оговариваются пункты ответственного содержания животного. " +
+                "Мы также всегда ненавязчиво отслеживаем судьбу наших бывших подопечных.");
     }
 }
 
