@@ -27,6 +27,6 @@ public class Contacts implements Command {
     @Override
     public SendMessage execute(Update update) {
         ReplyKeyboardMarkup markup = keyboard.createKeyboard();
-        return messageUtils.generationSendMessage(update, markup, "Leave contacts.");
+        return messageUtils.generationSendMessage(update, markup, "Оставить контакты");
     }
 }

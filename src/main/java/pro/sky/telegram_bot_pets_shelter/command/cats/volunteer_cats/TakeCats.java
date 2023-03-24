@@ -33,14 +33,14 @@ public class TakeCats implements Command {
         String text;
         var cats = cattService.getAllCatsFree();
         if (cats.isEmpty()) {
-            text = "No available cats";
+            text = "Нет доступных кошек";
             return messageUtils.generationSendMessage(update, text);
         }
         var mapCommand = new LinkedHashMap<String, String>();
         cats.forEach(cat -> mapCommand.put(cat.getId() + " adoptionCat", cat.getName()));
-        mapCommand.put("volunteerCats", "Back");
+        mapCommand.put("volunteerCats", "Назад");
         var markup = keyboard.createInlineKey(mapCommand);
-        text = "Choose a cat";
+        text = "Выбрать кошку";
         return messageUtils.generationSendMessage(update, markup, text);
     }
 }

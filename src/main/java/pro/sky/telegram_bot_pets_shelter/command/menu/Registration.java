@@ -27,8 +27,8 @@ public class Registration implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("registrationProcess","Yes");
+        mapCommand.put("registrationProcess","Да");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update, markup, "Registration....");
+        return messageUtils.generationSendMessage(update, markup, "Регистрация....");
     }
 }

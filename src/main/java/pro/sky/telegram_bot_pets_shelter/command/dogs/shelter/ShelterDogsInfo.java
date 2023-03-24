@@ -26,13 +26,13 @@ import java.util.Map;
         @Override
         public SendMessage execute(Update update) {
             Map<String, String> mapCommand = new LinkedHashMap<>();
-            mapCommand.put("addressDog", "address");
-            mapCommand.put("informationDog", "information");
-            mapCommand.put("safetyDog", "safety");
-            mapCommand.put("contacts", "leave contacts");
-            mapCommand.put("dogs", "Back");
+            mapCommand.put("addressDog", "Адрес");
+            mapCommand.put("informationDog", "Информация");
+            mapCommand.put("safetyDog", "Правила безопасности");
+            mapCommand.put("contacts", "Оставить контакты");
+            mapCommand.put("dogs", "Назад");
             InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-            String text = "Select the information you are interested in:";
+            String text = "Выберите интересующую Вас информацию:";
             return messageUtils.generationSendMessage(update, markup, text);
         }
 }

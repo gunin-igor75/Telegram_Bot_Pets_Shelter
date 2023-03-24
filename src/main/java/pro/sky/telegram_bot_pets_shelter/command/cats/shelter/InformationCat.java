@@ -26,8 +26,9 @@ public class InformationCat implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new HashMap<>();
-        mapCommand.put("shelterCatsInfo", "Back");
+        mapCommand.put("shelterCatsInfo", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update, markup, "Cats shelter information.");
+        return messageUtils.generationSendMessage(update, markup, "«Верные друзья»  — современный приют для кошек и собак, созданная при поддержке фонда «Вольное Дело». Приют «Верные друзья» находятся в Алма Ате. На сегодняшний день более 1450 кошек и 1330 собак из приюта нашли новых хозяев.\n" +
+                "Миссия приюта «Верные друзья» – формирование культуры гуманного и ответственного отношения к животным.");
     }
 }

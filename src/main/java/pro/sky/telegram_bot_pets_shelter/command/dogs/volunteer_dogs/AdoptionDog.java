@@ -39,21 +39,21 @@ public class AdoptionDog implements Command {
             throw new OwnerNotFoundException();
         }
         if (!persistentOwner.getRegistration()) {
-            return messageUtils.generationSendMessage(update,"You are not registered");
+            return messageUtils.generationSendMessage(update,"Вы не зарегистрированы !");
         }
         if (persistentDog == null) {
-            return messageUtils.generationSendMessage(update, "No such dog");
+            return messageUtils.generationSendMessage(update, "Нет таких собак");
         }
         boolean adoption = ownerService.checkAdoptionDog(persistentOwner);
         if (!adoption) {
-            return messageUtils.generationSendMessage(update, "Do you have one dog on probation");
+            return messageUtils.generationSendMessage(update, "У вас есть одна собака на испытательном сроке");
         }
         persistentDog.setAdopted(false);
         persistentDog.setDateAdoption(LocalDate.now());
         persistentOwner.setDog(persistentDog);
         dogService.editDog(persistentDog);
         ownerService.editOwner(persistentOwner);
-        var text = "Congratulations. The dog " + persistentDog.getName() + " belongs to you.";
+        var text = "Поздравляем. Собака " + persistentDog.getName() + " принадлежит Вам.";
         return messageUtils.generationSendMessage(update, text);
     }
 }

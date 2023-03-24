@@ -31,15 +31,15 @@ public class DogReport implements Command {
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
         if (persistentOwner == null || persistentOwner.getDog() == null) {
             return messageUtils.generationSendMessage(update,
-                    "This option is only available to owners of our pets");
+                    "Эта опция доступна только владельцам наших питомцев");
         }
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("infoReport", "Information");
-        mapCommand.put("sendReportDog", "Send report");
-        mapCommand.put("cancel", "Cancel");
-        mapCommand.put("dogs", "back");
+        mapCommand.put("infoReport", "Информация");
+        mapCommand.put("sendReportDog", "Отправить отчет");
+        mapCommand.put("cancel", "Закрыть");
+        mapCommand.put("dogs", "Назад");
         var markup = keyboard.createInlineKey(mapCommand);
         return messageUtils.generationSendMessage(update, markup,
-                "Choose a bot from the list below:");
+                "Выберите бота из списка ниже:");
     }
 }

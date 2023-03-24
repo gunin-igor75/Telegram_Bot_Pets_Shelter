@@ -34,14 +34,14 @@ public class TakeDogs implements Command {
         String text;
         List<Dog> dogs = dogService.getAllDogsFree();
         if (dogs.isEmpty()) {
-            text = "No available dogs";
+            text = "Нет доступных собак";
             return messageUtils.generationSendMessage(update, text);
         }
         Map<String, String> mapCommand = new LinkedHashMap<>();
         dogs.forEach(dog -> mapCommand.put(dog.getId() + " adoptionDog", dog.getName()));
-        mapCommand.put("volunteerDogs", "Back");
+        mapCommand.put("volunteerDogs", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        text = "Choose a dog";
+        text = "Выбрать собаку";
         return messageUtils.generationSendMessage(update, markup, text);
     }
 }

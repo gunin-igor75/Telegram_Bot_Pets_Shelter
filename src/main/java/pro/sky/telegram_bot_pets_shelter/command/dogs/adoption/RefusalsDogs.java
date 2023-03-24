@@ -27,8 +27,15 @@ public class RefusalsDogs implements Command {
     @Override
     public SendMessage execute (Update update){
         Map<String, String> mapCommand=new HashMap<>();
-        mapCommand.put("shelterDogsAdoption", "Back");
+        mapCommand.put("shelterDogsAdoption", "Назад");
         InlineKeyboardMarkup markup=keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update,markup,"List of reasons for refusal.");
+        return messageUtils.generationSendMessage(update,markup,"Взять питомца из приюта «Верные друзья» не так уж легко. " +
+                "Наши работники и волонтеры стараются сделать все, чтобы кошки и собаки не оказались на улице повторно, поэтому отдают животных только в надежные руки. " +
+                "Существует пять причин, по которым чаще всего отказывают желающим «усыновить» домашнего любимца. " +
+                "1 Большое количество животных дома " +
+                "2 Нестабильные отношения в семье " +
+                "3 Наличие маленьких детей " +
+                "4 Съемное жилье " +
+                "5 Животное в подарок или для работы.");
     }
 }

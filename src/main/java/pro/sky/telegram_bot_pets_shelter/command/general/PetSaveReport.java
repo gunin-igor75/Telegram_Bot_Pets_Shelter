@@ -1,6 +1,5 @@
 package pro.sky.telegram_bot_pets_shelter.command.general;
 
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.PhotoSize;
@@ -10,7 +9,6 @@ import pro.sky.telegram_bot_pets_shelter.entity.Report;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -47,22 +45,22 @@ public abstract class PetSaveReport {
         if (isText && report == null) {
             creteReportPet(chatId, fileId, text);
             return messageUtils.generationSendMessage(update,
-                    "send a photo");
+                    "Отправить фото");
         }
         if (isPhoto && !isCaption && report == null) {
             creteReportPet(chatId, fileId, text);
             return messageUtils.generationSendMessage(update,
-                    "send information in text");
+                    "Отправить информацию текстом");
         }
         if (report != null && fileId != null) {
             editReportPet(report, fileId);
-            return messageUtils.generationSendMessage(update, "Thank you");
+            return messageUtils.generationSendMessage(update, "Спасибо");
         }
         if (report != null && isText) {
             editReportPet(report, text);
-            return messageUtils.generationSendMessage(update, "Thank you");
+            return messageUtils.generationSendMessage(update, "Спасибо");
         } else {
-            return messageUtils.generationSendMessage(update, "Submit a report or enter /cancel");
+            return messageUtils.generationSendMessage(update, "Отправьте отчет или выберите Закрыть/Назад");
         }
     }
 
@@ -77,9 +75,9 @@ public abstract class PetSaveReport {
 
     private boolean checkReportString(String string) {
         return string != null
-                && (string.contains("diet")
-                || string.contains("health")
-                || string.contains("behavior"));
+                && (string.contains("Диета")
+                || string.contains("Здоровье")
+                || string.contains("Поведение"));
     }
 
     protected Report setFieldOrHealthStatus(Report report, String fileIdOrHealthStatus) {

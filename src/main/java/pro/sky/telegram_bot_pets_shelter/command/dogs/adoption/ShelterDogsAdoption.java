@@ -27,19 +27,19 @@ public class ShelterDogsAdoption implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("rulesDog", "rules for dating dog");
-        mapCommand.put("documentsDog", "list of documents to take a dog");
-        mapCommand.put("transportationDogs", "transportation of dogs");
-        mapCommand.put("keepingDogs", "keeping dogs");
-        mapCommand.put("keepingAdultDogs", "keeping adult dogs");
-        mapCommand.put("keepingDisabilitiesDogs", "keeping disabilities dogs");
-        mapCommand.put("cynologistTipsDogs", "experienced cynologist tips");
-        mapCommand.put("listCynologistsDogs", "list of famous cynologists");
-        mapCommand.put("refusalsDogs", "reasons for refusal");
-        mapCommand.put("contacts", "contacts for communication");
-        mapCommand.put("dogs", "Back");
+        mapCommand.put("rulesDog", "Правила знакомства с собаками");
+        mapCommand.put("documentsDog", "Список необходимых документов для взятия собаки из приюта");
+        mapCommand.put("transportationDogs", "Рекомендации по транспортировке собаки");
+        mapCommand.put("keepingDogs", "Рекомендации по содержанию собак");
+        mapCommand.put("keepingAdultDogs", "Рекомендации по содержанию взрослых собак");
+        mapCommand.put("keepingDisabilitiesDogs", "Рекомендации по содержанию собак с ограниченными возможностями");
+        mapCommand.put("cynologistTipsDogs", "Советы опытного кинолога");
+        mapCommand.put("listCynologistsDogs", "Список известных кинологов");
+        mapCommand.put("refusalsDogs", "Список причин отказа");
+        mapCommand.put("contacts", "Контакты для связи");
+        mapCommand.put("dogs", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Select the information you are interested in:";
+        String text = "Выберите интересующую Вас информацию:";
         return messageUtils.generationSendMessage(update, markup, text);
     }
 }

@@ -187,7 +187,7 @@ class ReportServiceImpRepositoryTest {
     @Test
     void getChatIdBadReport() {
         List<Long> chatIdBadReportActual = givenReports();
-        LocalDate currentDate = LocalDate.of(2023, 3, 10);
+        LocalDate currentDate = LocalDate.of(2023, 3, 11);
         List<Long> chatIdBadReportExpected = reportService.getChatIdBadReport(currentDate);
         thenChatIdBadReportEquals(chatIdBadReportExpected, chatIdBadReportActual);
 
