@@ -28,7 +28,7 @@ public class VolunteerDogs implements Command {
         mapCommand.put("takeDogs", "Выбрать собаку");
         mapCommand.put("dogs", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Выберите бота из списка ниже:";
+        String text = "Выберите собаку";
         return messageUtils.generationSendMessage(update,markup,text);
     }
 }

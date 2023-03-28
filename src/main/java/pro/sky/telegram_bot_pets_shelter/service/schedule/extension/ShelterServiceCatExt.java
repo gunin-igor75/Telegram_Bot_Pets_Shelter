@@ -30,25 +30,25 @@ public class ShelterServiceCatExt extends ShelterServicePet {
     }
 
     public int getMissingAndBadReport(Owner owner) {
-        Cat cat = owner.getCat();
-        long id = cat.getId();
+        Cat cat = getPersistentCat(owner);
         int testPeriod = cat.getTestPeriod();
+        long id = cat.getId();
         int countReportCatClear = reportService.getCountReportCatClear(id);
         return testPeriod - countReportCatClear;
     }
     public int getAttempt(Owner owner) {
-        Cat cat = owner.getCat();
+        Cat cat = getPersistentCat(owner);
         return cat.getAttempt();
     }
 
     public void endOfAdoptionPositive(Owner owner) {
-        Cat cat = owner.getCat();
+        Cat cat = getPersistentCat(owner);
         cat.setAdopted(true);
+        catService.editCat(cat);
     }
 
-
     public void endOfAdoptionNegative(Owner owner) {
-        Cat cat = owner.getCat();
+        Cat cat = getPersistentCat(owner);
         cat.setTestPeriod(30);
         cat.setAdopted(null);
         cat.setDateAdoption(null);
@@ -60,13 +60,17 @@ public class ShelterServiceCatExt extends ShelterServicePet {
         BlackList ownerBlackList = blackListService.findBlackListByChatId(owner.getChatId());
         int testPeriod = ownerBlackList == null ? 14 : 30;
         currentDate = LocalDate.now();
-        Cat cat = owner.getCat();
+        Cat cat = getPersistentCat(owner);
         cat.setTestPeriod(testPeriod);
         cat.setDateAdoption(currentDate);
         cat.setAttempt(2);
         catService.editCat(cat);
         return testPeriod;
     }
-
+    public Cat getPersistentCat(Owner owner) {
+        Cat catOld = owner.getCat();
+        long id = catOld.getId();
+        return catService.findCat(id);
+    }
 
 }

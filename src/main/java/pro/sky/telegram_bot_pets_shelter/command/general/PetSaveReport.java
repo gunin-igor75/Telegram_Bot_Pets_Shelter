@@ -17,6 +17,7 @@ import java.util.Set;
 public abstract class PetSaveReport {
 
     protected final MessageUtils messageUtils;
+
     protected final ReportService reportService;
 
     protected final OwnerService ownerService;

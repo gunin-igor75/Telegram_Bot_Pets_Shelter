@@ -29,7 +29,7 @@ public class VolunteerCats implements Command {
         mapCommand.put("takeCats", "Выбрать кошку");
         mapCommand.put("cats", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Выберите бота из списка ниже:";
+        String text = "Выберите кошку из списка ниже:";
         return messageUtils.generationSendMessage(update,markup,text);
     }
 }

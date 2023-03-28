@@ -30,18 +30,27 @@ public class ShelterServiceDogExt extends ShelterServicePet {
         return ownerService.getOwnerDogsEndTestPeriod(currentDate);
     }
 
+    public int getMissingAndBadReport(Owner owner) {
+        Dog dog = getPersistentDog(owner);
+        long id = dog.getId();
+        int testPeriod = dog.getTestPeriod();
+        int countReportDogClear = reportService.getCountReportDogClear(id);
+        return testPeriod - countReportDogClear;
+    }
+
     public int getAttempt(Owner owner) {
-        Dog dog = owner.getDog();
+        Dog dog = getPersistentDog(owner);
         return dog.getAttempt();
     }
 
     public void endOfAdoptionPositive(Owner owner) {
-        Dog dog = owner.getDog();
+        Dog dog = getPersistentDog(owner);
         dog.setAdopted(true);
+        dogService.editDog(dog);
     }
 
     public void endOfAdoptionNegative(Owner owner) {
-        Dog dog = owner.getDog();
+        Dog dog = getPersistentDog(owner);
         dog.setTestPeriod(30);
         dog.setAdopted(null);
         dog.setDateAdoption(null);
@@ -53,7 +62,7 @@ public class ShelterServiceDogExt extends ShelterServicePet {
         BlackList ownerBlackList = blackListService.findBlackListByChatId(owner.getChatId());
         int testPeriod = ownerBlackList == null ? 14 : 30;
         currentDate = LocalDate.now();
-        Dog dog = owner.getDog();
+        Dog dog = getPersistentDog(owner);
         dog.setTestPeriod(testPeriod);
         dog.setDateAdoption(currentDate);
         dog.setAttempt(2);
@@ -61,10 +70,11 @@ public class ShelterServiceDogExt extends ShelterServicePet {
         return testPeriod;
     }
 
-    public int getMissingAndBadReport(Owner owner) {
+
+
+    public Dog getPersistentDog(Owner owner) {
         Dog dog = owner.getDog();
-        long id = dog.getId();
-        int testPeriod = dog.getTestPeriod();
-        return testPeriod - reportService.getCountReportDogClear(id);
+        Long id = dog.getId();
+        return dogService.findDog(id);
     }
 }

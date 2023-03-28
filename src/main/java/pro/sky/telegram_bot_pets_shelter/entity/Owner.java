@@ -23,8 +23,8 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "chat_id", unique = true, nullable = false)
-    private long chatId;
+    @Column(name = "chat_id", unique = true)
+    private Long chatId;
 
     private String firstname;
 

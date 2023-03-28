@@ -37,7 +37,7 @@ public abstract class ShelterServicePet {
     }
 
     @Scheduled(cron = "0 00 21 * * *")
-    protected void checkEndTestPeriodPetAndSendMessage() {
+    public void checkEndTestPeriodPetAndSendMessage() {
         currentDate = LocalDate.now();
         List<Owner> ownersEndTestPeriod = getOwnersEndTestPeriod();
         for (Owner owner : ownersEndTestPeriod) {
@@ -57,8 +57,8 @@ public abstract class ShelterServicePet {
                 message = messageUtils.generationSendMessage(chatId,
                         "Увы возвращайте питомца, у Вас ничего не получилось");
             }
+            telegramBot.sendAnswerMessage(message);
         }
-        telegramBot.sendAnswerMessage(message);
     }
 
     protected abstract List<Owner> getOwnersEndTestPeriod();

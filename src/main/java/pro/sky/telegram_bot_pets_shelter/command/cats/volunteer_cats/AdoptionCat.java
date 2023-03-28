@@ -7,10 +7,10 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.command.Command;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.CatNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
-import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public class AdoptionCat implements Command {
     private final CatService catService;
     private final MessageUtils messageUtils;
 
-    public AdoptionCat(OwnerServiceImpl ownerService, CatService catService, MessageUtils messageUtils) {
+    public AdoptionCat(OwnerService ownerService, CatService catService, MessageUtils messageUtils) {
         this.ownerService = ownerService;
         this.catService = catService;
         this.messageUtils = messageUtils;
@@ -30,30 +30,50 @@ public class AdoptionCat implements Command {
 
     @Override
     public SendMessage execute(Update update) {
-        var idCat = Long.parseLong(update.getCallbackQuery().getData().split("\\s+")[0]);
+        long idCat = getIdCat(update);
         var chatId = messageUtils.getChatId(update);
         Owner persistentOwner = ownerService.findOwnerByChatId(chatId);
         Cat persistentCat = catService.findCat(idCat);
+        String text;
+        if (persistentCat == null) {
+            log.error("persistentCat is null registration");
+            throw new CatNotFoundException("persistentCat is null registration");
+        }
         if (persistentOwner == null) {
             log.error("persistentOwner is null registration");
             throw new OwnerNotFoundException();
         }
         if (!persistentOwner.getRegistration()) {
-            return messageUtils.generationSendMessage(update,"Вы не зарегистрированы !");
+            text = "Вы не зарегистрированы !";
+            return messageUtils.generationSendMessage(update, text);
         }
-        if (persistentCat == null) {
-            return messageUtils.generationSendMessage(update, "Нет таких кошек");
-        }
+
         boolean adoption = ownerService.checkNoAdoptionCat(persistentOwner);
         if (!adoption) {
-            return messageUtils.generationSendMessage(update, "У вас есть один кот на испытательном сроке");
+            text = "У вас есть один кот на испытательном сроке";
+            return messageUtils.generationSendMessage(update, text);
         }
-        persistentCat.setAdopted(false);
-        persistentCat.setDateAdoption(LocalDate.now());
-        persistentOwner.setCat(persistentCat);
-        catService.editCat(persistentCat);
-        ownerService.editOwner(persistentOwner);
-        var text = "Поздравляем. Кот " + persistentCat.getName() + " принадлежит Вам.";
+        Cat modifiedCat = updateCat(persistentCat);
+        updateOwner(persistentOwner, persistentCat);
+        text = "Поздравляем. Кот " + modifiedCat.getName() + " принадлежит Вам.";
         return messageUtils.generationSendMessage(update, text);
+    }
+
+    private long getIdCat(Update update) {
+        var callbackQuery = update.getCallbackQuery();
+        var data = callbackQuery.getData();
+        return Long.parseLong(data.split("\\s+")[0]);
+    }
+
+    private Cat updateCat(Cat cat) {
+        LocalDate currentDate = LocalDate.now();
+        cat.setAdopted(false);
+        cat.setDateAdoption(currentDate);
+        return catService.editCat(cat);
+    }
+
+    private void updateOwner(Owner owner, Cat cat) {
+        owner.setCat(cat);
+        ownerService.editOwner(owner);
     }
 }

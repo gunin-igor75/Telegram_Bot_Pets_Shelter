@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
-    Owner findByChatId(long id);
+    Owner findByChatId(Long id);
 
     @Query(value = "select c.name from owner o " +
             "inner join cat c on o.cat_id=c.id " +

@@ -85,7 +85,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public String registration(long chatId) {
+    public String registration(Long chatId) {
         var persistentOwner = findOwnerByChatId(chatId);
         if (persistentOwner == null) {
             log.error("persistentOwner is null registration");

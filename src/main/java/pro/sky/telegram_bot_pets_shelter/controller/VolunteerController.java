@@ -11,12 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.entity.Volunteer;
+import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.ShelterIncorrectData;
 import pro.sky.telegram_bot_pets_shelter.exception_handling.VolunteerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.VolunteerService;
-import pro.sky.telegram_bot_pets_shelter.service.imp.OwnerServiceImpl;
 
 import java.util.List;
 
@@ -186,25 +187,41 @@ public class VolunteerController {
             summary = "Регистрация пользователей",
             description = "Позволяет зарегистрировать пользователя",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Идентификатор пользователя(chat id)",
+                    description = "Пользователь, которого регистрируют",
                     content = @Content(
                             mediaType = MediaType.ALL_VALUE,
-                            schema = @Schema(implementation = Long.class)
+                            schema = @Schema(implementation = Owner.class)
                     )
             ),
-            responses = @ApiResponse(
-                    responseCode = "200",
-                    description = "Регистрация пользователя",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            array = @ArraySchema(
-                                    schema = @Schema(implementation = String.class)
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Регистрация пользователя",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    array = @ArraySchema(
+                                            schema = @Schema(implementation = String.class)
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Not Found",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = ShelterIncorrectData.class)
                             )
                     )
-            )
+            }
     )
     @PostMapping("/registration")
-    public ResponseEntity<String> registrationOwner(@RequestBody Long chatId) {
+    public ResponseEntity<String> registrationOwner(@RequestBody Owner owner) {
+        Long chatId = owner.getChatId();
+        if (chatId == null) {
+            var text = "ChatId " + owner + " is null";
+            log.error(text);
+            throw new OwnerNotFoundException(text);
+        }
         return ResponseEntity.ok(ownerService.registration(chatId));
     }
 }
