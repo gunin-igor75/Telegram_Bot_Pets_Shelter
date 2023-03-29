@@ -11,13 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import pro.sky.telegram_bot_pets_shelter.controller.TelegramBot;
-import pro.sky.telegram_bot_pets_shelter.entity.Cat;
+import pro.sky.telegram_bot_pets_shelter.entity.Dog;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.entity.Report;
-import pro.sky.telegram_bot_pets_shelter.service.BlackListService;
-import pro.sky.telegram_bot_pets_shelter.service.CatService;
-import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
-import pro.sky.telegram_bot_pets_shelter.service.ReportService;
+import pro.sky.telegram_bot_pets_shelter.service.*;
 import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 import java.time.LocalDate;
@@ -26,13 +23,14 @@ import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class ShelterServiceCatExtTest {
-
+class ShelterServiceDogExtTest {
     @Mock
     private MessageUtils messageUtils;
 
@@ -40,7 +38,7 @@ class ShelterServiceCatExtTest {
     private TelegramBot telegramBot;
 
     @Autowired
-    private CatService catService;
+    private DogService dogService;
 
     @Autowired
     private OwnerService ownerService;
@@ -51,28 +49,28 @@ class ShelterServiceCatExtTest {
     @Autowired
     private BlackListService blackListService;
 
-    private ShelterServiceCatExt shelterServiceCatExt;
+    private ShelterServiceDogExt shelterServiceDogExt;
 
     private LocalDate currentDate;
 
     @BeforeEach
     void init() {
-        shelterServiceCatExt = new ShelterServiceCatExt(ownerService, reportService, catService,
+        shelterServiceDogExt = new ShelterServiceDogExt(ownerService, reportService, dogService,
                 messageUtils, telegramBot, blackListService);
     }
 
     @Test
     void checkEndTestPeriodPetAndSendMessageAttemptOneTest() {
         currentDate = LocalDate.now();
-        Owner igor = getOwnerAndCatAndaReports(100L, currentDate, "Igor",
-                "mur", 30, 1);
-        Owner oleg = getOwnerAndCatAndaReports(200L, currentDate, "Oleg",
-                "kis", 29, 1);
+        Owner igor = getOwnerAndDogAndaReports(100L, currentDate, "Igor",
+                "bim", 30, 1);
+        Owner oleg = getOwnerAndDogAndaReports(200L, currentDate, "Oleg",
+                "bam", 29, 1);
 
         SendMessage message = new SendMessage();
         when(messageUtils.generationSendMessage(any(Long.class), any(String.class))).thenReturn(message);
 
-        shelterServiceCatExt.checkEndTestPeriodPetAndSendMessage();
+        shelterServiceDogExt.checkEndTestPeriodPetAndSendMessage();
 
         ArgumentCaptor<Long> argLong = ArgumentCaptor.forClass(Long.class);
         ArgumentCaptor<String> argString = ArgumentCaptor.forClass(String.class);
@@ -91,19 +89,19 @@ class ShelterServiceCatExtTest {
         assertThat(actualChatIdFirst).isEqualTo(100L);
         assertThat(actualChatIdSecond).isEqualTo(200L);
 
-        Cat mur = catService.findCat(1L);
-        Boolean actualAdoptedMur = mur.getAdopted();
-        assertThat(actualAdoptedMur).isTrue();
+        Dog bim = dogService.findDog(1L);
+        Boolean actualAdoptedBim = bim.getAdopted();
+        assertThat(actualAdoptedBim).isTrue();
 
-        Cat kis = catService.findCat(2L);
-        Boolean actualAdoptedKis = kis.getAdopted();
-        assertThat(actualAdoptedKis).isFalse();
+        Dog bam = dogService.findDog(2L);
+        Boolean actualAdoptedBam = bam.getAdopted();
+        assertThat(actualAdoptedBam).isFalse();
 
-        int actualAttemptKis = kis.getAttempt();
-        assertThat(actualAttemptKis).isEqualTo(2);
+        int actualAttemptBam = bam.getAttempt();
+        assertThat(actualAttemptBam).isEqualTo(2);
 
-        Integer actualTestPeriodKis = kis.getTestPeriod();
-        assertThat(actualTestPeriodKis).isEqualTo(14);
+        Integer actualTestPeriodBam = bam.getTestPeriod();
+        assertThat(actualTestPeriodBam).isEqualTo(14);
 
         verify(telegramBot, times(2)).sendAnswerMessage(
                 any(SendMessage.class)
@@ -113,15 +111,15 @@ class ShelterServiceCatExtTest {
     @Test
     void checkEndTestPeriodPetAndSendMessageAttemptTwoTest() {
         currentDate = LocalDate.now();
-        Owner igor = getOwnerAndCatAndaReports(100L, currentDate, "Ivan",
-                "myu", 30, 2);
-        Owner oleg = getOwnerAndCatAndaReports(200L, currentDate, "Pety",
-                "dusy", 29, 2);
+        Owner igor = getOwnerAndDogAndaReports(100L, currentDate, "Ivan",
+                "tom", 30, 2);
+        Owner oleg = getOwnerAndDogAndaReports(200L, currentDate, "Pety",
+                "pop", 29, 2);
 
         SendMessage message = new SendMessage();
         when(messageUtils.generationSendMessage(any(Long.class), any(String.class))).thenReturn(message);
 
-        shelterServiceCatExt.checkEndTestPeriodPetAndSendMessage();
+        shelterServiceDogExt.checkEndTestPeriodPetAndSendMessage();
 
         ArgumentCaptor<Long> argLong = ArgumentCaptor.forClass(Long.class);
         ArgumentCaptor<String> argString = ArgumentCaptor.forClass(String.class);
@@ -140,20 +138,20 @@ class ShelterServiceCatExtTest {
         assertThat(actualChatIdFirst).isEqualTo(100L);
         assertThat(actualChatIdSecond).isEqualTo(200L);
 
-        Cat myu = catService.findCat(1L);
-        Boolean actualAdoptedMyu = myu.getAdopted();
-        assertThat(actualAdoptedMyu).isTrue();
+        Dog tom = dogService.findDog(1L);
+        Boolean actualAdoptedTom = tom.getAdopted();
+        assertThat(actualAdoptedTom).isTrue();
 
-        Cat dusy = catService.findCat(2L);
-        Boolean actualAdoptedDusy = dusy.getAdopted();
-        assertThat(actualAdoptedDusy).isEqualTo(null);
+        Dog pop = dogService.findDog(2L);
+        Boolean actualAdoptedPop = pop.getAdopted();
+        assertThat(actualAdoptedPop).isEqualTo(null);
 
 
-        int actualAttemptDusy = dusy.getAttempt();
-        assertThat(actualAttemptDusy).isEqualTo(1);
+        int actualAttemptPop = pop.getAttempt();
+        assertThat(actualAttemptPop).isEqualTo(1);
 
-        Integer actualTestPeriodDusy = dusy.getTestPeriod();
-        assertThat(actualTestPeriodDusy).isEqualTo(30);
+        Integer actualTestPeriodPop = pop.getTestPeriod();
+        assertThat(actualTestPeriodPop).isEqualTo(30);
 
         verify(telegramBot, times(2)).sendAnswerMessage(
                 any(SendMessage.class)
@@ -161,11 +159,11 @@ class ShelterServiceCatExtTest {
     }
 
 
-    private Owner getOwnerAndCatAndaReports(long chatId, LocalDate dateReport,
+    private Owner getOwnerAndDogAndaReports(long chatId, LocalDate dateReport,
                                             String username, String name, int countDay, int attempt) {
         Set<Report> reports = getReports(dateReport, chatId, countDay);
-        Cat cat = getCat(name, reports, attempt);
-        return getOwner(username, cat, chatId);
+        Dog dog = getDog(name, reports, attempt);
+        return getOwner(username, dog, chatId);
     }
 
 
@@ -189,27 +187,28 @@ class ShelterServiceCatExtTest {
     }
 
 
-    private Owner getOwner(String username, Cat cat, long chatId) {
+    private Owner getOwner(String username, Dog dog, long chatId) {
         Owner owner = Owner.builder()
                 .username(username)
                 .chatId(chatId)
                 .build();
         Owner newOwner = ownerService.createOwner(owner);
-        newOwner.setCat(cat);
+        newOwner.setDog(dog);
         return ownerService.editOwner(owner);
     }
 
-    private Cat getCat(String name, Set<Report> reports, int attempt) {
+    private Dog getDog(String name, Set<Report> reports, int attempt) {
         currentDate = LocalDate.now();
-        Cat cat = Cat.builder()
+        Dog dog = Dog.builder()
                 .name(name)
                 .dateAdoption(currentDate.minusDays(30))
                 .testPeriod(30)
                 .adopted(false)
                 .attempt(attempt)
                 .build();
-        Cat newCat = catService.createCat(cat);
-        newCat.setReport(reports);
-        return catService.editCat(newCat);
+        Dog newDog = dogService.createDog(dog);
+        newDog.setReport(reports);
+        return dogService.editDog(newDog);
     }
+
 }

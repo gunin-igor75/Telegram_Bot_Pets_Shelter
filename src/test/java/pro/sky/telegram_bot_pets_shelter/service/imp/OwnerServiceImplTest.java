@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.objects.User;
 import pro.sky.telegram_bot_pets_shelter.entity.Owner;
@@ -114,7 +115,7 @@ class OwnerServiceImplTest {
 
     @Test
     void registrationNegativeTest() {
-        when(ownerRepository.findByChatId(any(Long.class))).thenReturn(null);
+        when(ownerRepository.findByChatId(Mockito.any())).thenReturn(null);
         assertThatThrownBy(() -> ownerService.registration(ownerNull.getChatId()))
                 .isInstanceOf(OwnerNotFoundException.class);
     }

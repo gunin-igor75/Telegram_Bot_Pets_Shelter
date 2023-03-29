@@ -16,7 +16,7 @@ public interface OwnerService {
 
     Owner findOrSaveOwner(User telegramUser);
 
-    String registration(long chatId);
+    String registration(Long chatId);
 
     boolean checkNoAdoptionCat(Owner owner);
     boolean checkNoAdoptionDog(Owner owner);

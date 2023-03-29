@@ -51,12 +51,12 @@ public class Value {
                 .build();
         ownerId = Owner.builder()
                 .id(11L)
-                .chatId(123)
+                .chatId(123L)
                 .username("Oleg")
                 .build();
         ownerEdit = Owner.builder()
                 .id(11L)
-                .chatId(123)
+                .chatId(123L)
                 .username("Oleg")
                 .firstname("Oleg")
                 .lastname("Petrov")
@@ -66,20 +66,20 @@ public class Value {
                 .build();
 
         owner = Owner.builder()
-                .chatId(123)
+                .chatId(123L)
                 .registration(false)
                 .username("Oleg")
                 .build();
 
         ownerBS = Owner.builder()
-                .chatId(123)
+                .chatId(123L)
                 .username("Oleg")
                 .registration(false)
                 .state(BASIC_STATE)
                 .build();
 
         ownerBSStart =Owner.builder()
-                .chatId(123)
+                .chatId(123L)
                 .firstname("Oleg")
                 .lastname("Petrov")
                 .username("Oleg")
@@ -89,26 +89,26 @@ public class Value {
                 .build();
 
         ownerBSRegistrationTrue = Owner.builder()
-                .chatId(123)
+                .chatId(123L)
                 .username("Zaika")
                 .registration(true)
                 .state(BASIC_STATE)
                 .build();
 
         ownerRCS = Owner.builder()
-                .chatId(123)
+                .chatId(123L)
                 .username("Ivan")
                 .state(REPORT_CATS_STATE)
                 .build();
 
         ownerRDS = Owner.builder()
-                .chatId(123)
+                .chatId(123L)
                 .username("Gaga")
                 .state(REPORT_DOGS_STATE)
                 .build();
 
         ownerCats = Owner.builder()
-                .chatId(123)
+                .chatId(123L)
                 .username("Oleg")
                 .cat(new Cat())
                 .state(BASIC_STATE)
