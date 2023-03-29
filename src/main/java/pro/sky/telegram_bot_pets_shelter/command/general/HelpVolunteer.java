@@ -15,6 +15,8 @@ public class HelpVolunteer implements Command {
 
     private final MessageUtils messageUtils;
 
+
+
     public HelpVolunteer(MessageUtils messageUtils) {
         this.messageUtils = messageUtils;
     }
@@ -23,4 +25,6 @@ public class HelpVolunteer implements Command {
     public SendMessage execute(Update update) {
         return messageUtils.sendMessageCallOwner();
     }
+
+
 }

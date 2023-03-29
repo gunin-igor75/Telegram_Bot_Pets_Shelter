@@ -9,6 +9,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 
+import java.util.List;
+import java.util.Random;
+
 
 /**
  * *  Утилитный клас, который содержит методы по формированию
@@ -21,8 +24,13 @@ public class MessageUtils {
     /**
      * Переменная CHAT_ID - chatId - хозяина бота
      */
-    @Value("${telegram.bot.chat-id}")
-    private long CHAT_ID;
+    @Value("${telegram.bot.chat-id_1}")
+    private long CHAT_ID_1;
+
+    @Value("${telegram.bot.chat-id_2}")
+    private long CHAT_ID_2;
+
+    private Random random;
 
     public MessageUtils(BuilderKeyboard keyboard) {
         this.keyboard = keyboard;
@@ -97,12 +105,20 @@ public class MessageUtils {
     /**
      * Данный метод отправляет сообщение хозяину бота
      *
-     * @return Возвращает сообщение хозяну чата
+     * @return Возвращает сообщение хозяину чата
      */
     public SendMessage sendMessageCallOwner() {
         var response = new SendMessage();
-        response.setChatId(CHAT_ID);
+        long chatId = getChatIdVolunteer();
+        response.setChatId(chatId);
         response.setText("Хозяин помоги. Не могу решить вопрос");
         return response;
+    }
+
+    private long getChatIdVolunteer() {
+        List<Long> chatIds = List.of(CHAT_ID_1, CHAT_ID_2);
+        random = new Random();
+        int index = random.nextInt(chatIds.size());
+        return chatIds.get(index);
     }
 }

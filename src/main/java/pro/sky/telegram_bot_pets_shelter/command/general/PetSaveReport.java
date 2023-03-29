@@ -25,6 +25,7 @@ public abstract class PetSaveReport {
     protected Owner owner;
 
     protected Report report;
+
     protected Set<Report> reports;
 
     public PetSaveReport(MessageUtils messageUtils, ReportService reportService, OwnerService ownerService) {
@@ -43,6 +44,11 @@ public abstract class PetSaveReport {
         long chatId = messageUtils.getChatId(update);
         LocalDate dateReport = LocalDate.now();
         report = getReportPet(chatId, dateReport);
+        if (isPhoto && isCaption && report == null) {
+            creteReportPet(chatId, fileId, caption);
+            return messageUtils.generationSendMessage(update,
+                    "Спасибо");
+        }
         if (isText && report == null) {
             creteReportPet(chatId, fileId, text);
             return messageUtils.generationSendMessage(update,
