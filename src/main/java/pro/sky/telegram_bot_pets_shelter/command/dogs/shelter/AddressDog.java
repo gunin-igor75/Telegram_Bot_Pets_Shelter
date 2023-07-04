@@ -26,8 +26,8 @@ public class AddressDog implements Command {
     @Override
     public SendMessage execute (Update update) {
         Map<String, String> mapCommand=new HashMap<>();
-        mapCommand.put("shelterDogsInfo", "Back");
+        mapCommand.put("shelterDogsInfo", "Назад");
         InlineKeyboardMarkup markup=keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update,markup,"Dogs shelter address.");
+        return messageUtils.generationSendMessage(update,markup,"Адрес приюта «Верные друзья»: Жетысу-2, дом 58А, Алматы, Казахстан");
     }
 }

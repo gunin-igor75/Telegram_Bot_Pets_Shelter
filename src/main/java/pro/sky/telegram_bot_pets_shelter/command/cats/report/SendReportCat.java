@@ -13,7 +13,6 @@ import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.REPORT_C
 @Component
 @Slf4j
 public class SendReportCat implements Command {
-
     private final MessageUtils messageUtils;
     private final OwnerService ownerService;
 
@@ -24,9 +23,15 @@ public class SendReportCat implements Command {
 
     @Override
     public SendMessage execute(Update update) {
-        var id = messageUtils.getChatId(update);
-        ownerService.editOwnerState(id, REPORT_CATS_STATE);
+        setStateOwner(update);
         var text = "Отправляйте отчет согласно инструкции";
         return messageUtils.generationSendMessage(update, text);
+    }
+
+    private void setStateOwner(Update update) {
+        var chatId = messageUtils.getChatId(update);
+        var owner = ownerService.findOwnerByChatId(chatId);
+        owner.setState(REPORT_CATS_STATE);
+        ownerService.editOwner(owner);
     }
 }

@@ -26,13 +26,13 @@ public class ShelterCatsInfo implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("addressCat", "address");
-        mapCommand.put("informationCat", "information");
-        mapCommand.put("safetyCat", "safety");
-        mapCommand.put("contacts", "leave contacts");
-        mapCommand.put("cats", "Back");
+        mapCommand.put("addressCat", "Адрес");
+        mapCommand.put("informationCat", "Информация");
+        mapCommand.put("safetyCat", "Правила безопасности");
+        mapCommand.put("contacts", "Оставить контакты");
+        mapCommand.put("cats", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Select the information you are interested in:";
+        String text = "Выберите интересующую Вас информацию:";
         return messageUtils.generationSendMessage(update, markup, text);
     }
 }

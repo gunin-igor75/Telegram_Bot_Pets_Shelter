@@ -25,6 +25,8 @@ public class Report {
 
     private String fileId;
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,5 +38,16 @@ public class Report {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Report{" +
+                "id=" + id +
+                ", chatId=" + chatId +
+                ", dateReport=" + dateReport +
+                ", healthStatus='" + healthStatus + '\'' +
+                ", fileId='" + fileId + '\'' +
+                '}';
     }
 }

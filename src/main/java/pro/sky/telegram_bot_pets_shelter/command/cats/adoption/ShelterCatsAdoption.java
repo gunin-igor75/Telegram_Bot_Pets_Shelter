@@ -27,19 +27,17 @@ public class ShelterCatsAdoption implements Command {
     @Override
     public SendMessage execute(Update update) {
         Map<String, String> mapCommand = new LinkedHashMap<>();
-        mapCommand.put("rulesCat", "rules for dating cat");
-        mapCommand.put("documentsCat", "list of documents to take a cat");
-        mapCommand.put("transportationCats", "transportation of cats");
-        mapCommand.put("keepingCat", "keeping cats");
-        mapCommand.put("keepingAdultCats", "keeping adult cats");
-        mapCommand.put("keepingDisabilitiesCats", "keeping disabilities cats");
-        mapCommand.put("cynologistTipsCats", "experienced cynologist tips");
-        mapCommand.put("listCynologistsCats", "list of famous cynologists");
-        mapCommand.put("refusalsCats", "reasons for refusal");
-        mapCommand.put("contacts", "contacts for communication");
-        mapCommand.put("cats", "Back");
+        mapCommand.put("rulesCat", "Правила знакомства с кошками");
+        mapCommand.put("documentsCat", "Список необходимых документов для взятия кота из приюта");
+        mapCommand.put("transportationCats", "Рекомендации по транспортировке кота");
+        mapCommand.put("keepingCat", "Рекомендации по содержанию кошек");
+        mapCommand.put("keepingAdultCats", "Рекомендации по содержанию взрослых кошек");
+        mapCommand.put("keepingDisabilitiesCats", "Рекомендации по содержанию кошек с ограниченными возможностями");
+        mapCommand.put("refusalsCats", "Список причин отказа");
+        mapCommand.put("contacts", "Контакты для связи");
+        mapCommand.put("cats", "Назад");
         InlineKeyboardMarkup markup = keyboard.createInlineKey(mapCommand);
-        String text = "Select the information you are interested in:";
+        String text = "Выберите интересующую Вас информацию:";
         return messageUtils.generationSendMessage(update, markup, text);
     }
 }

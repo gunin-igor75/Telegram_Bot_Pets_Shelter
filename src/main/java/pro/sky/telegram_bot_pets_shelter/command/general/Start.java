@@ -10,13 +10,14 @@ import pro.sky.telegram_bot_pets_shelter.utils.MessageUtils;
 
 
 /**
- * Данный класс формрует сообщения исодя из выбора start:
- * Сохраняет в ьазу данных visitor
+ * Данный класс формирует сообщения исходя из выбора start:
+ * Сохраняет в базу данных visitor
  */
 @Component
 public class Start implements Command {
     private final MessageUtils messageUtils;
     private final OwnerService ownerService;
+
 
     public Start(MessageUtils messageUtils, OwnerService ownerService) {
         this.messageUtils = messageUtils;
@@ -26,8 +27,8 @@ public class Start implements Command {
     @Override
     public SendMessage execute(Update update) {
         var telegramUser = update.getMessage().getFrom();
-        Owner owner = ownerService.findOrSaveOwner(telegramUser);
-        return messageUtils.generationSendMessage(update, "Здравствуйте " + owner.getUsername() +
-                    " Вас приветствует бот приюта!");
+        Owner persistentOwner = ownerService.findOrSaveOwner(telegramUser);
+        return messageUtils.generationSendMessage(update, "Здравствуйте " + persistentOwner.getUsername() +
+                " Вас приветствует бот приюта!");
     }
 }

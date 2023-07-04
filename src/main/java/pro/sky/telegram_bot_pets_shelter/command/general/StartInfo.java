@@ -19,6 +19,6 @@ public class StartInfo implements Command {
     @Override
     public SendMessage execute(Update update) {
         return messageUtils.generationSendMessage(update,
-                "select the start command to communicate with the bot");
+                "Выберите команду 'start' для связи с ботом.");
     }
 }

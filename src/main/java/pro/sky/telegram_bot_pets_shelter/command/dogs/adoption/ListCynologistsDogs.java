@@ -28,8 +28,18 @@ public class ListCynologistsDogs implements Command {
     @Override
     public SendMessage execute (Update update){
         Map<String, String> mapCommand=new HashMap<>();
-        mapCommand.put("shelterCatsAdoption", "Back");
+        mapCommand.put("shelterCatsAdoption", "Назад");
         InlineKeyboardMarkup markup=keyboard.createInlineKey(mapCommand);
-        return messageUtils.generationSendMessage(update,markup,"List of famous cynologists for dogs.");
+        return messageUtils.generationSendMessage(update,markup,"Список известных кинологов.\n"+
+                "Ирина Соловьева,/n"+
+                "Кира Петрушина,/n"+
+                "Анна Трояновская,/n"+
+                "Ольга Кормщикова,/n"+
+                "Глеб Мойсеенко,/n"+
+                "Александр Буйнов,/n"+
+                "Агата Крайноваа,/n"+
+                "Егор Горбунов,/n"+
+                "Анастасия Батыгина,/n"+
+                "Алексей Сычов.");
     }
 }

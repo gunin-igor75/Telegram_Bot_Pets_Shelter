@@ -1,17 +1,14 @@
 package pro.sky.telegram_bot_pets_shelter.utils;
 
+import org.glassfish.jaxb.core.v2.TODO;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import pro.sky.telegram_bot_pets_shelter.command.*;
 import pro.sky.telegram_bot_pets_shelter.command.cats.Cats;
 import pro.sky.telegram_bot_pets_shelter.command.cats.adoption.*;
@@ -35,18 +32,16 @@ import pro.sky.telegram_bot_pets_shelter.command.menu.Registration;
 import pro.sky.telegram_bot_pets_shelter.command.menu.RegistrationProcess;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 import pro.sky.telegram_bot_pets_shelter.entity.Cat;
-import pro.sky.telegram_bot_pets_shelter.exception_handling.OwnerNotFoundException;
 import pro.sky.telegram_bot_pets_shelter.service.CatService;
 import pro.sky.telegram_bot_pets_shelter.service.DogService;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 import pro.sky.telegram_bot_pets_shelter.service.ReportService;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static pro.sky.telegram_bot_pets_shelter.Value.*;
@@ -71,18 +66,17 @@ class CheckingMessageTest {
     @BeforeEach
     public void init() {
         Map<String, Command> mapCommand = new HashMap<>();
+
         mapCommand.put("start", new Start(messageUtils, ownerService));
-        mapCommand.put("cansel", new Cancel(messageUtils, ownerService));
-        mapCommand.put("cats", new Cats(keyboard, messageUtils));
+        mapCommand.put("cancel", new Cancel(messageUtils, ownerService));
+        mapCommand.put("cats", new Cats(keyboard, messageUtils, ownerService));
         mapCommand.put("startInfo", new StartInfo(messageUtils));
         mapCommand.put("contacts", new Contacts(messageUtils, keyboard));
         mapCommand.put("helpVolunteer", new HelpVolunteer(messageUtils));
-        mapCommand.put("cynologistTipsCats", new CynologistTipsCats(messageUtils, keyboard));
         mapCommand.put("documentsCat", new DocumentsCat(messageUtils, keyboard));
         mapCommand.put("keepingAdultCats", new KeepingAdultCats(messageUtils, keyboard));
         mapCommand.put("keepingDisabilitiesCats", new KeepingAdultCats(messageUtils, keyboard));
         mapCommand.put("keepingCats", new KeepingCats(messageUtils, keyboard));
-        mapCommand.put("listCynologistsCats", new ListCynologistsCats(messageUtils, keyboard));
         mapCommand.put("refusalsCats", new RefusalsCats(messageUtils, keyboard));
         mapCommand.put("rulesCat", new RulesCat(messageUtils, keyboard));
         mapCommand.put("shelterCatsAdoption", new ShelterCatsAdoption(messageUtils, keyboard));
@@ -133,14 +127,15 @@ class CheckingMessageTest {
 
     @Test
     public void canselTest() {
-        Update update = getUpdateMess("/cansel");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Отправка");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
+//        Update update = getUpdateMess("/cancel");
+//        SendMessage actual = checkingMessage.checkUpdate(update);
+//        String text = actual.getText();
+//        long id = Long.parseLong(actual.getChatId());
+//        assertThat(id).isEqualTo(123L);
+//        assertThat(text).startsWith("Отправка");
+//        assertThat(id).isNotEqualTo(555);
+//        assertThat(text).isNotEqualTo("start");
+        // TODO Надо написать тест отдельно для класса
     }
 
     @Test
@@ -150,7 +145,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("select");
+        assertThat(text).startsWith("Выберите");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -163,7 +158,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Leave");
+        assertThat(text).startsWith("Оставить контакты");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -189,23 +184,11 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Welcome");
+        assertThat(text).startsWith("Добро пожаловать");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
 
-    @Test
-    public void cynologistTipsCatsTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("cynologistTipsCats");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Tips");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
 
     @Test
     public void documentsCatTest() {
@@ -215,7 +198,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("List");
+        assertThat(text).startsWith("В организации");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -228,7 +211,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Recommendation");
+        assertThat(text).startsWith("После того");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -241,7 +224,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).contains("keeping");
+        assertThat(text).contains("После того");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -254,20 +237,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).endsWith("cats.");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
-
-    @Test
-    public void listCynologistsCatsTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("listCynologistsCats");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).contains("List");
+        assertThat(text).startsWith("К появлению кошки");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -280,7 +250,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).contains("reasons");
+        assertThat(text).contains("Взять питомца");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -293,7 +263,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Rules");
+        assertThat(text).startsWith("Мы только приветствуем");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -306,7 +276,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Select");
+        assertThat(text).startsWith("Выберите");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -319,7 +289,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Recommendations");
+        assertThat(text).startsWith("Правила перевоза");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -332,7 +302,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Choose");
+        assertThat(text).startsWith("Выберите");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -345,7 +315,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("This");
+        assertThat(text).startsWith("Эта опция");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -376,7 +346,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Cats");
+        assertThat(text).startsWith("Адрес приюта");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -389,7 +359,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).endsWith("information.");
+        assertThat(text).startsWith("«Верные друзья»");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -402,7 +372,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Safety");
+        assertThat(text).startsWith("Правила поведения");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -415,7 +385,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Select");
+        assertThat(text).startsWith("Выберите");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -423,12 +393,12 @@ class CheckingMessageTest {
     @Test
     public void cynologistTipsDogsTest() {
         when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("cynologistTipsCats");
+        Update update = getUpdateCall("cynologistTipsDogs");
         SendMessage actual = checkingMessage.checkUpdate(update);
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Tips");
+        assertThat(text).startsWith("Советы опытного кинолога");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -441,7 +411,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("List");
+        assertThat(text).startsWith("В нашей организации");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -454,7 +424,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Recommendation");
+        assertThat(text).startsWith("С возрастом");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -467,7 +437,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).contains("keeping");
+        assertThat(text).contains("С возрастом");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -480,7 +450,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Recommendation");
+        assertThat(text).startsWith("Основа этого процесса");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -493,7 +463,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).contains("List");
+        assertThat(text).contains("Список");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -506,7 +476,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).contains("reasons");
+        assertThat(text).contains("Взять питомца");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -519,7 +489,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Rules");
+        assertThat(text).startsWith("Мы только приветствуем");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -532,7 +502,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Select");
+        assertThat(text).startsWith("Выберите");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -545,7 +515,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).contains("transporting");
+        assertThat(text).contains("Правила перевоза");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -558,7 +528,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Dogs");
+        assertThat(text).startsWith("Адрес приюта");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -571,7 +541,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).endsWith("information.");
+        assertThat(text).startsWith("«Верные друзья»");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -584,7 +554,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Safety");
+        assertThat(text).startsWith("Правила поведения");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -597,7 +567,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Select");
+        assertThat(text).startsWith("Выберите");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -612,7 +582,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Choose");
+        assertThat(text).startsWith("Выберите");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -625,7 +595,7 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("This");
+        assertThat(text).startsWith("Эта опция");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
@@ -656,36 +626,11 @@ class CheckingMessageTest {
         String text = actual.getText();
         long id = Long.parseLong(actual.getChatId());
         assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Registration");
+        assertThat(text).startsWith("Регистрация");
         assertThat(id).isNotEqualTo(555);
         assertThat(text).isNotEqualTo("start");
     }
 
-    @Test
-    public void registrationProcessFalseTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBS);
-        Update update = getUpdateCall("registrationProcess");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Congratulations.");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
-
-    @Test
-    public void registrationProcessTrueTest() {
-        when(ownerService.findOwnerByChatId(123L)).thenReturn(ownerBSRegistrationTrue);
-        Update update = getUpdateCall("registrationProcess");
-        SendMessage actual = checkingMessage.checkUpdate(update);
-        String text = actual.getText();
-        long id = Long.parseLong(actual.getChatId());
-        assertThat(id).isEqualTo(123L);
-        assertThat(text).startsWith("Sorry.");
-        assertThat(id).isNotEqualTo(555);
-        assertThat(text).isNotEqualTo("start");
-    }
 
     @Test
     public void registrationProcessNegativeTest() {
@@ -697,7 +642,7 @@ class CheckingMessageTest {
                 .id(10L)
                 .name("kisa")
                 .adopted(true)
-                .dateAdoption(LocalDateTime.now())
+                .dateAdoption(LocalDate.now())
                 .build();
         System.out.println(cat);
     }

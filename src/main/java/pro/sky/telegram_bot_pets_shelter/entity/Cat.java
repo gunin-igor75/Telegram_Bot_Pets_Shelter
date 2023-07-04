@@ -3,31 +3,49 @@ package pro.sky.telegram_bot_pets_shelter.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.util.*;
 
 
-@Entity(name="cat")
+@Entity(name = "cat")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Cat {
+public class Cat{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",unique = true,nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     private Boolean adopted;
 
-    private LocalDateTime dateAdoption;
+    private LocalDate dateAdoption;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "report_id")
-    private Report report;
+    @Column(precision = 1)
+    private int attempt;
+
+    @Column(precision = 30)
+    private Integer testPeriod;
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "cat_report",
+            joinColumns = @JoinColumn(name = "cat_id"),
+            inverseJoinColumns = @JoinColumn(name = "report_id")
+    )
+    private Set<Report> report;
+
+
+    public Set<Report> getReport() {
+        if (report == null) {
+            return new HashSet<>();
+        }
+        return report;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -40,5 +58,18 @@ public class Cat {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", adopted=" + adopted +
+                ", dateAdoption=" + dateAdoption +
+                ", attempt=" + attempt +
+                ", testPeriod=" + testPeriod +
+                ", report=" + report +
+                '}';
     }
 }

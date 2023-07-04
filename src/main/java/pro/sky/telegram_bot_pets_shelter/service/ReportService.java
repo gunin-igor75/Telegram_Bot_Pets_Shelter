@@ -16,4 +16,10 @@ public interface ReportService {
     Report editReport(Report report);
     Report deleteReport(Long id);
     List<Report> getAllReports();
+
+    int getCountReportCatClear(long id);
+
+    int getCountReportDogClear(long id);
+
+    List<Long> getChatIdBadReport(LocalDate currentDate);
 }

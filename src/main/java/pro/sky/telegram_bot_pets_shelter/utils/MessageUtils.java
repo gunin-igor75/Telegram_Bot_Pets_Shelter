@@ -9,6 +9,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import pro.sky.telegram_bot_pets_shelter.component.BuilderKeyboard;
 
+import java.util.List;
+import java.util.Random;
+
+
 /**
  * *  Утилитный клас, который содержит методы по формированию
  * SenDMessage
@@ -20,8 +24,13 @@ public class MessageUtils {
     /**
      * Переменная CHAT_ID - chatId - хозяина бота
      */
-    @Value("${telegram.bot.chat-id}")
-    private long CHAT_ID;
+    @Value("${telegram.bot.chat-id_1}")
+    private long CHAT_ID_1;
+
+    @Value("${telegram.bot.chat-id_2}")
+    private long CHAT_ID_2;
+
+    private Random random;
 
     public MessageUtils(BuilderKeyboard keyboard) {
         this.keyboard = keyboard;
@@ -73,6 +82,13 @@ public class MessageUtils {
         return response;
     }
 
+    public SendMessage generationSendMessage(long chatId, String text) {
+        var response = new SendMessage();
+        response.setChatId(chatId);
+        response.setText(text);
+        return response;
+    }
+
 
     public long getChatId(Update update) {
         long chatId;
@@ -89,52 +105,20 @@ public class MessageUtils {
     /**
      * Данный метод отправляет сообщение хозяину бота
      *
-     * @return Возвращает сообщение хозяну чата
+     * @return Возвращает сообщение хозяину чата
      */
     public SendMessage sendMessageCallOwner() {
         var response = new SendMessage();
-        response.setChatId(CHAT_ID);
+        long chatId = getChatIdVolunteer();
+        response.setChatId(chatId);
         response.setText("Хозяин помоги. Не могу решить вопрос");
         return response;
     }
 
-    public boolean checkReportString(String string) {
-        return string != null
-                && (string.contains("diet")
-                || string.contains("health")
-                || string.contains("behavior"));
+    private long getChatIdVolunteer() {
+        List<Long> chatIds = List.of(CHAT_ID_1, CHAT_ID_2);
+        random = new Random();
+        int index = random.nextInt(chatIds.size());
+        return chatIds.get(index);
     }
-
-    //    private SendMessage checkUpdateReportCatsState(Update update) {
-//        var fileId = update.getMessage().getPhoto().get(0).getFileId();
-//        var caption = update.getMessage().getCaption();
-//        var text = update.getMessage().getText();
-//        Report report = null;
-//        if (fileId == null  && checkReportString(text)) {
-//            return messageUtils.generationSendMessage(update,
-//                    "send report or enter /cancel");
-//        } else if (fileId == null) {
-//            report = Report.builder()
-//                    .healthStatus(text)
-//                    .dateReport(LocalDate.now())
-//                    .build();
-//            reportService.createReport(report);
-//        } else if (!checkReportString(caption)) {
-//            report = Report.builder()
-//                    .dateReport(LocalDate.now())
-//                    .fileId(fileId)
-//                    .build();
-//            reportService.createReport(report);
-//        } else {
-//            report = Report.builder()
-//                    .dateReport(LocalDate.now())
-//                    .healthStatus(caption)
-//                    .fileId(fileId)
-//                    .build();
-//            reportService.createReport(report);
-//        }
-//
-//        return null;
-//    }
-//
 }

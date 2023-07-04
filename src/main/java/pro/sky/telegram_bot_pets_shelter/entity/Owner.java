@@ -3,8 +3,10 @@ package pro.sky.telegram_bot_pets_shelter.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import pro.sky.telegram_bot_pets_shelter.service.enums.UserState;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -21,8 +23,8 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "chat_id", unique = true, nullable = false)
-    private long chatId;
+    @Column(name = "chat_id", unique = true)
+    private Long chatId;
 
     private String firstname;
 
@@ -31,8 +33,8 @@ public class Owner {
     private String username;
 
     private String phoneNumber;
-    @CreationTimestamp
-    private LocalDateTime dateRegistration;
+
+    private LocalDate dateRegistration;
 
     private String lastAction;
 

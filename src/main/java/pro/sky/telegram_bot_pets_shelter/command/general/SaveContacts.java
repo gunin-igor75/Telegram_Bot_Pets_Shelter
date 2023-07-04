@@ -29,6 +29,6 @@ public class SaveContacts implements Command {
         }
         owner.setPhoneNumber(phoneNumber);
         ownerService.editOwner(owner);
-        return messageUtils.generationSendMessage(update, "contacts saved successfully");
+        return messageUtils.generationSendMessage(update, "Контакты успешно сохранены");
     }
 }

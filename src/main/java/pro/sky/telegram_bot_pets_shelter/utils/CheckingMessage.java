@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import pro.sky.telegram_bot_pets_shelter.command.CommandStorage;
+import pro.sky.telegram_bot_pets_shelter.entity.Owner;
 import pro.sky.telegram_bot_pets_shelter.service.OwnerService;
 
 import static pro.sky.telegram_bot_pets_shelter.service.enums.UserState.*;
@@ -37,16 +38,8 @@ public class CheckingMessage {
         var persistentOwner = ownerService.findOwnerByChatId(chatId);
         if (update.hasMessage() && update.getMessage().hasText() &&
                 ("/start".equals(update.getMessage().getText()) ||
-                        "/cansel".equals(update.getMessage().getText()))) {
-            System.out.println(commandStorage.getStorage());
-            return commandStorage
-                    .getStorage()
-                    .get(update
-                            .getMessage()
-                            .getText()
-                            .split("\\s+")[0]
-                            .substring(1))
-                    .execute(update);
+                        "/cancel".equals(update.getMessage().getText()))) {
+            return getSendMessageStartOrCancel(update, persistentOwner);
         } else if (persistentOwner == null) {
             return commandStorage
                     .getStorage()
@@ -72,32 +65,52 @@ public class CheckingMessage {
         }
     }
 
+    private SendMessage getSendMessageStartOrCancel(Update update, Owner owner) {
+        String command;
+        if (update.getMessage().getText().equals("/start") && owner != null &&
+                owner.getLastAction() != null) {
+            command = owner.getLastAction();
+        } else {
+            command = update
+                    .getMessage()
+                    .getText()
+                    .split("\\s+")[0]
+                    .substring(1);
+        }
+        return commandStorage
+                .getStorage()
+                .get(command)
+                .execute(update);
+    }
+
     private SendMessage checkUpdateBasicState(Update update) {
-        String key;
+        String command;
         if (update.hasMessage() && update.getMessage().hasText() &&
                 update.getMessage().getText().startsWith(PREFIX)) {
-            key = update
+            command = update
                     .getMessage()
                     .getText()
                     .split("\\s+")[0]
                     .substring(1);
             return commandStorage
                     .getStorage()
-                    .get(key)
+                    .get(command)
                     .execute(update);
         } else if (update.hasCallbackQuery() && update.getCallbackQuery().getData() != null) {
-            key = update.getCallbackQuery().getData();
-            if (commandStorage.getStorage().containsKey(key)) {
+            command = update.getCallbackQuery().getData();
+            if (commandStorage.getStorage().containsKey(command)) {
                 return commandStorage
                         .getStorage()
-                        .get(key)
+                        .get(command)
                         .execute(update);
-            } else if (Character.isDigit(key.charAt(0))) {
+            } else if (Character.isDigit(command.charAt(0))) {
                 return commandStorage
                         .getStorage()
-                        .get(key.split("\\s+")[1])
+                        .get(command.split("\\s+")[1])
                         .execute(update);
             }
+        } else if (update.getMessage().hasContact()) {
+            return commandStorage.getStorage().get("saveContacts").execute(update);
         }
         return commandStorage
                 .getStorage()

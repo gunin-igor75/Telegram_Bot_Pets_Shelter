@@ -1,9 +1,10 @@
 package pro.sky.telegram_bot_pets_shelter.service;
 
 import pro.sky.telegram_bot_pets_shelter.entity.Dog;
+import pro.sky.telegram_bot_pets_shelter.entity.Report;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface DogService {
 
@@ -18,4 +19,8 @@ public interface DogService {
     List<Dog> getAllDogs();
 
     List<Dog> getAllDogsFree();
+
+    List<Dog> getDogsByAdoptedAndDateAdoptionBefore(LocalDate date);
+
+    List<Report> getReportMaxDate();
 }
