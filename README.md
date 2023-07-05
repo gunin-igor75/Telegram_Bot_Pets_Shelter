@@ -1,15 +1,15 @@
 # -Telegram_Bot_Pets_Shelter
 Учебный проект телеграм бота
+Описание функционала распоожено на Wiki
 
 
-
-В проекте применены следующие технолонии
--- java 17
--- spring boot
--- spring mvc
--- spring data jpa
--- postgresql 15.3
--- liquibase
+В проекте применены следующие технолонии:
+- java 17
+- spring boot
+- spring mvc
+- spring data jpa
+- postgresql 15.3
+- liquibase
 
 Проект покрыт тестами 85%
 
