@@ -4,13 +4,12 @@
 
 
 В проекте применены следующие технолонии
-
-java 17
-spring boot
-spring mvc
-spring data jpa
-postgresql 15.3
-liquibase
+-- java 17
+-- spring boot
+-- spring mvc
+-- spring data jpa
+-- postgresql 15.3
+-- liquibase
 
 Проект покрыт тестами 85%
 
